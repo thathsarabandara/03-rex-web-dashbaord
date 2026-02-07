@@ -5,14 +5,29 @@ export default function Contact() {
   const formRef = useRef(null);
 
   useEffect(() => {
-    if (formRef.current) {
-      gsap.from(formRef.current.querySelectorAll('input, textarea, button'), {
-        opacity: 0,
-        y: 20,
-        duration: 0.6,
-        stagger: 0.1,
-      });
+    try {
+      if (formRef.current) {
+        const elements = formRef.current.querySelectorAll('input, textarea, button');
+        if (elements.length > 0) {
+          gsap.fromTo(
+            elements,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.1,
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
+
+    return () => {
+      // Cleanup
+    };
   }, []);
 
   return (
