@@ -14,28 +14,20 @@ export default function Home() {
     // Hero animations
     if (heroRef.current) {
       const tl = gsap.timeline();
-      tl.from(heroRef.current.querySelector('h1'), {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-      })
-        .from(
+      tl.fromTo(heroRef.current.querySelector('h1'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8 }
+      )
+        .fromTo(
           heroRef.current.querySelector('p'),
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.6,
-          },
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6 },
           '-=0.4'
         )
-        .from(
+        .fromTo(
           heroRef.current.querySelectorAll('button'),
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.5,
-            stagger: 0.2,
-          },
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.2 },
           '-=0.3'
         );
 
@@ -51,41 +43,55 @@ export default function Home() {
 
     // Features card animation
     if (featuresRef.current) {
-      gsap.from(featuresRef.current.querySelectorAll('.feature-card'), {
-        scrollTrigger: {
-          trigger: featuresRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        y: 40,
-        duration: 0.6,
-        stagger: 0.15,
-      });
+      gsap.fromTo(featuresRef.current.querySelectorAll('.feature-card'),
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          scrollTrigger: {
+            trigger: featuresRef.current,
+            start: 'top center',
+          },
+          duration: 0.6,
+          stagger: 0.15,
+        }
+      );
     }
 
     // Workflow animation
     if (workflowRef.current) {
-      gsap.to(workflowRef.current.querySelector('.flow-line'), {
-        scrollTrigger: {
-          trigger: workflowRef.current,
-          start: 'top center',
-        },
-        width: '100%',
-        duration: 1.5,
-        ease: 'power2.out',
-      });
+      gsap.fromTo(workflowRef.current.querySelector('.flow-line'),
+        { width: '0%' },
+        {
+          width: '100%',
+          scrollTrigger: {
+            trigger: workflowRef.current,
+            start: 'top center',
+          },
+          duration: 1.5,
+          ease: 'power2.out',
+        }
+      );
 
-      gsap.from(workflowRef.current.querySelectorAll('.flow-step'), {
-        scrollTrigger: {
-          trigger: workflowRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.5,
-        stagger: 0.25,
-      });
+      gsap.fromTo(workflowRef.current.querySelectorAll('.flow-step'),
+        { opacity: 0, scale: 0.8 },
+        {
+          opacity: 1,
+          scale: 1,
+          scrollTrigger: {
+            trigger: workflowRef.current,
+            start: 'top center',
+          },
+          duration: 0.5,
+          stagger: 0.25,
+        }
+      );
     }
+
+    return () => {
+      // Cleanup animations on unmount
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
