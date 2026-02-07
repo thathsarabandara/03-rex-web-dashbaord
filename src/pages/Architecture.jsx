@@ -9,34 +9,55 @@ export default function Architecture() {
   const reposRef = useRef(null);
 
   useEffect(() => {
-    // Diagram animation
-    if (diagramRef.current) {
-      const layers = diagramRef.current.querySelectorAll('.arch-layer');
-      gsap.from(layers, {
-        scrollTrigger: {
-          trigger: diagramRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        stagger: 0.2,
-      });
+    try {
+      // Diagram animation
+      if (diagramRef.current) {
+        const layers = diagramRef.current.querySelectorAll('.arch-layer');
+        if (layers.length > 0) {
+          gsap.fromTo(
+            layers,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.2,
+              scrollTrigger: {
+                trigger: diagramRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
+      }
+
+      // Repository cards animation
+      if (reposRef.current) {
+        const cards = reposRef.current.querySelectorAll('.repo-card');
+        if (cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { opacity: 0, scale: 0.9 },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.5,
+              stagger: 0.15,
+              scrollTrigger: {
+                trigger: reposRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
 
-    // Repository cards animation
-    if (reposRef.current) {
-      gsap.from(reposRef.current.querySelectorAll('.repo-card'), {
-        scrollTrigger: {
-          trigger: reposRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.5,
-        stagger: 0.15,
-      });
-    }
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
