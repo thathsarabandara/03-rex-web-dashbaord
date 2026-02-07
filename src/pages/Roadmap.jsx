@@ -9,18 +9,33 @@ export default function Roadmap() {
   const timelineRef = useRef(null);
 
   useEffect(() => {
-    if (timelineRef.current) {
-      gsap.from(timelineRef.current.querySelectorAll('.sprint-item'), {
-        scrollTrigger: {
-          trigger: timelineRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        x: (index) => (index % 2 === 0 ? -50 : 50),
-        duration: 0.6,
-        stagger: 0.1,
-      });
+    try {
+      if (timelineRef.current) {
+        const items = timelineRef.current.querySelectorAll('.sprint-item');
+        if (items.length > 0) {
+          gsap.fromTo(
+            items,
+            { opacity: 0, x: (i) => (i % 2 === 0 ? -50 : 50) },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.6,
+              stagger: 0.1,
+              scrollTrigger: {
+                trigger: timelineRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const phases = [
