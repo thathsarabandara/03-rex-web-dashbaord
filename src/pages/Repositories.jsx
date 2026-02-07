@@ -8,18 +8,33 @@ export default function Repositories() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (containerRef.current) {
-      gsap.from(containerRef.current.querySelectorAll('.repo-item'), {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.6,
-        stagger: 0.15,
-      });
+    try {
+      if (containerRef.current) {
+        const items = containerRef.current.querySelectorAll('.repo-item');
+        if (items.length > 0) {
+          gsap.fromTo(
+            items,
+            { opacity: 0, scale: 0.95 },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.15,
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const repos = [
