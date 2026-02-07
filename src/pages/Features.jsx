@@ -8,29 +8,43 @@ export default function Features() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (containerRef.current) {
-      gsap.from(containerRef.current.querySelectorAll('.feature-item'), {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        y: 40,
-        duration: 0.6,
-        stagger: 0.15,
-      });
+    try {
+      if (containerRef.current) {
+        const items = containerRef.current.querySelectorAll('.feature-item');
+        if (items.length > 0) {
+          gsap.fromTo(
+            items,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.15,
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
 
-      // Hover animation setup
-      const items = containerRef.current.querySelectorAll('.feature-item');
-      items.forEach((item) => {
-        item.addEventListener('mouseenter', () => {
-          gsap.to(item, { y: -10, duration: 0.3, overwrite: 'auto' });
+        // Hover animation setup
+        items.forEach((item) => {
+          item.addEventListener('mouseenter', () => {
+            gsap.to(item, { y: -10, duration: 0.3, overwrite: 'auto' });
+          });
+          item.addEventListener('mouseleave', () => {
+            gsap.to(item, { y: 0, duration: 0.3, overwrite: 'auto' });
+          });
         });
-        item.addEventListener('mouseleave', () => {
-          gsap.to(item, { y: 0, duration: 0.3, overwrite: 'auto' });
-        });
-      });
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const features = [
