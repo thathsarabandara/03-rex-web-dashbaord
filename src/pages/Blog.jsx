@@ -8,18 +8,33 @@ export default function Blog() {
   const articlesRef = useRef(null);
 
   useEffect(() => {
-    if (articlesRef.current) {
-      gsap.from(articlesRef.current.querySelectorAll('.blog-card'), {
-        scrollTrigger: {
-          trigger: articlesRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        stagger: 0.15,
-      });
+    try {
+      if (articlesRef.current) {
+        const cards = articlesRef.current.querySelectorAll('.blog-card');
+        if (cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.15,
+              scrollTrigger: {
+                trigger: articlesRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const articles = [
