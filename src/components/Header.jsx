@@ -1,21 +1,38 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
-    // Header entrance animation
+    // Header entrance animation with error handling
     if (headerRef.current) {
-      gsap.from(headerRef.current, {
-        opacity: 0,
-        y: -20,
-        duration: 0.6,
-      });
+      try {
+        // Clear any existing animations
+        gsap.killTweensOf(headerRef.current);
+        
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: -20 },
+          { opacity: 1, y: 0, duration: 0.6, clearProps: 'all' }
+        );
+      } catch (error) {
+        // Fallback: show element immediately
+        if (headerRef.current) {
+          headerRef.current.style.opacity = '1';
+          headerRef.current.style.transform = 'translateY(0)';
+        }
+      }
     }
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
 
   const navItems = [
     { label: 'Home', path: '/' },
