@@ -8,18 +8,33 @@ export default function Gallery() {
   const galleryRef = useRef(null);
 
   useEffect(() => {
-    if (galleryRef.current) {
-      gsap.from(galleryRef.current.querySelectorAll('.gallery-item'), {
-        scrollTrigger: {
-          trigger: galleryRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.5,
-        stagger: 0.1,
-      });
+    try {
+      if (galleryRef.current) {
+        const items = galleryRef.current.querySelectorAll('.gallery-item');
+        if (items.length > 0) {
+          gsap.fromTo(
+            items,
+            { opacity: 0, scale: 0.9 },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.5,
+              stagger: 0.1,
+              scrollTrigger: {
+                trigger: galleryRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
