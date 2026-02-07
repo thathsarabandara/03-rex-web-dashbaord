@@ -9,33 +9,61 @@ export default function About() {
   const techStackRef = useRef(null);
 
   useEffect(() => {
-    // Section animation
-    if (sectionRef.current) {
-      gsap.from(sectionRef.current.querySelectorAll('.about-card'), {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        x: (index) => (index % 2 === 0 ? -50 : 50),
-        duration: 0.7,
-        stagger: 0.2,
-      });
+    if (!gsap) return;
+
+    try {
+      // Section animation
+      if (sectionRef.current) {
+        const cards = sectionRef.current.querySelectorAll('.about-card');
+        if (cards.length > 0) {
+          gsap.fromTo(cards,
+            {
+              opacity: 0,
+              x: (index) => (index % 2 === 0 ? -50 : 50),
+            },
+            {
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top center',
+              },
+              opacity: 1,
+              x: 0,
+              duration: 0.7,
+              stagger: 0.2,
+            }
+          );
+        }
+      }
+
+      // Tech stack animation
+      if (techStackRef.current) {
+        const techItems = techStackRef.current.querySelectorAll('.tech-item');
+        if (techItems.length > 0) {
+          gsap.fromTo(techItems,
+            {
+              opacity: 0,
+              scale: 0.6,
+            },
+            {
+              scrollTrigger: {
+                trigger: techStackRef.current,
+                start: 'top center',
+              },
+              opacity: 1,
+              scale: 1,
+              duration: 0.5,
+              stagger: 0.1,
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error in About:', error);
     }
 
-    // Tech stack animation
-    if (techStackRef.current) {
-      gsap.from(techStackRef.current.querySelectorAll('.tech-item'), {
-        scrollTrigger: {
-          trigger: techStackRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        scale: 0.6,
-        duration: 0.5,
-        stagger: 0.1,
-      });
-    }
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
