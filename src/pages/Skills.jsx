@@ -8,30 +8,52 @@ export default function Skills() {
   const skillsRef = useRef(null);
 
   useEffect(() => {
-    if (skillsRef.current) {
-      gsap.from(skillsRef.current.querySelectorAll('.skill-card'), {
-        scrollTrigger: {
-          trigger: skillsRef.current,
-          start: 'top center',
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        stagger: 0.1,
-      });
+    try {
+      if (skillsRef.current) {
+        const cards = skillsRef.current.querySelectorAll('.skill-card');
+        if (cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.1,
+              scrollTrigger: {
+                trigger: skillsRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
 
-      // Animate skill bars
-      gsap.from(skillsRef.current.querySelectorAll('.skill-bar'), {
-        scrollTrigger: {
-          trigger: skillsRef.current,
-          start: 'top center',
-        },
-        width: 0,
-        duration: 1.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-      });
+        // Animate skill bars
+        const bars = skillsRef.current.querySelectorAll('.skill-bar');
+        if (bars.length > 0) {
+          gsap.fromTo(
+            bars,
+            { width: 0 },
+            {
+              width: '100%',
+              duration: 1.5,
+              stagger: 0.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: skillsRef.current,
+                start: 'top center',
+              },
+            }
+          );
+        }
+      }
+    } catch (error) {
+      console.warn('GSAP animation error:', error);
     }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
