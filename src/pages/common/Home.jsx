@@ -2,8 +2,9 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-import { FaPython, FaDocker, FaGitAlt, FaLinux } from 'react-icons/fa';
-import { SiKubernetes, SiJupyter, SiTensorflow, SiFlask, SiNodedotjs, SiReact, SiPostgresql, SiRaspberrypi, SiArduino, SiMqtt, SiEsphome } from 'react-icons/si';
+import { FaPython, FaDocker, FaGitAlt, FaLinux, FaEye } from 'react-icons/fa';
+import { SiKubernetes, SiJupyter, SiTensorflow, SiFlask, SiNodedotjs, SiReact, SiPostgresql, SiRaspberrypi, SiArduino, SiMqtt, SiEsphome, SiHomeassistant } from 'react-icons/si';
+import { IoRocket } from 'react-icons/io5';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -183,22 +184,22 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               {
-                icon: '🚀',
+                icon: <IoRocket className="text-4xl mb-4 text-blue-600" />,
                 title: 'Autonomous Navigation',
                 desc: 'AI-powered pathfinding and obstacle avoidance',
               },
               {
-                icon: '👁️',
+                icon: <FaEye className="text-4xl mb-4 text-blue-600" />,
                 title: 'Computer Vision',
                 desc: 'Face recognition, object detection & tracking',
               },
               {
-                icon: '🏠',
+                icon: <SiHomeassistant className="text-4xl mb-4 text-blue-600" />,
                 title: 'Smart Home Control',
                 desc: 'Integrated IoT automation and monitoring',
               },
               {
-                icon: '🧠',
+                icon: <SiEsphome className="text-4xl mb-4 text-blue-600" />,
                 title: 'Multi-Agent AI',
                 desc: 'Distributed decision-making intelligence',
               },
@@ -207,7 +208,7 @@ export default function Home() {
                 key={idx}
                 className="feature-card bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-xl shadow-md hover:shadow-lg transition duration-300 border border-blue-200"
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
+                {feature.icon}
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
                 <p className="text-gray-600">{feature.desc}</p>
               </div>
