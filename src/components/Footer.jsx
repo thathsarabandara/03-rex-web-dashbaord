@@ -1,8 +1,31 @@
+import { FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { GiTBrick } from 'react-icons/gi';
 import { useSelector } from 'react-redux';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  const quicklinks = [
+    { name: 'Home', url: '/' },
+    { name: 'Features', url: '/features' },
+    { name: 'Architecture', url: '/architecture' },
+    { name: 'Contact', url: '/contact' },
+  ];
+
+  const resources = [
+    { name: 'Documentation', url: '/documentation' },
+    { name: 'Blog', url: '/blog' },
+    { name: 'GitHub', url: 'https://github.com/thathsarabandara' },
+    { name: 'API Docs', url: '/api-docs' },
+  ];
+
+  const socialLinks = [
+    { icon: <FaGithub />, label: 'GitHub', url: 'https://github.com/thathsarabandara' },
+    { icon: <FaLinkedin />, label: 'LinkedIn', url: 'https://www.linkedin.com/in/thathsara-bandara-b403582a7' },
+    { icon: <FaTwitter />, label: 'Twitter', url: 'https://x.com/Thathsara2002' },
+    { icon: <FaEnvelope />, label: 'Email', url: 'mailto:thathsaraarumapperuma.com' },
+  ];
 
   return (
     isAuthenticated ? (
@@ -26,10 +49,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              {['Home', 'Features', 'Architecture', 'Contact'].map((link, idx) => (
+              {quicklinks.map((link, idx) => (
                 <li key={idx}>
-                  <a href="#" className="text-gray-400 hover:text-white transition duration-300">
-                    {link}
+                  <a href={link.url} className="text-gray-400 hover:text-white transition duration-300">
+                    {link.name}
                   </a>
                 </li>
               ))}
@@ -40,10 +63,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Resources</h3>
             <ul className="space-y-2 text-sm">
-              {['Documentation', 'Blog', 'GitHub', 'API Docs'].map((link, idx) => (
+              {resources.map((link, idx) => (
                 <li key={idx}>
-                  <a href="#" className="text-gray-400 hover:text-white transition duration-300">
-                    {link}
+                  <a href={link.url} className="text-gray-400 hover:text-white transition duration-300">
+                    {link.name}
                   </a>
                 </li>
               ))}
@@ -54,12 +77,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Connect</h3>
             <div className="flex gap-4">
-              {[
-                { icon: '🐙', label: 'GitHub', url: '#' },
-                { icon: '💼', label: 'LinkedIn', url: '#' },
-                { icon: '🐦', label: 'Twitter', url: '#' },
-                { icon: '📧', label: 'Email', url: '#' },
-              ].map((social, idx) => (
+              {socialLinks.map((social, idx) => (
                 <a
                   key={idx}
                   href={social.url}
