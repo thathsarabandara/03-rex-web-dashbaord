@@ -51,36 +51,36 @@ export default function SmartHome() {
   const [showAddSchedule, setShowAddSchedule] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-700 text-white p-8 mb-8">
-        <h1 className="text-4xl font-bold mb-2">Smart Home & IoT Integration</h1>
-        <p className="text-indigo-100">Integrate robot with home automation ecosystem</p>
+    <div className="min-h-screen bg-white">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Smart Home & IoT</h1>
+        <p className="text-gray-600">Integrate robot with home automation ecosystem</p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 pb-8">
+      <div className="space-y-6">
         {/* Tab Navigation */}
-        <div className="flex border-b border-gray-300 mb-6 bg-white rounded-t-lg">
+        <div className="flex gap-2 border-b border-gray-200">
           <button 
             onClick={() => setActiveTab('devices')}
-            className={`px-6 py-3 font-semibold border-b-2 transition ${activeTab === 'devices' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${activeTab === 'devices' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
           >
-            Connected Devices
+            Devices
           </button>
           <button 
             onClick={() => setActiveTab('automation')}
-            className={`px-6 py-3 font-semibold border-b-2 transition ${activeTab === 'automation' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${activeTab === 'automation' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
           >
-            Automation Rules
+            Rules
           </button>
           <button 
             onClick={() => setActiveTab('scenes')}
-            className={`px-6 py-3 font-semibold border-b-2 transition ${activeTab === 'scenes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${activeTab === 'scenes' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
           >
             Scenes
           </button>
           <button 
             onClick={() => setActiveTab('schedules')}
-            className={`px-6 py-3 font-semibold border-b-2 transition ${activeTab === 'schedules' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${activeTab === 'schedules' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
           >
             Schedules
           </button>
@@ -88,24 +88,24 @@ export default function SmartHome() {
 
         {/* Devices Section */}
         {activeTab === 'devices' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900">Connected IoT Devices</h3>
-              <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition">+ Add Device</button>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-base font-semibold text-gray-900">Connected IoT Devices</h3>
+              <button className="px-3 py-1.5 border border-indigo-500 text-indigo-600 hover:bg-indigo-50 rounded text-sm font-medium transition">+ Add</button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {devices.map(device => (
-                <div key={device.id} className="p-6 border border-gray-300 rounded-lg">
-                  <div className="flex justify-between items-start mb-3">
-                    <h4 className="font-bold text-gray-900">{device.name}</h4>
-                    <span className={`text-xs font-semibold px-2 py-1 rounded ${device.status === 'online' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                <div key={device.id} className="p-4 border border-gray-200 rounded-lg">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="text-sm font-medium text-gray-900">{device.name}</h4>
+                    <span className={`text-xs font-medium px-1.5 py-0.5 rounded ${device.status === 'on' || device.status === 'locked' || device.status === 'armed' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
                       {device.status}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600 font-semibold mb-4">{device.type.toUpperCase()}</p>
+                  <p className="text-xs text-gray-500 font-medium mb-3">{device.type.toUpperCase()}</p>
                   
                   {device.value !== null && (
-                    <div className="mb-4">
+                    <div className="mb-3">
                       <input 
                         type="range" 
                         min="0" 
@@ -113,13 +113,13 @@ export default function SmartHome() {
                         value={device.value}
                         className="w-full"
                       />
-                      <p className="text-sm font-semibold text-gray-900 mt-2">{device.value}%</p>
+                      <p className="text-xs font-medium text-gray-900 mt-1">{device.value}%</p>
                     </div>
                   )}
                   
-                  <div className="flex gap-2">
-                    <button className="flex-1 px-3 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg text-sm font-semibold transition">Configure</button>
-                    <button className="flex-1 px-3 py-2 border border-red-500 text-red-500 hover:bg-red-50 rounded-lg text-sm font-semibold transition">Remove</button>
+                  <div className="flex gap-1 text-xs">
+                    <button className="flex-1 px-2 py-1.5 border border-indigo-300 text-indigo-600 hover:bg-indigo-50 rounded font-medium transition">Setup</button>
+                    <button className="flex-1 px-2 py-1.5 border border-red-300 text-red-600 hover:bg-red-50 rounded font-medium transition">Remove</button>
                   </div>
                 </div>
               ))}
@@ -129,65 +129,49 @@ export default function SmartHome() {
 
         {/* Automation Rules Section */}
         {activeTab === 'automation' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900">Automation Rules</h3>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-base font-semibold text-gray-900">Automation Rules</h3>
               <button 
-                className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition"
+                className="px-3 py-1.5 border border-indigo-500 text-indigo-600 hover:bg-indigo-50 rounded text-sm font-medium transition"
                 onClick={() => setShowAddRule(!showAddRule)}
               >
-                + Add Rule
+                + Add
               </button>
             </div>
 
             {showAddRule && (
-              <div className="mb-6 p-6 bg-gray-50 rounded-lg border border-gray-300">
-                <h4 className="font-bold text-gray-900 mb-4">Create New Automation Rule</h4>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block font-semibold text-gray-900 mb-2">Rule Name</label>
-                    <input type="text" placeholder="Enter rule name" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" />
+              <div className="mb-4 p-4 bg-gray-50 rounded border border-gray-200">
+                <h4 className="text-sm font-medium text-gray-900 mb-3">Create Rule</h4>
+                <div className="space-y-3">
+                  <input type="text" placeholder="Rule name" className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <select className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500">
+                      <option>Motion detected</option>
+                      <option>Door opened</option>
+                    </select>
+                    <select className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500">
+                      <option>Start patrol</option>
+                      <option>Activate lights</option>
+                    </select>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-semibold text-gray-900 mb-2">When (Trigger)</label>
-                      <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500">
-                        <option>Select trigger event</option>
-                        <option>Motion detected</option>
-                        <option>Door opened</option>
-                        <option>Gas sensor alert</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block font-semibold text-gray-900 mb-2">Then (Action)</label>
-                      <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500">
-                        <option>Select action</option>
-                        <option>Start robot patrol</option>
-                        <option>Activate alarm</option>
-                        <option>Turn on lights</option>
-                      </select>
-                    </div>
-                  </div>
-                  <button className="w-full px-6 py-2 bg-indigo-500 hover:bg-purple-700 text-white rounded-lg font-semibold transition">Save Rule</button>
+                  <button className="w-full px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">Save</button>
                 </div>
               </div>
             )}
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {automationRules.map(rule => (
-                <div key={rule.id} className="p-4 border border-gray-300 rounded-lg">
+                <div key={rule.id} className="p-3 border border-gray-200 rounded">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-bold text-gray-900">{rule.name}</h4>
-                    <label className="flex items-center cursor-pointer">
-                      <input type="checkbox" checked={rule.enabled} readOnly className="w-4 h-4" />
-                      <span className="ml-2 text-sm font-semibold">{rule.enabled ? 'Enabled' : 'Disabled'}</span>
-                    </label>
+                    <h4 className="text-sm font-medium text-gray-900">{rule.name}</h4>
+                    <input type="checkbox" checked={rule.enabled} readOnly className="w-3 h-3" />
                   </div>
-                  <p className="text-sm text-gray-700 mb-1"><strong>When:</strong> {rule.trigger}</p>
-                  <p className="text-sm text-gray-700 mb-3"><strong>Then:</strong> {rule.action}</p>
-                  <div className="flex gap-2">
-                    <button className="flex-1 px-3 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg text-sm font-semibold transition">Edit</button>
-                    <button className="flex-1 px-3 py-2 border border-red-500 text-red-500 hover:bg-red-50 rounded-lg text-sm font-semibold transition">Delete</button>
+                  <p className="text-xs text-gray-700 mb-1"><strong>When:</strong> {rule.trigger}</p>
+                  <p className="text-xs text-gray-700 mb-2"><strong>Then:</strong> {rule.action}</p>
+                  <div className="flex gap-1 text-xs">
+                    <button className="flex-1 px-2 py-1.5 border border-indigo-300 text-indigo-600 hover:bg-indigo-50 rounded font-medium transition">Edit</button>
+                    <button className="flex-1 px-2 py-1.5 border border-red-300 text-red-600 hover:bg-red-50 rounded font-medium transition">Delete</button>
                   </div>
                 </div>
               ))}
@@ -197,20 +181,20 @@ export default function SmartHome() {
 
         {/* Scenes Section */}
         {activeTab === 'scenes' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900">Predefined Scenes</h3>
-              <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition">+ Create Scene</button>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-base font-semibold text-gray-900">Scenes</h3>
+              <button className="px-3 py-1.5 border border-indigo-500 text-indigo-600 hover:bg-indigo-50 rounded text-sm font-medium transition">+ Create</button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {scenes.map(scene => (
-                <div key={scene.id} className="p-6 border border-gray-300 rounded-lg">
-                  <h4 className="font-bold text-gray-900 mb-2">{scene.name}</h4>
-                  <p className="text-gray-700 text-sm mb-2">{scene.description}</p>
-                  <p className="text-xs text-gray-600 mb-4">Controls {scene.devices} devices</p>
-                  <div className="flex gap-2">
-                    <button className="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-semibold transition">Activate</button>
-                    <button className="flex-1 px-4 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg text-sm font-semibold transition">Edit</button>
+                <div key={scene.id} className="p-4 border border-gray-200 rounded">
+                  <h4 className="text-sm font-medium text-gray-900 mb-1">{scene.name}</h4>
+                  <p className="text-xs text-gray-600 mb-2">{scene.description}</p>
+                  <p className="text-xs text-gray-500 mb-3">{scene.devices} devices</p>
+                  <div className="flex gap-1 text-xs">
+                    <button className="flex-1 px-2 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded font-medium transition">Run</button>
+                    <button className="flex-1 px-2 py-1.5 border border-indigo-300 text-indigo-600 hover:bg-indigo-50 rounded font-medium transition">Edit</button>
                   </div>
                 </div>
               ))}
@@ -220,66 +204,42 @@ export default function SmartHome() {
 
         {/* Schedules Section */}
         {activeTab === 'schedules' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900">Robot & Device Schedules</h3>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-base font-semibold text-gray-900">Schedules</h3>
               <button 
-                className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition"
+                className="px-3 py-1.5 border border-indigo-500 text-indigo-600 hover:bg-indigo-50 rounded text-sm font-medium transition"
                 onClick={() => setShowAddSchedule(!showAddSchedule)}
               >
-                + Add Schedule
+                + Add
               </button>
             </div>
 
             {showAddSchedule && (
-              <div className="mb-6 p-6 bg-gray-50 rounded-lg border border-gray-300">
-                <h4 className="font-bold text-gray-900 mb-4">Create New Schedule</h4>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-semibold text-gray-900 mb-2">Schedule Name</label>
-                      <input type="text" placeholder="Enter schedule name" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" />
-                    </div>
-                    <div>
-                      <label className="block font-semibold text-gray-900 mb-2">Frequency</label>
-                      <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500">
-                        <option>Daily</option>
-                        <option>Weekly</option>
-                        <option>Monthly</option>
-                      </select>
-                    </div>
+              <div className="mb-4 p-4 bg-gray-50 rounded border border-gray-200">
+                <h4 className="text-sm font-medium text-gray-900 mb-3">New Schedule</h4>
+                <div className="space-y-2">
+                  <input type="text" placeholder="Schedule name" className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <select className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500">
+                      <option>Daily</option>
+                      <option>Weekly</option>
+                    </select>
+                    <input type="time" className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-indigo-500" />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-semibold text-gray-900 mb-2">Time</label>
-                      <input type="time" className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500" />
-                    </div>
-                    <div>
-                      <label className="block font-semibold text-gray-900 mb-2">Action</label>
-                      <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500">
-                        <option>Start patrol</option>
-                        <option>Clean mode</option>
-                        <option>Monitoring</option>
-                      </select>
-                    </div>
-                  </div>
-                  <button className="w-full px-6 py-2 bg-indigo-500 hover:bg-purple-700 text-white rounded-lg font-semibold transition">Save Schedule</button>
+                  <button className="w-full px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">Save</button>
                 </div>
               </div>
             )}
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {schedules.map(schedule => (
-                <div key={schedule.id} className="p-4 border border-gray-300 rounded-lg">
-                  <div className="flex justify-between">
-                    <div>
-                      <h4 className="font-bold text-gray-900">{schedule.name}</h4>
-                      <p className="text-sm text-gray-600">{schedule.type.toUpperCase()} at {schedule.time}</p>
-                    </div>
-                    <label className="flex items-center cursor-pointer">
-                      <input type="checkbox" checked={schedule.enabled} readOnly className="w-4 h-4" />
-                    </label>
+                <div key={schedule.id} className="p-3 border border-gray-200 rounded flex justify-between items-center">
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-900">{schedule.name}</h4>
+                    <p className="text-xs text-gray-600">{schedule.time}</p>
                   </div>
+                  <input type="checkbox" checked={schedule.enabled} readOnly className="w-3 h-3" />
                 </div>
               ))}
             </div>
