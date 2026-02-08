@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
+import { RiArrowDownSLine } from 'react-icons/ri';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,7 +14,6 @@ export default function Header() {
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  // Navigation items for public users
   const publicNavItems = [
     { label: 'Home', path: '/' },
     {
@@ -75,9 +75,7 @@ export default function Header() {
                   >
                     {item.label}
                     {item.subItems && item.subItems.length > 0 && (
-                      <svg className="w-4 h-4 group-hover:rotate-180 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                      </svg>
+                      <RiArrowDownSLine className="w-4 h-4 text-gray-400 group-hover:text-gray-200 transition duration-300" />
                     )}
                   </Link>
                   
