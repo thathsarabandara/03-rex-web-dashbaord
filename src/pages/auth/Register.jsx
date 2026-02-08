@@ -79,7 +79,7 @@ export default function Register() {
 
   if (emailVerificationSent) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-700 p-5">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-purple-200 p-5">
         <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-10">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-green-600 mb-4">Verify Your Email</h2>
@@ -96,7 +96,7 @@ export default function Register() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 to-purple-700 p-5">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-purple-200 p-10 pt-25">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-10">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
