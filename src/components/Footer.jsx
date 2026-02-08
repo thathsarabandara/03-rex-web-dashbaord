@@ -1,11 +1,20 @@
+import { useSelector } from 'react-redux';
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   return (
-    <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* About */}
+    isAuthenticated ? (
+      <footer className="bg-white-900 text-black py-4 px-6 flex justify-between items-center text-sm">
+        <p>&copy; {currentYear} REX-47 Project. All rights reserved.</p>
+        <p className="mt-2 text-black">Logged in as: {user?.name} ({user?.email})</p>
+      </footer>
+    ) : (
+      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            {/* About */}
           <div>
             <h3 className="text-lg font-bold mb-4">REX-47</h3>
             <p className="text-gray-400 text-sm">
@@ -84,5 +93,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    )
   );
 }
