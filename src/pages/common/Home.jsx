@@ -126,12 +126,12 @@ export default function Home() {
             </div>
           </div>
           <div className="flex justify-center">
-            <div className="relative w-full max-w-md">
+            <div className="relative w-full max-w-">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-600 rounded-full blur-3xl opacity-30"></div>
               <img
-                src="https://images.unsplash.com/photo-1677442d019cecf4d4a9c0ea7687c15770ecd63c60a688f9e5e9ad8e12d73b0e?w=500&h=500&fit=crop"
+                src="./landing.png"
                 alt="REX-47 Robot"
-                className="relative w-full rounded-2xl shadow-2xl"
+                className="relative w-full "
               />
             </div>
           </div>
