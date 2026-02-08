@@ -80,7 +80,7 @@ A modern, responsive web dashboard for controlling and monitoring the REX-47 Sma
 
 3. **Set up environment variables**
    ```bash
-   cp .env.example .env.local
+   cp .env.example .env.local 
    ```
    
    Update `.env.local` with your configuration:
