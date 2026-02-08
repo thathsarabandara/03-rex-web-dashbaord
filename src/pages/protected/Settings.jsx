@@ -35,109 +35,42 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-700 text-white p-8 mb-8">
-        <h1 className="text-4xl font-bold mb-2">Settings & Admin Control</h1>
-        <p className="text-indigo-100">System configuration, security, and user management</p>
+    <div className="min-h-screen bg-white">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
+        <p className="text-gray-600">System configuration, security, and user management</p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 pb-8">
+      <div className="space-y-6">
         {/* Tab Navigation */}
-        <div className="flex border-b border-gray-300 mb-6 bg-white overflow-x-auto">
-          <button 
-            onClick={() => setActiveTab('general')}
-            className={`px-6 py-3 font-semibold border-b-2 transition whitespace-nowrap ${activeTab === 'general' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
-          >
-            General
-          </button>
-          <button 
-            onClick={() => setActiveTab('robot')}
-            className={`px-6 py-3 font-semibold border-b-2 transition whitespace-nowrap ${activeTab === 'robot' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
-          >
-            Robot
-          </button>
-          <button 
-            onClick={() => setActiveTab('users')}
-            className={`px-6 py-3 font-semibold border-b-2 transition whitespace-nowrap ${activeTab === 'users' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
-          >
-            Users
-          </button>
-          <button 
-            onClick={() => setActiveTab('security')}
-            className={`px-6 py-3 font-semibold border-b-2 transition whitespace-nowrap ${activeTab === 'security' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
-          >
-            Security
-          </button>
-          <button 
-            onClick={() => setActiveTab('notifications')}
-            className={`px-6 py-3 font-semibold border-b-2 transition whitespace-nowrap ${activeTab === 'notifications' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
-          >
-            Notifications
-          </button>
-          <button 
-            onClick={() => setActiveTab('audit')}
-            className={`px-6 py-3 font-semibold border-b-2 transition whitespace-nowrap ${activeTab === 'audit' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
-          >
-            Audit
-          </button>
+        <div className="flex gap-2 border-b border-gray-200 overflow-x-auto">
+          {['general', 'robot', 'users', 'security', 'notifications', 'audit'].map(tab => (
+            <button 
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition whitespace-nowrap ${activeTab === tab ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
         </div>
 
         {/* General Settings */}
         {activeTab === 'general' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">General Settings</h3>
-            
-            <div className="mb-6">
-              <h4 className="font-bold text-gray-900 mb-4">System Information</h4>
-              <div className="space-y-3">
-                <div className="flex justify-between p-3 border border-gray-300 rounded-lg">
-                  <p className="text-gray-600">System Version</p>
-                  <p className="font-semibold text-gray-900">v2.1.0</p>
-                </div>
-                <div className="flex justify-between p-3 border border-gray-300 rounded-lg">
-                  <p className="text-gray-600">Last Updated</p>
-                  <p className="font-semibold text-gray-900">2024-02-01</p>
-                </div>
-                <p className="label">Database Size</p>
-                <p className="value">2.4 GB</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-4">System Info</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between p-2 border border-gray-200 rounded text-sm">
+                <p className="text-gray-600">Version</p>
+                <p className="font-medium text-gray-900">v2.1.0</p>
               </div>
-            </div>
-
-            <div className="settings-group">
-              <h4>Backup & Storage</h4>
-              <div className="form-group">
-                <label htmlFor="backup">Backup Schedule</label>
-                <select 
-                  id="backup"
-                  value={settings.backupSchedule}
-                  onChange={(e) => handleSettingChange('backupSchedule', e.target.value)}
-                >
-                  <option value="daily">Daily</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                </select>
+              <div className="flex justify-between p-2 border border-gray-200 rounded text-sm">
+                <p className="text-gray-600">Last Updated</p>
+                <p className="font-medium text-gray-900">2024-02-01</p>
               </div>
-              <button className="btn btn-secondary">Backup Now</button>
-              <button className="btn btn-secondary">Download Backup</button>
-            </div>
-
-            <div className="settings-group">
-              <h4>Dashboard Configuration</h4>
-              <div className="form-group">
-                <label htmlFor="theme">Theme</label>
-                <select id="theme">
-                  <option>Light Mode</option>
-                  <option>Dark Mode</option>
-                  <option>Auto</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="language">Language</label>
-                <select id="language">
-                  <option>English</option>
-                  <option>Spanish</option>
-                  <option>French</option>
-                </select>
+              <div className="flex justify-between p-2 border border-gray-200 rounded text-sm">
+                <p className="text-gray-600">Database Size</p>
+                <p className="font-medium text-gray-900">2.4 GB</p>
               </div>
             </div>
           </div>
@@ -145,13 +78,11 @@ export default function Settings() {
 
         {/* Robot Settings */}
         {activeTab === 'robot' && (
-          <div className="tab-content robot-settings">
-            <h3>Robot Configuration</h3>
-            
-            <div className="settings-group">
-              <h4>Movement Parameters</h4>
-              <div className="form-group">
-                <label htmlFor="maxSpeed">Max Speed: {settings.maxSpeed}%</label>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-4">Robot Configuration</h3>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="maxSpeed" className="block text-sm font-medium text-gray-900 mb-2">Max Speed: {settings.maxSpeed}%</label>
                 <input
                   type="range"
                   id="maxSpeed"
@@ -159,10 +90,11 @@ export default function Settings() {
                   max="100"
                   value={settings.maxSpeed}
                   onChange={(e) => handleSettingChange('maxSpeed', e.target.value)}
+                  className="w-full"
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="turnSpeed">Max Turn Speed: {settings.maxTurnSpeed}%</label>
+              <div>
+                <label htmlFor="turnSpeed" className="block text-sm font-medium text-gray-900 mb-2">Max Turn Speed: {settings.maxTurnSpeed}%</label>
                 <input
                   type="range"
                   id="turnSpeed"
@@ -170,227 +102,148 @@ export default function Settings() {
                   max="100"
                   value={settings.maxTurnSpeed}
                   onChange={(e) => handleSettingChange('maxTurnSpeed', e.target.value)}
+                  className="w-full"
                 />
               </div>
-            </div>
-
-            <div className="settings-group">
-              <h4>Autonomy Settings</h4>
-              <div className="form-group">
-                <label htmlFor="autonomy">Autonomy Threshold: {settings.autonomyThreshold}%</label>
+              <div>
+                <label htmlFor="autonomyThreshold" className="block text-sm font-medium text-gray-900 mb-2">Autonomy Threshold: {settings.autonomyThreshold}%</label>
                 <input
                   type="range"
-                  id="autonomy"
+                  id="autonomyThreshold"
                   min="0"
                   max="100"
                   value={settings.autonomyThreshold}
                   onChange={(e) => handleSettingChange('autonomyThreshold', e.target.value)}
+                  className="w-full"
                 />
               </div>
-            </div>
-
-            <div className="settings-group">
-              <h4>Sensor Configuration</h4>
-              <div className="form-group">
-                <label htmlFor="sensitivity">Sensor Sensitivity: {settings.sensorSensitivity}%</label>
+              <div>
+                <label htmlFor="sensorSensitivity" className="block text-sm font-medium text-gray-900 mb-2">Sensor Sensitivity: {settings.sensorSensitivity}%</label>
                 <input
                   type="range"
-                  id="sensitivity"
+                  id="sensorSensitivity"
                   min="0"
                   max="100"
                   value={settings.sensorSensitivity}
                   onChange={(e) => handleSettingChange('sensorSensitivity', e.target.value)}
+                  className="w-full"
                 />
               </div>
-              <div className="form-group">
-                <label>
-                  <input type="checkbox" defaultChecked /> Obstacle Detection
-                </label>
-              </div>
-              <div className="form-group">
-                <label>
-                  <input type="checkbox" defaultChecked /> Collision Avoidance
-                </label>
-              </div>
             </div>
-
-            <button className="btn btn-primary">Save Robot Settings</button>
           </div>
         )}
 
-        {/* User Management */}
+        {/* Users Management */}
         {activeTab === 'users' && (
-          <div className="tab-content user-management">
-            <div className="section-header">
-              <h3>User Management</h3>
-              <button className="btn btn-secondary">+ Add User</button>
-            </div>
-
-            <div className="users-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map(user => (
-                    <tr key={user.id}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                      <td><span className={`role-badge role-${user.role.toLowerCase()}`}>{user.role}</span></td>
-                      <td><span className={`status-badge status-${user.status}`}>{user.status}</span></td>
-                      <td className="actions">
-                        <button className="btn btn-small">Edit</button>
-                        <button className="btn btn-small btn-danger">Remove</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        {/* Security Settings */}
-        {activeTab === 'security' && (
-          <div className="tab-content security-settings">
-            <h3>Security Settings</h3>
-
-            <div className="settings-group">
-              <h4>Multi-Factor Authentication</h4>
-              <p>Enforce MFA for all users</p>
-              <label>
-                <input type="checkbox" /> Require MFA for all accounts
-              </label>
-              <label>
-                <input type="checkbox" defaultChecked /> Enable SMS OTP
-              </label>
-              <label>
-                <input type="checkbox" defaultChecked /> Enable Email OTP
-              </label>
-            </div>
-
-            <div className="settings-group">
-              <h4>API Keys Management</h4>
-              <button className="btn btn-secondary">+ Generate New API Key</button>
-              <div className="api-keys-list">
-                {apiKeys.map(key => (
-                  <div key={key.id} className="api-key-item">
-                    <div>
-                      <p className="key-name">{key.name}</p>
-                      <p className="key-details">Created: {key.created} • Last used: {key.lastUsed}</p>
-                      <p className="key-value">{key.key}</p>
-                    </div>
-                    <button className="btn btn-small btn-danger">Revoke</button>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-4">User Management</h3>
+            <div className="space-y-2">
+              {users.map(user => (
+                <div key={user.id} className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-900">{user.name}</p>
+                    <p className="text-xs text-gray-500">{user.email}</p>
                   </div>
-                ))}
-              </div>
+                  <div className="text-right">
+                    <p className="text-xs font-medium text-gray-900">{user.role}</p>
+                    <p className={`text-xs ${user.status === 'active' ? 'text-green-600' : 'text-red-600'}`}>{user.status}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-
-            <div className="settings-group">
-              <h4>Rate Limiting</h4>
-              <p>Prevent brute-force attacks</p>
-              <div className="form-group">
-                <label>Max login attempts before lockout</label>
-                <input type="number" defaultValue="5" min="3" max="20" />
-              </div>
-              <div className="form-group">
-                <label>Lockout duration (minutes)</label>
-                <input type="number" defaultValue="15" min="5" max="120" />
-              </div>
-            </div>
-
-            <button className="btn btn-primary">Save Security Settings</button>
           </div>
         )}
 
-        {/* Notification Settings */}
+        {/* Security */}
+        {activeTab === 'security' && (
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-4">Security Settings</h3>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Two-Factor Authentication</p>
+                  <p className="text-xs text-gray-500">Enable additional security</p>
+                </div>
+                <input type="checkbox" className="w-4 h-4" />
+              </div>
+              <div className="border border-gray-200 rounded p-3">
+                <h4 className="text-sm font-medium text-gray-900 mb-3">API Keys</h4>
+                <div className="space-y-2">
+                  {apiKeys.map(key => (
+                    <div key={key.id} className="p-2 bg-gray-50 rounded text-xs">
+                      <div className="flex justify-between">
+                        <p className="font-medium text-gray-900">{key.name}</p>
+                        <p className="text-gray-500">{key.key}</p>
+                      </div>
+                      <p className="text-gray-500">Created: {key.created} • Last used: {key.lastUsed}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Notifications */}
         {activeTab === 'notifications' && (
-          <div className="tab-content notification-settings">
-            <h3>Notification Preferences</h3>
-
-            <div className="settings-group">
-              <h4>Notification Channels</h4>
-              <div className="form-group">
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={settings.notificationsEnabled}
-                    onChange={(e) => handleSettingChange('notificationsEnabled', e.target.checked)}
-                  /> 
-                  Push Notifications
-                </label>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-4">Notification Preferences</h3>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Notifications Enabled</p>
+                  <p className="text-xs text-gray-500">Receive system alerts</p>
+                </div>
+                <input 
+                  type="checkbox" 
+                  checked={settings.notificationsEnabled}
+                  onChange={(e) => handleSettingChange('notificationsEnabled', e.target.checked)}
+                  className="w-4 h-4"
+                />
               </div>
-              <div className="form-group">
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={settings.emailNotifications}
-                    onChange={(e) => handleSettingChange('emailNotifications', e.target.checked)}
-                  /> 
-                  Email Notifications
-                </label>
+              <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">Email Notifications</p>
+                  <p className="text-xs text-gray-500">Receive updates via email</p>
+                </div>
+                <input 
+                  type="checkbox" 
+                  checked={settings.emailNotifications}
+                  onChange={(e) => handleSettingChange('emailNotifications', e.target.checked)}
+                  className="w-4 h-4"
+                />
               </div>
-              <div className="form-group">
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={settings.smsNotifications}
-                    onChange={(e) => handleSettingChange('smsNotifications', e.target.checked)}
-                  /> 
-                  SMS Notifications
-                </label>
+              <div className="flex items-center justify-between p-3 border border-gray-200 rounded">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">SMS Notifications</p>
+                  <p className="text-xs text-gray-500">Receive urgent alerts via SMS</p>
+                </div>
+                <input 
+                  type="checkbox" 
+                  checked={settings.smsNotifications}
+                  onChange={(e) => handleSettingChange('smsNotifications', e.target.checked)}
+                  className="w-4 h-4"
+                />
               </div>
             </div>
-
-            <div className="settings-group">
-              <h4>Alert Types</h4>
-              <label><input type="checkbox" defaultChecked /> Motion Detection</label>
-              <label><input type="checkbox" defaultChecked /> Low Battery</label>
-              <label><input type="checkbox" defaultChecked /> Connection Lost</label>
-              <label><input type="checkbox" defaultChecked /> System Errors</label>
-              <label><input type="checkbox" /> Status Updates</label>
-            </div>
-
-            <button className="btn btn-primary">Save Preferences</button>
           </div>
         )}
 
         {/* Audit Logs */}
         {activeTab === 'audit' && (
-          <div className="tab-content audit-logs">
-            <h3>Audit Logs</h3>
-            <p className="logs-description">System-wide activity and security events</p>
-
-            <div className="audit-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Action</th>
-                    <th>User</th>
-                    <th>Timestamp</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {auditLogs.map(log => (
-                    <tr key={log.id}>
-                      <td>{log.action}</td>
-                      <td>{log.user}</td>
-                      <td>{log.timestamp}</td>
-                      <td><span className={`status-badge status-${log.status}`}>{log.status}</span></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-4">Audit Logs</h3>
+            <div className="space-y-2">
+              {auditLogs.map(log => (
+                <div key={log.id} className="p-3 border border-gray-200 rounded">
+                  <div className="flex justify-between mb-1">
+                    <p className="text-sm font-medium text-gray-900">{log.action}</p>
+                    <span className={`text-xs ${log.status === 'success' ? 'text-green-600' : 'text-red-600'}`}>{log.status}</span>
+                  </div>
+                  <p className="text-xs text-gray-500">{log.user} • {log.timestamp}</p>
+                </div>
+              ))}
             </div>
-
-            <button className="btn btn-secondary">Export Logs</button>
           </div>
         )}
       </div>
