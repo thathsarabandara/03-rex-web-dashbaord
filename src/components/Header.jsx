@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { RiArrowDownSLine } from 'react-icons/ri';
+import { IoNotifications } from 'react-icons/io5';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -52,6 +54,20 @@ export default function Header() {
   };
 
   const isActive = (path) => location.pathname === path;
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setOpenDropdown(null);
+      setIsNotificationsOpen(false);
+      setUserDropdownOpen(false);
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     !isAuthenticated ? (
@@ -227,67 +243,54 @@ export default function Header() {
             <img src="banner.png" alt="rex-nav-banner" className="h-16" />
           </Link>
 
-          {/* Right Side Actions */}
           <div className="flex items-center gap-6">
-            {/* Notification Icon */}
-            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition duration-300">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                />
-              </svg>
+            <button className="relative p-2 text-gray-600 hover:text-gray-900 transition duration-300" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsNotificationsOpen(!isNotificationsOpen);
+              }}
+            >
+              <IoNotifications className="w-6 h-6" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
 
-            {/* User Profile Dropdown */}
-            <div className="relative">
+            <div className="relative rounded-lg hover:bg-gray-100 transition duration-300" onClick={(e) => e.stopPropagation()}>
               <button
-                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setUserDropdownOpen(!userDropdownOpen);
+                }}
                 className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300"
               >
-                {/* Profile Picture */}
+
                 <img
                   src={user?.profilePicture || 'https://via.placeholder.com/40?text=User'}
                   alt={user?.name || 'User'}
                   className="w-10 h-10 rounded-full object-cover border-2 border-indigo-500"
                 />
-                {/* Welcome Message and Username */}
+
                 <div className="hidden sm:block text-left">
                   <p className="text-xs text-gray-600">Welcome back</p>
                   <p className="text-sm font-semibold text-gray-900">
                     {user?.name || 'User'}
                   </p>
                 </div>
-                {/* Dropdown Arrow */}
-                <svg
-                  className={`w-5 h-5 text-gray-600 transition duration-300 ${
-                    userDropdownOpen ? 'transform rotate-180' : ''
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
+
+                <RiArrowDownSLine className={`w-4 h-4 text-gray-400 transition duration-300 ${userDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
-              {/* User Dropdown Menu */}
+              {isNotificationsOpen && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 py-4 z-10" onClick={(e) => e.stopPropagation()}>
+                  <h3 className="text-sm font-semibold text-gray-900 px-4 mb-3">Notifications</h3>
+                  <div className="space-y-2 px-4">
+                    <p className="text-sm text-gray-700">You have 3 new notifications.</p>
+                    <p className="text-xs text-gray-500">Last updated 5 minutes ago</p>
+                  </div>
+                </div>
+              )}
+
               {userDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-10">
-                  {/* User Info Section */}
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-10" onClick={(e) => e.stopPropagation()}>
                   <div className="px-4 py-3 border-b border-gray-100">
                     <p className="text-sm font-semibold text-gray-900">
                       {user?.name || 'User'}
@@ -297,7 +300,6 @@ export default function Header() {
                     </p>
                   </div>
 
-                  {/* Menu Items */}
                   <Link
                     to="/profile"
                     onClick={() => setUserDropdownOpen(false)}
@@ -313,7 +315,6 @@ export default function Header() {
                     <span className="mr-2">⚙️</span> Settings
                   </Link>
 
-                  {/* Logout Button */}
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-300 border-t border-gray-200 mt-2"
