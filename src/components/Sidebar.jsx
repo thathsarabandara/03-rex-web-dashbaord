@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { FaBrain, FaChartLine, FaCog, FaHome, FaQuestionCircle, FaRobot, FaTachometerAlt, FaUser } from 'react-icons/fa';
+import { CiLogout } from 'react-icons/ci';
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -31,11 +32,11 @@ export default function Sidebar() {
   return (
     <aside
       className={`${
-        sidebarOpen ? 'w-64' : 'w-20'
+        sidebarOpen ? 'w-64' : 'w-16'
       } bg-white text-gray-800 transition-all duration-300 flex flex-col shadow-sm border-r border-gray-200 h-screen sticky top-0`}
     >
         {/* Logo/Brand */}
-        <div className="p-3 flex items-center justify-center border-b border-gray-200 flex items-center justify-between">
+        <div className="p-3 flex items-center justify-between border-b border-gray-200">
           {sidebarOpen && <h2 className="text-xl font-bold text-gray-900">REX-47</h2>}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -47,12 +48,12 @@ export default function Sidebar() {
         </div>
 
         {/* Menu Items */}
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-4 px-4 py-3 rounded-lg transition ${
+              className={`flex items-center gap-4 px-2 py-3 rounded-lg transition ${
                 isActive(item.path)
                   ? 'bg-indigo-50 text-indigo-600 font-semibold border-l-4 border-indigo-600'
                   : 'text-gray-700 hover:bg-gray-100'
@@ -74,7 +75,7 @@ export default function Sidebar() {
             }`}
             title={!sidebarOpen ? 'Logout' : ''}
           >
-            <span className="text-lg">🚪</span>
+            <CiLogout className="text-lg" />
             {sidebarOpen && <span>Logout</span>}
           </button>
         </div>
