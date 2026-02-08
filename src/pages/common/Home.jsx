@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
+import { FaPython, FaDocker, FaGitAlt, FaLinux } from 'react-icons/fa';
+import { SiKubernetes, SiJupyter, SiTensorflow, SiFlask, SiNodedotjs, SiReact, SiPostgresql, SiRaspberrypi, SiArduino, SiMqtt, SiEsphome } from 'react-icons/si';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,9 +101,42 @@ export default function Home() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4 sm:px-6 lg:px-8"
+        className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden relative"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl w-full items-center">
+        {/* Floating Tech Icons Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <style>{`
+            @keyframes float1 { 0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); } 50% { transform: translateY(-40px) translateX(20px) rotate(10deg); } }
+            @keyframes float2 { 0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); } 50% { transform: translateY(-50px) translateX(-30px) rotate(-15deg); } }
+            @keyframes float3 { 0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); } 50% { transform: translateY(-35px) translateX(25px) rotate(20deg); } }
+            @keyframes float4 { 0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); } 50% { transform: translateY(-45px) translateX(-20px) rotate(-10deg); } }
+            @keyframes float5 { 0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); } 50% { transform: translateY(-30px) translateX(35px) rotate(25deg); } }
+            
+            .float-icon { animation: float1 4s ease-in-out infinite; }
+            .float-icon:nth-child(2) { animation: float2 5s ease-in-out infinite; }
+            .float-icon:nth-child(3) { animation: float3 6s ease-in-out infinite; }
+            .float-icon:nth-child(4) { animation: float4 4.5s ease-in-out infinite; }
+            .float-icon:nth-child(5) { animation: float5 5.5s ease-in-out infinite; }
+          `}</style>
+          
+          <div className="float-icon absolute top-20 left-10 text-5xl opacity-20 text-blue-600"><FaPython /></div>
+          <div className="float-icon absolute top-40 right-20 text-5xl opacity-15 text-blue-400"><FaDocker /></div>
+          <div className="float-icon absolute bottom-32 left-32 text-5xl opacity-20 text-blue-600"><SiKubernetes /></div>
+          <div className="float-icon absolute top-1/2 right-45 text-5xl opacity-15 text-blue-500"><SiJupyter /></div>
+          <div className="float-icon absolute bottom-20 right-10 text-5xl opacity-20 text-orange-500"><SiTensorflow /></div>
+          <div className="float-icon absolute top-1/3 left-42 text-5xl opacity-15 text-blue-600"><SiFlask /></div>
+          <div className="float-icon absolute bottom-40 right-1/3 text-5xl opacity-20 text-green-500"><FaLinux /></div>
+          <div className="float-icon absolute top-1/4 right-1/3 text-5xl opacity-15 text-gray-700"><FaGitAlt /></div>
+          <div className="float-icon absolute top-1/3 right-1/2 text-5xl opacity-20 text-green-600"><SiNodedotjs /></div>
+          <div className="float-icon absolute bottom-1/3 left-1/3 text-5xl opacity-15 text-blue-500"><SiReact /></div>
+          <div className="float-icon absolute top-3/4 right-1/4 text-5xl opacity-20 text-blue-700"><SiPostgresql /></div>
+          <div className="float-icon absolute bottom-1/4 right-1/2 text-5xl opacity-15 text-pink-600"><SiEsphome /></div>
+          <div className="float-icon absolute top-1/2 left-1/3 text-5xl opacity-20 text-teal-600"><SiArduino /></div>
+          <div className="float-icon absolute bottom-1/3 right-1/4 text-5xl opacity-15 text-red-500"><SiMqtt /></div>
+          <div className="float-icon absolute top-1/4 left-1/2 text-5xl opacity-20 text-indigo-600"><FaPython /></div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl w-full items-center relative z-10">
           <div className="space-y-6">
             <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 leading-tight">
               Smart Home <span className="text-blue-600">Agentic Robot</span>
