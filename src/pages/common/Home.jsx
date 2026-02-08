@@ -2,9 +2,10 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-import { FaPython, FaDocker, FaGitAlt, FaLinux, FaEye } from 'react-icons/fa';
+import { FaPython, FaDocker, FaGitAlt, FaLinux, FaEye, FaBrain } from 'react-icons/fa';
 import { SiKubernetes, SiJupyter, SiTensorflow, SiFlask, SiNodedotjs, SiReact, SiPostgresql, SiRaspberrypi, SiArduino, SiMqtt, SiEsphome, SiHomeassistant } from 'react-icons/si';
 import { IoRocket } from 'react-icons/io5';
+import { MdCloud, MdDashboard, MdOutlineHub, MdSatelliteAlt } from 'react-icons/md';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -227,19 +228,19 @@ export default function Home() {
 
           <div className="relative">
             <div className="flow-line absolute top-12 left-0 w-0 h-1 bg-gradient-to-r from-blue-400 to-indigo-600"></div>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
               {[
-                { label: 'ESP32 Edge', icon: '📡' },
-                { label: 'AI Brain', icon: '🧠' },
-                { label: 'IoT Hub', icon: '🔌' },
-                { label: 'Cloud Services', icon: '☁️' },
-                { label: 'Dashboard', icon: '📊' },
+                { label: 'ESP32 Edge', icon: <MdSatelliteAlt className="text-4xl text-blue-600" /> },
+                { label: 'AI Brain', icon: <FaBrain className="text-4xl text-pink-600" /> },
+                { label: 'IoT Hub', icon: <MdOutlineHub className="text-4xl text-green-600" /> },
+                { label: 'Cloud Services', icon: <MdCloud className="text-4xl text-indigo-600" /> },
+                { label: 'Dashboard', icon: <MdDashboard className="text-4xl text-yellow-600" /> },
               ].map((step, idx) => (
                 <div key={idx} className="flex flex-col items-center">
-                  <div className="flow-step w-24 h-24 bg-white rounded-full border-4 border-blue-600 flex items-center justify-center text-4xl shadow-lg hover:shadow-xl transition duration-300">
+                  <div className="flow-step w-24 h-24 bg-white rounded-full border-4 border-blue-600 flex items-center justify-center text-blue-600 shadow-lg hover:shadow-xl hover:scale-110 transition duration-300">
                     {step.icon}
                   </div>
-                  <p className="mt-4 text-center font-semibold text-gray-900">{step.label}</p>
+                  <p className="mt-6 text-center font-semibold text-gray-900 text-sm">{step.label}</p>
                 </div>
               ))}
             </div>
