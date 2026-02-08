@@ -83,207 +83,182 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-700 text-white p-8 mb-8">
-        <h1 className="text-4xl font-bold mb-2">Account Settings</h1>
-        <p className="text-indigo-100">Manage your account profile, security, and preferences</p>
+    <div className="min-h-screen bg-white">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Account Settings</h1>
+        <p className="text-gray-600">Manage your profile, security, and preferences</p>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 pb-8">
-        {message && <div className="mb-6 px-4 py-3 bg-green-100 text-green-700 border border-green-300 rounded-lg">{message}</div>}
+      <div className="space-y-6">
+        {message && <div className="px-4 py-3 bg-green-100 text-green-700 border border-green-300 rounded">{message}</div>}
 
-        <div className="flex border-b border-gray-300 mb-6">
+        <div className="flex gap-2 border-b border-gray-200">
           <button 
-            className={`px-6 py-3 font-semibold border-b-2 transition ${activeTab === 'profile' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${activeTab === 'profile' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
             onClick={() => setActiveTab('profile')}
           >
             Profile
           </button>
           <button 
-            className={`px-6 py-3 font-semibold border-b-2 transition ${activeTab === 'security' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${activeTab === 'security' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
             onClick={() => setActiveTab('security')}
           >
             Security
           </button>
           <button 
-            className={`px-6 py-3 font-semibold border-b-2 transition ${activeTab === 'activity' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
+            className={`px-4 py-2 text-sm font-medium border-b-2 transition ${activeTab === 'activity' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-600 hover:text-gray-900'}`}
             onClick={() => setActiveTab('activity')}
           >
-            Activity Log
+            Activity
           </button>
         </div>
 
         {activeTab === 'profile' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <form onSubmit={handleUpdateProfile} className="space-y-6">
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <form onSubmit={handleUpdateProfile} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block font-semibold text-gray-900 mb-2">Full Name</label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-900 mb-1">Full Name</label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   value={profileData.name}
                   onChange={handleProfileChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block font-semibold text-gray-900 mb-2">Email Address</label>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-1">Email</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   value={profileData.email}
                   onChange={handleProfileChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label htmlFor="phone" className="block font-semibold text-gray-900 mb-2">Phone Number</label>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-1">Phone</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
                   value={profileData.phone}
                   onChange={handleProfileChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label htmlFor="avatar" className="block font-semibold text-gray-900 mb-2">Profile Avatar</label>
-                <input type="file" id="avatar" accept="image/*" className="w-full px-4 py-2 border border-gray-300 rounded-lg" />
-              </div>
-
-              <div>
-                <label htmlFor="role" className="block font-semibold text-gray-900 mb-2">Account Role</label>
+                <label htmlFor="role" className="block text-sm font-medium text-gray-900 mb-1">Role</label>
                 <input
                   type="text"
                   id="role"
                   value={profileData.role}
                   disabled
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+                  className="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-600"
                 />
-                <small className="text-xs text-gray-600 mt-1 block">Contact administrator to change role</small>
               </div>
 
-              <button type="submit" className="w-full bg-indigo-500 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-60" disabled={loading}>
-                {loading ? 'Updating...' : 'Save Changes'}
+              <button type="submit" className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded font-medium transition" disabled={loading}>
+                {loading ? 'Saving...' : 'Save Changes'}
               </button>
             </form>
           </div>
         )}
 
         {activeTab === 'security' && (
-          <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Change Password</h3>
-              <form onSubmit={handleChangePassword} className="space-y-4">
-                <div>
-                  <label htmlFor="current" className="block font-semibold text-gray-900 mb-2">Current Password</label>
-                  <input
-                    type="password"
-                    id="current"
-                    name="current"
-                    value={passwordData.current}
-                    onChange={handlePasswordChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="new" className="block font-semibold text-gray-900 mb-2">New Password</label>
-                  <input
-                    type="password"
-                    id="new"
-                    name="new"
-                    value={passwordData.new}
-                    onChange={handlePasswordChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="confirm" className="block font-semibold text-gray-900 mb-2">Confirm New Password</label>
-                  <input
-                    type="password"
-                    id="confirm"
-                    name="confirm"
-                    value={passwordData.confirm}
-                    onChange={handlePasswordChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100"
-                  />
-                </div>
-
-                <button type="submit" className="w-full bg-indigo-500 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition disabled:opacity-60" disabled={loading}>
+          <div className="space-y-4">
+            <div className="bg-white rounded-lg border border-gray-200 p-5">
+              <h3 className="text-base font-semibold text-gray-900 mb-4">Change Password</h3>
+              <form onSubmit={handleChangePassword} className="space-y-3">
+                <input
+                  type="password"
+                  name="current"
+                  placeholder="Current password"
+                  value={passwordData.current}
+                  onChange={handlePasswordChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 text-sm"
+                />
+                <input
+                  type="password"
+                  name="new"
+                  placeholder="New password"
+                  value={passwordData.new}
+                  onChange={handlePasswordChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 text-sm"
+                />
+                <input
+                  type="password"
+                  name="confirm"
+                  placeholder="Confirm password"
+                  value={passwordData.confirm}
+                  onChange={handlePasswordChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 text-sm"
+                />
+                <button type="submit" className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 rounded font-medium transition text-sm" disabled={loading}>
                   {loading ? 'Updating...' : 'Change Password'}
                 </button>
               </form>
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-8">
+            <div className="bg-white rounded-lg border border-gray-200 p-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Two-Factor Authentication</h3>
-                  <p className="text-gray-600 text-sm">Add an extra layer of security to your account</p>
+                  <h3 className="text-base font-semibold text-gray-900 mb-1">2FA</h3>
+                  <p className="text-sm text-gray-600">Two-factor authentication</p>
                 </div>
                 <label className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     checked={mfaEnabled}
                     onChange={handleToggleMFA}
-                    className="w-5 h-5 cursor-pointer"
+                    className="w-4 h-4 cursor-pointer"
                   />
-                  <span className="ml-3 text-sm font-semibold text-gray-900">{mfaEnabled ? 'Enabled' : 'Disabled'}</span>
+                  <span className="ml-2 text-sm font-medium text-gray-900">{mfaEnabled ? 'On' : 'Off'}</span>
                 </label>
               </div>
-
               {mfaEnabled && (
-                <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-green-700 font-semibold">✓ Two-factor authentication is enabled</p>
-                  <p className="text-green-600 text-sm mt-1">Your account is now protected with SMS-based OTP verification</p>
-                </div>
+                <p className="text-xs text-green-700 mt-3">✓ 2FA is enabled on your account</p>
               )}
             </div>
 
-            <div className="bg-white rounded-lg shadow-lg p-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">API Keys</h3>
-              <p className="text-gray-600 mb-6">Manage API keys for third-party integrations</p>
-              <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition">Generate New API Key</button>
+            <div className="bg-white rounded-lg border border-gray-200 p-5">
+              <h3 className="text-base font-semibold text-gray-900 mb-3">API Keys</h3>
+              <button className="px-3 py-1.5 border border-indigo-500 text-indigo-600 hover:bg-indigo-50 rounded text-sm font-medium transition">+ Generate Key</button>
             </div>
           </div>
         )}
 
         {activeTab === 'activity' && (
-          <div className="bg-white rounded-lg shadow-lg p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Login History</h3>
-            <p className="text-gray-600 text-sm mb-6">Recent login activity on your account</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <h3 className="text-base font-semibold text-gray-900 mb-1">Login History</h3>
+            <p className="text-sm text-gray-600 mb-4">Recent activity on your account</p>
 
-            <div className="space-y-2 mb-6">
+            <div className="space-y-2">
               {activityLogs.map(log => (
-                <div key={log.id} className={`p-4 border rounded-lg ${log.status === 'success' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                <div key={log.id} className={`p-3 border rounded text-sm ${log.status === 'success' ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="font-semibold text-gray-900">{log.action}</p>
-                      <p className="text-sm text-gray-600">{log.device}</p>
+                      <p className="text-sm font-medium text-gray-900">{log.action}</p>
+                      <p className="text-xs text-gray-600">{log.device}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-gray-600">{log.time}</p>
-                      <p className={`text-sm font-semibold ${log.status === 'success' ? 'text-green-700' : 'text-red-700'}`}>
-                        {log.status === 'success' ? '✓ Success' : '✗ Failed'}
+                      <p className="text-xs text-gray-600">{log.time}</p>
+                      <p className={`text-xs font-medium ${log.status === 'success' ? 'text-green-700' : 'text-red-700'}`}>
+                        {log.status === 'success' ? '✓' : '✗'}
                       </p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition">Download Activity Report</button>
           </div>
         )}
       </div>
