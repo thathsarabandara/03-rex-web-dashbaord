@@ -21,7 +21,6 @@ export default function ResetPassword() {
   const [isTokenValid, setIsTokenValid] = useState(false);
   const [tokenError, setTokenError] = useState('');
 
-  // Validate token on component mount
   useEffect(() => {
     const validateToken = async () => {
       if (!token) {
@@ -32,7 +31,8 @@ export default function ResetPassword() {
 
       try {
         // Call backend to validate the reset token
-        const response = await fetch('/api/auth/validate-reset-token', {
+        const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+        const response = await fetch(`${apiBaseUrl}/auth/validate-reset-token`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
