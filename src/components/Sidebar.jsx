@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
+import { FaBrain, FaChartLine, FaCog, FaHome, FaQuestionCircle, FaRobot, FaTachometerAlt, FaUser } from 'react-icons/fa';
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -10,14 +11,14 @@ export default function Sidebar() {
   const dispatch = useDispatch();
 
   const menuItems = [
-    { icon: '📊', label: 'Dashboard', path: '/dashboard' },
-    { icon: '👤', label: 'Profile', path: '/profile' },
-    { icon: '🤖', label: 'Robot Control', path: '/robot-control' },
-    { icon: '📈', label: 'Monitoring', path: '/robot-monitoring' },
-    { icon: '🏠', label: 'Smart Home', path: '/smart-home' },
-    { icon: '🧠', label: 'AI Insights', path: '/ai-perception' },
-    { icon: '⚙️', label: 'Settings', path: '/settings' },
-    { icon: '❓', label: 'Help', path: '/help' },
+    { icon: <FaTachometerAlt />, label: 'Dashboard', path: '/dashboard' },
+    { icon: <FaUser />, label: 'Profile', path: '/profile' },
+    { icon: <FaRobot />, label: 'Robot Control', path: '/robot-control' },
+    { icon: <FaChartLine />, label: 'Monitoring', path: '/robot-monitoring' },
+    { icon: <FaHome />, label: 'Smart Home', path: '/smart-home' },
+    { icon: <FaBrain />, label: 'AI Insights', path: '/ai-perception' },
+    { icon: <FaCog />, label: 'Settings', path: '/settings' },
+    { icon: <FaQuestionCircle />, label: 'Help', path: '/help' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -28,68 +29,55 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <aside
-        className={`${
-          sidebarOpen ? 'w-64' : 'w-20'
-        } bg-gradient-to-b from-indigo-600 to-purple-700 text-white transition-all duration-300 flex flex-col shadow-lg`}
-      >
+    <aside
+      className={`${
+        sidebarOpen ? 'w-64' : 'w-20'
+      } bg-white text-gray-800 transition-all duration-300 flex flex-col shadow-sm border-r border-gray-200 h-screen sticky top-0`}
+    >
         {/* Logo/Brand */}
-        <div className="p-6 border-b border-indigo-500 flex items-center justify-between">
-          {sidebarOpen && <h2 className="text-xl font-bold text-white">REX-47</h2>}
+        <div className="p-3 flex items-center justify-center border-b border-gray-200 flex items-center justify-between">
+          {sidebarOpen && <h2 className="text-xl font-bold text-gray-900">REX-47</h2>}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 hover:bg-indigo-500 rounded-lg transition"
+            className="p-2 hover:bg-gray-100 rounded-lg transition text-gray-600"
             title={sidebarOpen ? 'Collapse' : 'Expand'}
           >
-            {sidebarOpen ? '◄' : '►'}
+            {sidebarOpen ? '✕' : '☰'}
           </button>
         </div>
 
         {/* Menu Items */}
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
               className={`flex items-center gap-4 px-4 py-3 rounded-lg transition ${
                 isActive(item.path)
-                  ? 'bg-white text-indigo-600 font-semibold shadow-md'
-                  : 'text-indigo-100 hover:bg-indigo-500'
+                  ? 'bg-indigo-50 text-indigo-600 font-semibold border-l-4 border-indigo-600'
+                  : 'text-gray-700 hover:bg-gray-100'
               }`}
               title={!sidebarOpen ? item.label : ''}
             >
-              <span className="text-xl">{item.icon}</span>
+              <span className="text-lg">{item.icon}</span>
               {sidebarOpen && <span>{item.label}</span>}
             </Link>
           ))}
         </nav>
 
         {/* Logout Button */}
-        <div className="p-4 border-t border-indigo-500">
+        <div className="p-4 border-t border-gray-200">
           <button
             onClick={handleLogout}
-            className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold transition ${
+            className={`w-full flex items-center gap-4 px-4 py-3 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition ${
               !sidebarOpen && 'justify-center'
             }`}
             title={!sidebarOpen ? 'Logout' : ''}
           >
-            <span className="text-xl">🚪</span>
+            <span className="text-lg">🚪</span>
             {sidebarOpen && <span>Logout</span>}
           </button>
         </div>
-      </aside>
-
-      {/* Main Content Area */}
-      <main className="flex-1 bg-gray-50 overflow-auto">
-        {/* Placeholder for page content */}
-        <div className="p-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600">Page content will be displayed here</p>
-          </div>
-        </div>
-      </main>
-    </div>
+    </aside>
   );
 }
