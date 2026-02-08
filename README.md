@@ -215,7 +215,7 @@ vercel --prod
 
 ### Use below url for live version of the site
  ```bash
- https
+ https://rex.vercel.app
  ```
 
 ## 🔐 Authentication Flow
