@@ -33,21 +33,21 @@ export default function RobotMonitoring() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-700 text-white p-8 mb-8">
-        <h1 className="text-4xl font-bold mb-2">Robot Monitoring & Telemetry</h1>
-        <p className="text-indigo-100">Real-time sensor data, AI perception, and health metrics</p>
+    <div className="min-h-screen bg-white">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Robot Monitoring & Telemetry</h1>
+        <p className="text-gray-600">Real-time sensor data, AI perception, and health metrics</p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 pb-8">
+      <div className="space-y-6">
         {/* Sensor Data Section */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">Sensor Data</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="bg-white rounded-lg border border-gray-200 p-5">
+          <h3 className="text-base font-semibold text-gray-900 mb-4">Sensor Data</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {Object.entries(sensorData).map(([key, data]) => (
-              <div key={key} className={`p-4 rounded-lg border-l-4 ${data.status === 'normal' ? 'bg-green-50 border-green-500' : data.status === 'warning' ? 'bg-yellow-50 border-yellow-500' : 'bg-red-50 border-red-500'}`}>
-                <p className="text-xs text-gray-600 font-semibold">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
-                <p className="text-2xl font-bold text-gray-900">{data.value}</p>
+              <div key={key} className={`p-3 rounded border-l-2 ${data.status === 'normal' ? 'bg-green-50 border-green-400' : data.status === 'warning' ? 'bg-yellow-50 border-yellow-400' : 'bg-red-50 border-red-400'}`}>
+                <p className="text-xs text-gray-600 font-medium">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                <p className="text-xl font-bold text-gray-900 mt-1">{data.value}</p>
                 <p className="text-xs text-gray-600">{data.unit}</p>
               </div>
             ))}
@@ -55,28 +55,28 @@ export default function RobotMonitoring() {
         </div>
 
         {/* AI Vision Feed */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">AI Vision & Object Detection</h3>
-          <div className="mb-6">
-            <img 
-              src="https://via.placeholder.com/600x400?text=AI+Vision+Feed" 
-              alt="AI vision bounding boxes"
-              className="w-full rounded-lg"
-            />
+        <div className="bg-white rounded-lg border border-gray-200 p-5">
+          <h3 className="text-base font-semibold text-gray-900 mb-4">AI Vision & Object Detection</h3>
+          <div className="mb-4 bg-gray-100 rounded-lg flex items-center justify-center h-64">
+            <div className="text-center">
+              <div className="text-4xl mb-2">👁️</div>
+              <p className="text-gray-500 text-sm">AI Vision Feed</p>
+              <p className="text-gray-400 text-xs mt-1">Live vision feed with AI annotations</p>
+            </div>
           </div>
           <div>
-            <h4 className="font-bold text-gray-900 mb-4">Detection Results</h4>
-            <div className="space-y-3">
+            <h4 className="text-sm font-medium text-gray-900 mb-3">Detection Results</h4>
+            <div className="space-y-2">
               {aiVisionData.map(detection => (
-                <div key={detection.id} className="p-4 border border-gray-300 rounded-lg">
-                  <div className="flex justify-between items-start mb-3">
+                <div key={detection.id} className="p-3 border border-gray-200 rounded">
+                  <div className="flex justify-between items-start mb-2">
                     <div>
-                      <p className="font-semibold text-indigo-600">{detection.type}</p>
-                      <p className="text-sm text-gray-600">{detection.label}</p>
+                      <p className="text-sm font-medium text-indigo-600">{detection.type}</p>
+                      <p className="text-xs text-gray-600">{detection.label}</p>
                     </div>
-                    <span className="text-sm font-semibold text-gray-900">{detection.confidence}%</span>
+                    <span className="text-xs font-semibold text-gray-900">{detection.confidence}%</span>
                   </div>
-                  <div className="h-2 bg-gray-300 rounded-full overflow-hidden">
+                  <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-indigo-500"
                       style={{ width: `${detection.confidence}%` }}
@@ -89,27 +89,27 @@ export default function RobotMonitoring() {
         </div>
 
         {/* Telemetry Graphs */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">Telemetry Graphs</h3>
+        <div className="bg-white rounded-lg border border-gray-200 p-5">
+          <h3 className="text-base font-semibold text-gray-900 mb-4">Telemetry Graphs</h3>
           
-          <div className="mb-6 space-y-3">
-            <div className="flex gap-2">
+          <div className="mb-4 space-y-2">
+            <div className="flex gap-2 flex-wrap">
               {['speed', 'distance', 'battery'].map(metric => (
                 <button
                   key={metric}
                   onClick={() => setSelectedMetric(metric)}
-                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition ${selectedMetric === metric ? 'bg-indigo-500 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'}`}
+                  className={`px-3 py-1.5 rounded text-xs font-medium transition ${selectedMetric === metric ? 'bg-indigo-500 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'}`}
                 >
                   {metric.charAt(0).toUpperCase() + metric.slice(1)}
                 </button>
               ))}
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               {['1h', '6h', '24h', '7d'].map(range => (
                 <button
                   key={range}
                   onClick={() => setTimeRange(range)}
-                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition ${timeRange === range ? 'bg-indigo-500 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'}`}
+                  className={`px-3 py-1.5 rounded text-xs font-medium transition ${timeRange === range ? 'bg-indigo-500 text-white' : 'border border-gray-300 text-gray-700 hover:bg-gray-50'}`}
                 >
                   {range}
                 </button>
@@ -117,8 +117,8 @@ export default function RobotMonitoring() {
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-lg p-4">
-            <svg viewBox="0 0 500 300" className="w-full h-64">
+          <div className="bg-gray-50 rounded p-3 border border-gray-200">
+            <svg viewBox="0 0 500 300" className="w-full h-48">
               <polyline points="20,250 60,200 100,150 140,130 180,170 220,190 260,140 300,100 340,110 380,140" fill="none" stroke="#4f46e5" strokeWidth="2" />
               <line x1="20" y1="50" x2="480" y2="50" stroke="#e5e7eb" strokeWidth="1" />
               <line x1="20" y1="150" x2="480" y2="150" stroke="#e5e7eb" strokeWidth="1" />
@@ -128,20 +128,20 @@ export default function RobotMonitoring() {
         </div>
 
         {/* Event Logs */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">Event Logs</h3>
-          <p className="text-gray-600 text-sm mb-6">System events, alerts, and AI decision tracking</p>
+        <div className="bg-white rounded-lg border border-gray-200 p-5">
+          <h3 className="text-base font-semibold text-gray-900 mb-1">Event Logs</h3>
+          <p className="text-xs text-gray-600 mb-3">System events, alerts, and AI decisions</p>
           <div className="space-y-2">
             {eventLogs.map(log => (
-              <div key={log.id} className={`p-4 rounded-lg border-l-4 ${log.severity === 'critical' ? 'bg-red-50 border-red-500' : log.severity === 'warning' ? 'bg-yellow-50 border-yellow-500' : 'bg-blue-50 border-blue-500'}`}>
+              <div key={log.id} className={`p-3 rounded border-l-2 ${log.severity === 'error' ? 'bg-red-50 border-red-400' : log.severity === 'warning' ? 'bg-yellow-50 border-yellow-400' : 'bg-blue-50 border-blue-400'}`}>
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-900">{log.type}</p>
-                    <p className="text-sm text-gray-700 mt-1">{log.message}</p>
+                    <p className="text-sm font-medium text-gray-900">{log.type}</p>
+                    <p className="text-xs text-gray-700 mt-1">{log.message}</p>
                   </div>
-                  <div className="text-right ml-4">
-                    <p className="text-xs text-gray-600 mb-1">{log.time}</p>
-                    <span className={`text-xs font-semibold ${log.severity === 'critical' ? 'text-red-700' : log.severity === 'warning' ? 'text-yellow-700' : 'text-blue-700'}`}>
+                  <div className="text-right ml-3">
+                    <p className="text-xs text-gray-500 mb-1">{log.time}</p>
+                    <span className={`text-xs font-medium inline-block px-2 py-0.5 rounded ${log.severity === 'error' ? 'bg-red-100 text-red-700' : log.severity === 'warning' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700'}`}>
                       {log.severity.charAt(0).toUpperCase() + log.severity.slice(1)}
                     </span>
                   </div>
