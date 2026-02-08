@@ -1,10 +1,9 @@
 import axios from 'axios';
 import store from '../store/store';
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+import { config } from '../config';
 
 const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: config.apiBaseUrl,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
