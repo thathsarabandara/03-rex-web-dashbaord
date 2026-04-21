@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { forgotPassword } from '../../store/authSlice';
+import { forgotPassword, clearError } from '../../store/authSlice';
 
 export default function ForgotPassword() {
   const dispatch = useDispatch();
@@ -9,18 +9,23 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [resetSent, setResetSent] = useState(false);
 
+  const handleChange = (e) => {
+    setEmail(e.target.value);
+    if (error) {
+      dispatch(clearError());
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      if (!email) {
-        return;
-      }
+    if (!email) {
+      return;
+    }
 
+    try {
       // Dispatch forgot password action with Redux
       await dispatch(forgotPassword({ email })).unwrap();
-      console.log('Sending password reset email to:', email);
-      
       setResetSent(true);
     } catch (err) {
       // Error handled by Redux
@@ -44,34 +49,56 @@ export default function ForgotPassword() {
                 type="email"
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChange}
                 placeholder="Enter your registered email"
                 required
-                className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition"
+                disabled={loading}
+                className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
               <small className="text-xs text-gray-600">We'll send you a link to reset your password (valid for 1 hour)</small>
             </div>
 
-            {error && <div className="px-3 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg text-sm">{error}</div>}
+            {error && (
+              <div className="px-3 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
 
-            <button type="submit" className="w-full bg-indigo-500 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold text-sm transition disabled:opacity-60" disabled={loading}>
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-3 rounded-lg font-semibold text-sm transition"
+            >
               {loading ? 'Sending...' : 'Send Reset Link'}
             </button>
 
             <p className="text-center text-gray-700 text-sm mt-3">
-              Remember your password? <a href="/login" className="text-indigo-500 font-semibold hover:text-purple-700 ml-1 transition">Sign in</a>
+              Remember your password? <a href="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold ml-1 transition">Sign in</a>
             </p>
           </form>
         ) : (
           <div className="text-center">
+            <div className="mb-4">
+              <div className="inline-block p-3 bg-green-100 rounded-full">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            </div>
             <h2 className="text-2xl font-bold text-green-600 mb-4">Check Your Email</h2>
             <p className="text-gray-700 mb-2">We've sent a password reset link to:</p>
-            <p className="font-semibold text-indigo-600 mb-2">{email}</p>
-            <p className="text-gray-600 mb-4">The link will expire in 1 hour.</p>
+            <p className="font-semibold text-indigo-600 mb-4">{email}</p>
+            <p className="text-gray-600 mb-6">The link will expire in 1 hour. Please check your email to continue.</p>
             <p className="text-xs text-gray-500 mb-6">
-              <strong>Didn't receive the email?</strong> Check your spam folder or <button className="text-indigo-500 hover:text-purple-700 font-semibold" onClick={() => setResetSent(false)}>try another email</button>
+              <strong>Didn't receive the email?</strong> Check your spam folder or{' '}
+              <button className="text-indigo-600 hover:text-indigo-700 font-semibold" onClick={() => setResetSent(false)}>
+                try another email
+              </button>
             </p>
-            <button className="w-full bg-indigo-500 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold text-sm transition" onClick={() => window.location.href = '/login'}>
+            <button 
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold text-sm transition"
+              onClick={() => window.location.href = '/login'}
+            >
               Back to Login
             </button>
           </div>
