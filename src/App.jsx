@@ -75,7 +75,10 @@ function App() {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(validateToken());
+    // Only validate token if one exists
+    if (localStorage.getItem('authToken')) {
+      dispatch(validateToken());
+    }
   }, [dispatch]);
 
   return (
