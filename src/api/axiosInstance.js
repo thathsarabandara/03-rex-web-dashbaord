@@ -5,6 +5,7 @@ import { config } from '../config';
 const axiosInstance = axios.create({
   baseURL: config.apiBaseUrl,
   timeout: 10000,
+  withCredentials: true, // Enable sending cookies with requests
   headers: {
     'Content-Type': 'application/json',
   },
@@ -34,7 +35,11 @@ axiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('authToken');
-      window.location.href = '/login';
+      localStorage.removeItem('tenantId');
+      // Redirect to login
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
