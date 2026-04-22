@@ -10,6 +10,8 @@ export default function Register() {
 
   const [step, setStep] = useState('form'); // form, otp
   const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
     password: '',
@@ -48,10 +50,22 @@ export default function Register() {
 
   const handleFormChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const newFormData = {
+    let newFormData = {
       ...formData,
       [name]: type === 'checkbox' ? checked : value
     };
+    
+    // Auto-generate username if firstName, lastName, or email changes
+    if (['firstName', 'lastName', 'email'].includes(name)) {
+      const firstName = name === 'firstName' ? value : formData.firstName;
+      const lastName = name === 'lastName' ? value : formData.lastName;
+      const email = name === 'email' ? value : formData.email;
+      
+      if (firstName && lastName && email) {
+        const emailUsername = email.split('@')[0];
+        newFormData.username = `${firstName.toLowerCase()}${lastName.toLowerCase()}${emailUsername}`.replace(/[^a-z0-9]/g, '');
+      }
+    }
     
     if (name === 'password') {
       setPasswordStrength(calculatePasswordStrength(value));
@@ -87,6 +101,8 @@ export default function Register() {
     try {
       // Initiate registration
       await dispatch(registerInitiate({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
         username: formData.username,
         email: formData.email,
         password: formData.password,
@@ -217,18 +233,50 @@ export default function Register() {
         )}
 
         <form onSubmit={handleFormSubmit} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="firstName" className="block font-semibold text-gray-900 text-sm mb-2">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleFormChange}
+                placeholder="John"
+                required
+                disabled={loading}
+                className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="lastName" className="block font-semibold text-gray-900 text-sm mb-2">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleFormChange}
+                placeholder="Doe"
+                required
+                disabled={loading}
+                className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
+              />
+            </div>
+          </div>
+
           <div>
-            <label htmlFor="username" className="block font-semibold text-gray-900 text-sm mb-2">Username</label>
+            <label htmlFor="username" className="block font-semibold text-gray-900 text-sm mb-2">Username <span className="text-xs text-gray-500 font-normal">(auto-generated)</span></label>
             <input
               type="text"
               id="username"
               name="username"
               value={formData.username}
               onChange={handleFormChange}
-              placeholder="Choose a username"
+              placeholder="Auto-generated from name and email"
               required
               disabled={loading}
-              className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
+              className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans bg-gray-50 focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
             />
           </div>
 
@@ -312,84 +360,6 @@ export default function Register() {
           </label>
 
           <button type="submit" className="w-full bg-indigo-500 hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-3 rounded-lg font-semibold text-sm transition mt-4" disabled={loading}>
-            {loading ? 'Creating Account...' : 'Create Account'}
-          </button>
-
-          <p className="text-center text-gray-700 text-sm mt-3">
-            Already have an account? <a href="/login" className="text-indigo-500 font-semibold hover:text-purple-700 ml-1 transition">Sign in</a>
-          </p>
-        </form>
-      </div>
-    </div>
-  );
-}
-                    passwordStrength === 0 ? 'w-1/4 bg-red-500' :
-                    passwordStrength === 1 ? 'w-2/4 bg-orange-500' :
-                    passwordStrength === 2 ? 'w-3/4 bg-yellow-500' :
-                    'w-full bg-green-500'
-                  }`}
-                ></div>
-              </div>
-              <p className={`text-xs font-semibold ${
-                passwordStrength === 0 ? 'text-red-500' :
-                passwordStrength === 1 ? 'text-orange-500' :
-                passwordStrength === 2 ? 'text-yellow-600' :
-                'text-green-500'
-              }`}>
-                Strength: {getPasswordStrengthLabel()}
-              </p>
-            </div>
-            <ul className="mt-2 text-xs text-gray-600 space-y-1">
-              <li className={passwordStrength >= 1 ? 'text-green-600 line-through' : ''}>○ At least 8 characters</li>
-              <li className={passwordStrength >= 2 ? 'text-green-600 line-through' : ''}>○ Mix of uppercase and lowercase</li>
-              <li className={passwordStrength >= 3 ? 'text-green-600 line-through' : ''}>○ At least one number</li>
-              <li className={passwordStrength >= 4 ? 'text-green-600 line-through' : ''}>○ At least one special character</li>
-            </ul>
-          </div>
-
-          <div>
-            <label htmlFor="confirmPassword" className="block font-semibold text-gray-900 text-sm mb-2">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Re-enter your password"
-              required
-              className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="role" className="block font-semibold text-gray-900 text-sm mb-2">Account Type</label>
-            <select
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleChange}
-              className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition"
-            >
-              <option value="user">Regular User</option>
-              <option value="family">Family Member</option>
-              <option value="guest">Guest Access</option>
-            </select>
-          </div>
-
-          {error && <div className="px-3 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg text-sm">{error}</div>}
-
-          <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 mt-4">
-            <input
-              type="checkbox"
-              name="agreeToTerms"
-              checked={formData.agreeToTerms}
-              onChange={handleChange}
-              className="w-4 h-4 cursor-pointer"
-            />
-            I agree to the <a href="#terms" className="text-indigo-500 font-semibold hover:text-purple-700">Terms of Service</a> and <a href="#privacy" className="text-indigo-500 font-semibold hover:text-purple-700">Privacy Policy</a>
-          </label>
-
-          <button type="submit" className="w-full bg-indigo-500 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold text-sm transition disabled:opacity-60 mt-4" disabled={loading}>
             {loading ? 'Creating Account...' : 'Create Account'}
           </button>
 
