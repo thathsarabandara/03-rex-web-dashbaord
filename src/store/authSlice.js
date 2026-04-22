@@ -30,9 +30,9 @@ export const loginUser = createAsyncThunk(
 
 export const registerInitiate = createAsyncThunk(
   'auth/registerInitiate',
-  async ({ username, email, password }, { rejectWithValue }) => {
+  async ({ firstName, lastName, username, email, password }, { rejectWithValue }) => {
     try {
-      const response = await authAPI.registerInitiate(username, email, password);
+      const response = await authAPI.registerInitiate(firstName, lastName, username, email, password);
 
       return {
         tempToken: response.data.temp_token,
