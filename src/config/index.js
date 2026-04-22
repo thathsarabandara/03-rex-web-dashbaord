@@ -5,7 +5,7 @@
 
 export const config = {
   // API Configuration
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  apiBaseUrl: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api',
   
   // App Configuration
   appName: import.meta.env.VITE_APP_NAME || 'REX-47 Dashboard',
