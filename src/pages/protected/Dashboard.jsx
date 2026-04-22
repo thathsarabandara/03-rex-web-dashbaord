@@ -62,7 +62,7 @@ export default function Dashboard() {
             <h3 className="text-sm font-semibold text-gray-600 mb-3">Battery Level</h3>
             <div className="mb-3">
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
-                <div 
+                <div
                   className={`h-full transition-all ${currentRobot.battery < 30 ? 'bg-red-500' : 'bg-green-500'}`}
                   style={{ width: `${currentRobot.battery}%` }}
                 ></div>
