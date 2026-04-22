@@ -12,7 +12,6 @@ export default function Register() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -55,18 +54,6 @@ export default function Register() {
       [name]: type === 'checkbox' ? checked : value
     };
     
-    // Auto-generate username if firstName, lastName, or email changes
-    if (['firstName', 'lastName', 'email'].includes(name)) {
-      const firstName = name === 'firstName' ? value : formData.firstName;
-      const lastName = name === 'lastName' ? value : formData.lastName;
-      const email = name === 'email' ? value : formData.email;
-      
-      if (firstName && lastName && email) {
-        const emailUsername = email.split('@')[0];
-        newFormData.username = `${firstName.toLowerCase()}${lastName.toLowerCase()}${emailUsername}`.replace(/[^a-z0-9]/g, '');
-      }
-    }
-    
     if (name === 'password') {
       setPasswordStrength(calculatePasswordStrength(value));
     }
@@ -103,7 +90,6 @@ export default function Register() {
       await dispatch(registerInitiate({
         firstName: formData.firstName,
         lastName: formData.lastName,
-        username: formData.username,
         email: formData.email,
         password: formData.password,
       })).unwrap();
@@ -263,21 +249,6 @@ export default function Register() {
                 className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
             </div>
-          </div>
-
-          <div>
-            <label htmlFor="username" className="block font-semibold text-gray-900 text-sm mb-2">Username <span className="text-xs text-gray-500 font-normal">(auto-generated)</span></label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleFormChange}
-              placeholder="Auto-generated from name and email"
-              required
-              disabled={loading}
-              className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans bg-gray-50 focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
-            />
           </div>
 
           <div>
