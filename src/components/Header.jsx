@@ -5,6 +5,22 @@ import { logout } from '../store/authSlice';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { IoNotifications } from 'react-icons/io5';
 
+const getInitials = (name) => {
+  if (!name) return 'U';
+  const names = name.trim().split(' ');
+  return names.map(n => n.charAt(0).toUpperCase()).join('').slice(0, 2);
+};
+
+const getAvatarColor = (name) => {
+  if (!name) return 'bg-indigo-500';
+  const colors = [
+    'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500',
+    'bg-purple-500', 'bg-pink-500', 'bg-indigo-500', 'bg-teal-500'
+  ];
+  const index = name.charCodeAt(0) % colors.length;
+  return colors[index];
+};
+
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -262,12 +278,17 @@ export default function Header() {
                 }}
                 className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 transition duration-300"
               >
-
-                <img
-                  src={user?.profilePicture || 'https://via.placeholder.com/40?text=User'}
-                  alt={user?.name || 'User'}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-indigo-500"
-                />
+                {user?.profilePicture ? (
+                  <img
+                    src={user.profilePicture}
+                    alt={user?.name || 'User'}
+                    className="w-10 h-10 rounded-full object-cover border-2 border-indigo-500"
+                  />
+                ) : (
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold border-2 border-indigo-500 ${getAvatarColor(user?.name)}`}>
+                    {getInitials(user?.name)}
+                  </div>
+                )}
 
                 <div className="hidden sm:block text-left">
                   <p className="text-xs text-gray-600">Welcome back</p>
