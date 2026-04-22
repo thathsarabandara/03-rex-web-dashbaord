@@ -120,7 +120,7 @@ export default function Home() {
             .float-icon:nth-child(4) { animation: float4 4.5s ease-in-out infinite; }
             .float-icon:nth-child(5) { animation: float5 5.5s ease-in-out infinite; }
           `}</style>
-          
+
           <div className="float-icon absolute top-20 left-10 text-5xl opacity-20 text-blue-600"><FaPython /></div>
           <div className="float-icon absolute top-40 right-20 text-5xl opacity-15 text-blue-400"><FaDocker /></div>
           <div className="float-icon absolute bottom-32 left-32 text-5xl opacity-20 text-blue-600"><SiKubernetes /></div>
