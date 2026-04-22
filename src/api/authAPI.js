@@ -12,8 +12,10 @@ export const authAPI = {
     axiosInstance.post(config.endpoints.auth.login, { email, password }),
 
   // Registration
-  registerInitiate: (username, email, password) =>
+  registerInitiate: (firstName, lastName, username, email, password) =>
     axiosInstance.post(`${config.endpoints.auth.register}/initiate`, {
+      first_name: firstName,
+      last_name: lastName,
       username,
       email,
       password,
