@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { FaEnvelope, FaBriefcase, FaGithub, FaLink, FaArrowRight, FaRocket, FaGraduationCap, FaQuestionCircle } from 'react-icons/fa';
 import gsap from 'gsap';
 
 export default function Contact() {
@@ -49,28 +50,28 @@ export default function Contact() {
 
             {[
               {
-                icon: '📧',
+                icon: <FaEnvelope />,
                 title: 'Email',
                 value: 'thathsara@example.com',
                 desc: 'Fastest way to reach out for collaboration',
                 link: 'mailto:thathsara@example.com',
               },
               {
-                icon: '💼',
+                icon: <FaBriefcase />,
                 title: 'LinkedIn',
                 value: 'Thathsara Bandara',
                 desc: 'Connect with me on LinkedIn',
                 link: 'https://linkedin.com/in/thathsara-bandara',
               },
               {
-                icon: '🐙',
+                icon: <FaGithub />,
                 title: 'GitHub',
                 value: '@thathsara-bandara',
                 desc: 'View all my projects and contributions',
                 link: 'https://github.com/thathsara-bandara',
               },
               {
-                icon: '🔗',
+                icon: <FaLink />,
                 title: 'Portfolio',
                 value: 'thathsara.dev',
                 desc: 'Check out my complete portfolio',
@@ -105,9 +106,9 @@ export default function Contact() {
                   <a
                     key={idx}
                     href="#"
-                    className="text-blue-600 hover:text-blue-700 font-semibold transition duration-300"
+                    className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-semibold transition duration-300"
                   >
-                    → {link}
+                    <FaArrowRight className="text-sm" /> {link}
                   </a>
                 ))}
               </div>
@@ -158,9 +159,9 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-indigo-700 transition duration-300 shadow-lg"
+                  className="w-full flex justify-center items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-indigo-700 transition duration-300 shadow-lg"
                 >
-                  Send Message →
+                  Send Message <FaArrowRight />
                 </button>
 
                 <p className="text-xs text-gray-600 text-center">
@@ -180,17 +181,17 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: '🚀',
+                icon: <FaRocket />,
                 title: 'Research Partners',
                 desc: 'Collaborate on advancing robotics, AI, and IoT technologies',
               },
               {
-                icon: '💼',
+                icon: <FaBriefcase />,
                 title: 'Business Opportunities',
                 desc: 'Discuss commercial applications and product development',
               },
               {
-                icon: '🎓',
+                icon: <FaGraduationCap />,
                 title: 'Educational',
                 desc: 'Workshops, mentoring, and knowledge sharing opportunities',
               },
@@ -251,7 +252,7 @@ export default function Contact() {
               },
             ].map((faq, idx) => (
               <div key={idx} className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-l-4 border-blue-600">
-                <h3 className="text-lg font-bold text-gray-900 mb-2">❓ {faq.q}</h3>
+                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900 mb-2"><FaQuestionCircle className="text-blue-600" /> {faq.q}</h3>
                 <p className="text-gray-700">{faq.a}</p>
               </div>
             ))}
