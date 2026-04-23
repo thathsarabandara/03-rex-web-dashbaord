@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { IoNotifications } from 'react-icons/io5';
+import { FaUser, FaCog } from 'react-icons/fa';
+import { CiLogout } from 'react-icons/ci';
 
 const getInitials = (name) => {
   if (!name) return 'U';
@@ -322,23 +324,23 @@ export default function Header() {
                     <Link
                       to="/profile"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-indigo-50 transition duration-300"
+                      className="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-indigo-50 transition duration-300"
                     >
-                      <span className="mr-2">👤</span> Profile
+                      <FaUser className="mr-2" /> Profile
                     </Link>
                     <Link
                       to="/settings"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-indigo-50 transition duration-300"
+                      className="flex items-center px-4 py-2 text-sm text-gray-800 hover:bg-indigo-50 transition duration-300"
                     >
-                      <span className="mr-2">⚙️</span> Settings
+                      <FaCog className="mr-2" /> Settings
                     </Link>
 
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-300 border-t border-gray-200 mt-2"
+                      className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-300 border-t border-gray-200 mt-2"
                     >
-                      <span className="mr-2">🚪</span> Logout
+                      <CiLogout className="mr-2 text-lg" /> Logout
                     </button>
                   </div>
                 )}
