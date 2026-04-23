@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { FaRocket, FaEye, FaHome, FaMobileAlt, FaPlay, FaCheck, FaGamepad, FaRobot, FaFilm, FaCamera, FaLaptopCode, FaCheckCircle, FaSave, FaBook, FaDocker } from 'react-icons/fa';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -58,22 +59,22 @@ export default function Gallery() {
                 {
                   title: 'Autonomous Navigation',
                   desc: 'Robot navigating through home obstacles',
-                  icon: '🚀',
+                  icon: <FaRocket />,
                 },
                 {
                   title: 'Face Recognition',
                   desc: 'Real-time face detection and recognition',
-                  icon: '👁️',
+                  icon: <FaEye />,
                 },
                 {
                   title: 'Smart Home Control',
                   desc: 'Automated home automation sequences',
-                  icon: '🏠',
+                  icon: <FaHome />,
                 },
                 {
                   title: 'AR Dashboard',
                   desc: 'Augmented reality interface demo',
-                  icon: '📱',
+                  icon: <FaMobileAlt />,
                 },
               ].map((video, idx) => (
                 <div
@@ -90,7 +91,7 @@ export default function Gallery() {
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition duration-300">
                       <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <span className="text-3xl">▶️</span>
+                        <FaPlay className="text-2xl text-blue-600 ml-1" />
                       </div>
                     </div>
                   </div>
@@ -136,14 +137,14 @@ export default function Gallery() {
                   key={idx}
                   className="gallery-item bg-gradient-to-br from-blue-100 to-indigo-100 p-6 rounded-xl border-2 border-blue-300 shadow-md hover:shadow-lg transition duration-300"
                 >
-                  <div className="aspect-square bg-white rounded-lg mb-4 flex items-center justify-center text-6xl">
-                    📱
+                  <div className="aspect-square bg-white rounded-lg mb-4 flex items-center justify-center text-5xl text-blue-600">
+                    <FaMobileAlt />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">{screenshot.title}</h3>
                   <ul className="space-y-2 text-gray-700">
                     {screenshot.features.map((feature, featureIdx) => (
-                      <li key={featureIdx} className="flex gap-2">
-                        <span className="text-blue-600">✓</span>
+                      <li key={featureIdx} className="flex items-center gap-2">
+                        <FaCheck className="text-blue-600" />
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -161,12 +162,12 @@ export default function Gallery() {
                 {
                   title: 'Gazebo Simulation',
                   desc: 'Full physics-based robot simulation environment for testing and development',
-                  icon: '🎮',
+                  icon: <FaGamepad />,
                 },
                 {
                   title: 'Web-based Controller',
                   desc: 'Browser-based robot control interface with real-time feedback',
-                  icon: '🕹️',
+                  icon: <FaRobot />,
                 },
               ].map((sim, idx) => (
                 <div
@@ -193,10 +194,10 @@ export default function Gallery() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { label: 'Demo Videos', value: '12+', icon: '🎬' },
-              { label: 'Screenshots', value: '48+', icon: '📸' },
-              { label: 'Code Samples', value: '200+', icon: '💻' },
-              { label: 'Test Cases', value: '500+', icon: '✅' },
+              { label: 'Demo Videos', value: '12+', icon: <FaFilm /> },
+              { label: 'Screenshots', value: '48+', icon: <FaCamera /> },
+              { label: 'Code Samples', value: '200+', icon: <FaLaptopCode /> },
+              { label: 'Test Cases', value: '500+', icon: <FaCheckCircle /> },
             ].map((stat, idx) => (
               <div
                 key={idx}
@@ -221,19 +222,19 @@ export default function Gallery() {
               {
                 title: 'Firmware',
                 desc: 'Latest ESP32 firmware builds',
-                icon: '💾',
+                icon: <FaSave />,
                 size: '2.5 MB',
               },
               {
                 title: 'Documentation',
                 desc: 'Complete setup and API docs',
-                icon: '📚',
+                icon: <FaBook />,
                 size: '5 MB',
               },
               {
                 title: 'Docker Compose',
                 desc: 'Ready-to-deploy stack',
-                icon: '🐳',
+                icon: <FaDocker />,
                 size: '1.2 MB',
               },
             ].map((resource, idx) => (
