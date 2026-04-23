@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../store/authSlice';
 import { FaBrain, FaChartLine, FaCog, FaHome, FaQuestionCircle, FaRobot, FaTachometerAlt, FaUser } from 'react-icons/fa';
 import { CiLogout } from 'react-icons/ci';
+import { MdClose, MdMenu } from 'react-icons/md';
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -39,10 +40,10 @@ export default function Sidebar() {
         {sidebarOpen && <h2 className="text-xl font-bold text-gray-900">REX-47</h2>}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 hover:bg-gray-100 rounded-lg transition text-gray-600"
+          className="p-2 hover:bg-gray-100 rounded-lg transition text-gray-600 flex items-center justify-center"
           title={sidebarOpen ? 'Collapse' : 'Expand'}
         >
-          {sidebarOpen ? '✕' : '☰'}
+          {sidebarOpen ? <MdClose className="text-xl" /> : <MdMenu className="text-xl" />}
         </button>
       </div>
 
