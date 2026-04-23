@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -225,7 +226,7 @@ export default function Profile() {
                 </label>
               </div>
               {mfaEnabled && (
-                <p className="text-xs text-green-700 mt-3">✓ 2FA is enabled on your account</p>
+                <p className="text-xs text-green-700 mt-3 flex items-center"><FaCheck className="mr-1" /> 2FA is enabled on your account</p>
               )}
             </div>
 
@@ -252,7 +253,7 @@ export default function Profile() {
                     <div className="text-right">
                       <p className="text-xs text-gray-600">{log.time}</p>
                       <p className={`text-xs font-medium ${log.status === 'success' ? 'text-green-700' : 'text-red-700'}`}>
-                        {log.status === 'success' ? '✓' : '✗'}
+                        {log.status === 'success' ? <FaCheck /> : <FaTimes />}
                       </p>
                     </div>
                   </div>
