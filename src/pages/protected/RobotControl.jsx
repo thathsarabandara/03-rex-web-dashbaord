@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaArrowUp, FaArrowLeft, FaArrowRight, FaArrowDown, FaStop, FaExclamationTriangle, FaSync, FaArrowsAltV, FaSearch, FaCamera, FaStopCircle, FaVideo, FaMicrophone, FaCheck, FaTimes } from 'react-icons/fa';
 
 export default function RobotControl() {
   const [speed, setSpeed] = useState(50);
@@ -57,7 +58,7 @@ export default function RobotControl() {
                 onClick={() => handleManualControl('forward')}
                 title="Move Forward"
               >
-                ⬆️
+                <FaArrowUp className="mx-auto" />
               </button>
               <div></div>
               
@@ -66,21 +67,21 @@ export default function RobotControl() {
                 onClick={() => handleManualControl('left')}
                 title="Turn Left"
               >
-                ⬅️
+                <FaArrowLeft className="mx-auto" />
               </button>
               <button 
                 className="p-4 bg-red-500 hover:bg-red-600 text-white rounded text-xl font-bold transition"
                 onClick={() => handleManualControl('stop')}
                 title="Stop"
               >
-                ⏹️
+                <FaStop className="mx-auto" />
               </button>
               <button 
                 className="p-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-xl font-bold transition"
                 onClick={() => handleManualControl('right')}
                 title="Turn Right"
               >
-                ➡️
+                <FaArrowRight className="mx-auto" />
               </button>
               
               <div></div>
@@ -89,7 +90,7 @@ export default function RobotControl() {
                 onClick={() => handleManualControl('backward')}
                 title="Move Backward"
               >
-                ⬇️
+                <FaArrowDown className="mx-auto" />
               </button>
               <div></div>
             </div>
@@ -125,7 +126,7 @@ export default function RobotControl() {
                 className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded font-bold text-base transition mt-4"
                 onClick={handleEmergencyStop}
               >
-                🚨 EMERGENCY STOP
+                <span className="flex items-center justify-center gap-2"><FaExclamationTriangle /> EMERGENCY STOP</span>
               </button>
             </div>
           </div>
@@ -165,15 +166,15 @@ export default function RobotControl() {
         <div className="bg-white rounded-lg border border-gray-200 p-5">
           <h3 className="text-base font-semibold text-gray-900 mb-4">Camera Interaction</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">🔄 Pan</button>
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">↕️ Tilt</button>
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">🔍 Zoom</button>
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">📷 Snapshot</button>
+            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaSync /> Pan</button>
+            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaArrowsAltV /> Tilt</button>
+            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaSearch /> Zoom</button>
+            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaCamera /> Snapshot</button>
             <button 
               className={`px-3 py-2 rounded text-sm font-medium transition col-span-2 md:col-span-1 ${recordingActive ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-green-500 hover:bg-green-600 text-white'}`}
               onClick={() => setRecordingActive(!recordingActive)}
             >
-              {recordingActive ? '⏹️ Stop' : '🎥 Record'}
+              {recordingActive ? <span className="flex items-center justify-center gap-2"><FaStopCircle /> Stop</span> : <span className="flex items-center justify-center gap-2"><FaVideo /> Record</span>}
             </button>
           </div>
         </div>
@@ -183,7 +184,7 @@ export default function RobotControl() {
           <h3 className="text-base font-semibold text-gray-900 mb-2">Voice Commands</h3>
           <p className="text-sm text-gray-600 mb-4">Control robot using voice</p>
           <button className="w-full px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded font-medium text-sm transition mb-4" onClick={handleVoiceCommand}>
-            🎤 Start Voice Command
+            <span className="flex items-center justify-center gap-2"><FaMicrophone /> Start Voice Command</span>
           </button>
           <div className="p-3 bg-gray-50 rounded border border-gray-200">
             <p className="text-xs font-medium text-gray-900 mb-2">Common Commands:</p>
@@ -204,7 +205,7 @@ export default function RobotControl() {
                 <div className="flex justify-between mt-1">
                   <p className="text-xs text-gray-500">{cmd.time}</p>
                   <span className={`text-xs font-medium ${cmd.status === 'executed' ? 'text-green-700' : 'text-red-700'}`}>
-                    {cmd.status === 'executed' ? '✓' : '✗'}
+                    {cmd.status === 'executed' ? <FaCheck /> : <FaTimes />}
                   </span>
                 </div>
               </div>
