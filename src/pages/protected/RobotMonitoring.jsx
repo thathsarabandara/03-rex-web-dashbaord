@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaEye, FaCheck, FaDownload, FaChartBar } from 'react-icons/fa';
 
 export default function RobotMonitoring() {
   const [selectedMetric, setSelectedMetric] = useState('speed');
@@ -59,7 +60,7 @@ export default function RobotMonitoring() {
           <h3 className="text-base font-semibold text-gray-900 mb-4">AI Vision & Object Detection</h3>
           <div className="mb-4 bg-gray-100 rounded-lg flex items-center justify-center h-64">
             <div className="text-center">
-              <div className="text-4xl mb-2">👁️</div>
+              <div className="text-4xl mb-2 flex justify-center"><FaEye /></div>
               <p className="text-gray-500 text-sm">AI Vision Feed</p>
               <p className="text-gray-400 text-xs mt-1">Live vision feed with AI annotations</p>
             </div>
@@ -201,9 +202,9 @@ export default function RobotMonitoring() {
             <div>
               <p className="font-semibold text-gray-900 mb-3">Recent Training Metrics</p>
               <ul className="text-sm text-gray-700 space-y-2">
-                <li>✓ Success Rate: 87%</li>
-                <li>✓ Avg Time to Goal: 2.3s</li>
-                <li>✓ Collision Count: 3</li>
+                <li className="flex items-center"><FaCheck className="mr-2 text-green-500" /> Success Rate: 87%</li>
+                <li className="flex items-center"><FaCheck className="mr-2 text-green-500" /> Avg Time to Goal: 2.3s</li>
+                <li className="flex items-center"><FaCheck className="mr-2 text-green-500" /> Collision Count: 3</li>
               </ul>
             </div>
           </div>
@@ -213,9 +214,9 @@ export default function RobotMonitoring() {
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Export & Analysis</h3>
           <div className="flex gap-3">
-            <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition">📥 Download CSV</button>
-            <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition">📥 Download JSON</button>
-            <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition">📊 Generate Report</button>
+            <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition flex items-center gap-2"><FaDownload /> Download CSV</button>
+            <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition flex items-center gap-2"><FaDownload /> Download JSON</button>
+            <button className="px-6 py-2 border border-indigo-500 text-indigo-500 hover:bg-indigo-50 rounded-lg font-semibold transition flex items-center gap-2"><FaChartBar /> Generate Report</button>
           </div>
         </div>
       </div>
