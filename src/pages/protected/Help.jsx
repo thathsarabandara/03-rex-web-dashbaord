@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaChevronDown, FaChevronRight, FaFilm } from 'react-icons/fa';
 
 export default function Help() {
   const [activeTab, setActiveTab] = useState('guides');
@@ -111,7 +112,7 @@ export default function Help() {
                         <p className="text-sm font-medium text-gray-900">{guide.title}</p>
                         <span className="text-xs text-indigo-600">{guide.category}</span>
                       </div>
-                      <span className="text-lg">{expandedGuide === guide.id ? '▼' : '▶'}</span>
+                      <span className="text-lg">{expandedGuide === guide.id ? <FaChevronDown /> : <FaChevronRight />}</span>
                     </div>
                   </div>
 
@@ -144,7 +145,7 @@ export default function Help() {
               {tutorials.map(tutorial => (
                 <div key={tutorial.id} className="rounded border border-gray-200 overflow-hidden hover:shadow-md transition">
                   <div className="relative bg-gray-300 aspect-video flex items-center justify-center">
-                    <div className="text-3xl">🎬</div>
+                    <div className="text-3xl flex justify-center w-full"><FaFilm /></div>
                     <span className="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-xs px-1.5 py-0.5 rounded">{tutorial.duration}</span>
                   </div>
                   <div className="p-3">
@@ -179,7 +180,7 @@ export default function Help() {
                   >
                     <div className="flex justify-between items-start">
                       <p className="text-sm font-medium text-gray-900 pr-3">{faq.question}</p>
-                      <span className="text-lg flex-shrink-0">{expandedGuide === faq.id ? '▼' : '▶'}</span>
+                      <span className="text-lg flex-shrink-0">{expandedGuide === faq.id ? <FaChevronDown /> : <FaChevronRight />}</span>
                     </div>
                   </div>
                   {expandedGuide === faq.id && (
