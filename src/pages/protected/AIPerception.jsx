@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaMap } from 'react-icons/fa';
 
 export default function AIPerception() {
   const [selectedView, setSelectedView] = useState('decision');
@@ -182,7 +183,7 @@ export default function AIPerception() {
             <h3 className="text-base font-semibold text-gray-900 mb-4">Path Planning</h3>
             <div className="bg-gray-100 rounded flex items-center justify-center h-64 mb-4">
               <div className="text-center">
-                <div className="text-3xl mb-2">🗺️</div>
+                <div className="text-3xl mb-2 flex justify-center w-full"><FaMap /></div>
                 <p className="text-gray-500 text-sm">Navigation map placeholder</p>
               </div>
             </div>
