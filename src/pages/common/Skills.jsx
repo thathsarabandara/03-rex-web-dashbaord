@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { FaPlug, FaBrain, FaRobot, FaCloud, FaLock, FaChartBar, FaRocket, FaEye, FaCheck, FaBookOpen, FaBook, FaSave } from 'react-icons/fa';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -72,7 +73,7 @@ export default function Skills() {
           {[
             {
               category: 'Embedded Systems & IoT',
-              icon: '🔌',
+              icon: <FaPlug />,
               color: 'from-blue-400 to-cyan-500',
               skills: [
                 { name: 'ESP32 Development', level: 95 },
@@ -85,7 +86,7 @@ export default function Skills() {
             },
             {
               category: 'Artificial Intelligence & Vision',
-              icon: '🧠',
+              icon: <FaBrain />,
               color: 'from-purple-400 to-indigo-500',
               skills: [
                 { name: 'PyTorch & Deep Learning', level: 92 },
@@ -98,7 +99,7 @@ export default function Skills() {
             },
             {
               category: 'Robotics & Simulation',
-              icon: '🤖',
+              icon: <FaRobot />,
               color: 'from-red-400 to-orange-500',
               skills: [
                 { name: 'ROS2 Framework', level: 88 },
@@ -111,7 +112,7 @@ export default function Skills() {
             },
             {
               category: 'Full-Stack & Cloud',
-              icon: '☁️',
+              icon: <FaCloud />,
               color: 'from-green-400 to-teal-500',
               skills: [
                 { name: 'FastAPI Backend', level: 93 },
@@ -124,7 +125,7 @@ export default function Skills() {
             },
             {
               category: 'DevOps & Security',
-              icon: '🔐',
+              icon: <FaLock />,
               color: 'from-pink-400 to-rose-500',
               skills: [
                 { name: 'CI/CD Pipelines', level: 89 },
@@ -137,7 +138,7 @@ export default function Skills() {
             },
             {
               category: 'Data Science & Analytics',
-              icon: '📊',
+              icon: <FaChartBar />,
               color: 'from-indigo-400 to-purple-500',
               skills: [
                 { name: 'Time Series Analysis', level: 87 },
@@ -226,7 +227,7 @@ export default function Skills() {
           <div className="space-y-6">
             {[
               {
-                phase: '🚀 Phase 1',
+                phase: <span className="flex items-center gap-2"><FaRocket /> Phase 1</span>,
                 title: 'Hardware & Embedded Systems',
                 learnings: [
                   'ESP32 microcontroller programming and FreeRTOS',
@@ -236,7 +237,7 @@ export default function Skills() {
                 ],
               },
               {
-                phase: '👁️ Phase 2',
+                phase: <span className="flex items-center gap-2"><FaEye /> Phase 2</span>,
                 title: 'Computer Vision & Perception',
                 learnings: [
                   'Deep learning with PyTorch and TensorFlow',
@@ -246,7 +247,7 @@ export default function Skills() {
                 ],
               },
               {
-                phase: '🧠 Phase 3',
+                phase: <span className="flex items-center gap-2"><FaBrain /> Phase 3</span>,
                 title: 'AI & Decision Making',
                 learnings: [
                   'Reinforcement learning algorithms and training',
@@ -256,7 +257,7 @@ export default function Skills() {
                 ],
               },
               {
-                phase: '☁️ Phase 4',
+                phase: <span className="flex items-center gap-2"><FaCloud /> Phase 4</span>,
                 title: 'Cloud & Full-Stack',
                 learnings: [
                   'FastAPI async backend development',
@@ -266,7 +267,7 @@ export default function Skills() {
                 ],
               },
               {
-                phase: '🔐 Phase 5',
+                phase: <span className="flex items-center gap-2"><FaLock /> Phase 5</span>,
                 title: 'DevOps & Production',
                 learnings: [
                   'Kubernetes orchestration and scaling',
@@ -287,7 +288,7 @@ export default function Skills() {
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {phase.learnings.map((learning, lIdx) => (
                         <li key={lIdx} className="flex gap-3 text-gray-700">
-                          <span className="text-blue-600 font-bold">✓</span>
+                          <FaCheck className="text-blue-600 mt-1" />
                           <span>{learning}</span>
                         </li>
                       ))}
@@ -308,17 +309,17 @@ export default function Skills() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                icon: '📖',
+                icon: <FaBookOpen />,
                 title: 'Technical Blog',
                 desc: 'Deep dive articles on implementation details and lessons learned',
               },
               {
-                icon: '📚',
+                icon: <FaBook />,
                 title: 'Documentation',
                 desc: 'Complete API docs, setup guides, and architecture diagrams',
               },
               {
-                icon: '💾',
+                icon: <FaSave />,
                 title: 'Code Repositories',
                 desc: 'Open-source code with extensive examples and best practices',
               },
