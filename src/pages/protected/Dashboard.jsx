@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { FaCircle, FaCamera, FaVideo, FaArrowUp, FaArrowDown, FaArrowLeft, FaArrowRight, FaStop, FaRocket, FaBroom, FaSatelliteDish, FaMap } from 'react-icons/fa';
 
 export default function Dashboard() {
   const { user } = useSelector((state) => state.auth);
@@ -78,7 +79,7 @@ export default function Dashboard() {
           <div className="bg-white rounded-lg border border-gray-200 p-5">
             <h3 className="text-sm font-semibold text-gray-600 mb-3">Connectivity</h3>
             <div className={`text-2xl font-bold mb-2 ${currentRobot.connectivity === 'online' ? 'text-green-600' : 'text-red-600'}`}>
-              {currentRobot.connectivity === 'online' ? '🟢' : '🔴'}
+              <FaCircle className="inline" />
             </div>
             <p className="text-xs text-gray-600">ESP32</p>
             {currentRobot.connectivity === 'online' && <p className="text-xs text-green-600 font-medium mt-1">Signal: Strong</p>}
@@ -107,14 +108,14 @@ export default function Dashboard() {
           <h3 className="text-base font-semibold text-gray-900 mb-4">Live Camera Feed</h3>
           <div className="mb-4 bg-gray-100 rounded-lg flex items-center justify-center h-64">
             <div className="text-center">
-              <div className="text-4xl mb-2">📷</div>
+              <div className="text-4xl mb-2 flex justify-center w-full"><FaCamera /></div>
               <p className="text-gray-500 text-sm">Camera feed placeholder</p>
               <p className="text-gray-400 text-xs mt-1">Real-time camera stream would display here</p>
             </div>
           </div>
           <div className="flex gap-2">
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">📷 Capture</button>
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition">🎥 Record</button>
+            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center gap-2"><FaCamera /> Capture</button>
+            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center gap-2"><FaVideo /> Record</button>
           </div>
         </div>
 
@@ -122,14 +123,14 @@ export default function Dashboard() {
         <div className="bg-white rounded-lg border border-gray-200 p-5">
           <h3 className="text-base font-semibold text-gray-900 mb-4">Quick Actions</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition">⬆️ Forward</button>
-            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition">⬇️ Backward</button>
-            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition">⬅️ Left</button>
-            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition">➡️ Right</button>
-            <button className="px-3 py-2 bg-red-100 text-red-700 hover:bg-red-200 rounded text-sm font-medium transition">⏹️ Stop</button>
-            <button className="px-3 py-2 bg-green-100 text-green-700 hover:bg-green-200 rounded text-sm font-medium transition">🚀 Patrol</button>
-            <button className="px-3 py-2 bg-blue-100 text-blue-700 hover:bg-blue-200 rounded text-sm font-medium transition">🧹 Clean</button>
-            <button className="px-3 py-2 bg-indigo-100 text-indigo-700 hover:bg-indigo-200 rounded text-sm font-medium transition">📡 Navigate</button>
+            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaArrowUp /> Forward</button>
+            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaArrowDown /> Backward</button>
+            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaArrowLeft /> Left</button>
+            <button className="px-3 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaArrowRight /> Right</button>
+            <button className="px-3 py-2 bg-red-100 text-red-700 hover:bg-red-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaStop /> Stop</button>
+            <button className="px-3 py-2 bg-green-100 text-green-700 hover:bg-green-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaRocket /> Patrol</button>
+            <button className="px-3 py-2 bg-blue-100 text-blue-700 hover:bg-blue-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaBroom /> Clean</button>
+            <button className="px-3 py-2 bg-indigo-100 text-indigo-700 hover:bg-indigo-200 rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaSatelliteDish /> Navigate</button>
           </div>
         </div>
 
@@ -138,7 +139,7 @@ export default function Dashboard() {
           <h3 className="text-base font-semibold text-gray-900 mb-4">Environment Map (SLAM)</h3>
           <div className="bg-gray-100 rounded-lg flex items-center justify-center h-72">
             <div className="text-center">
-              <div className="text-4xl mb-2">🗺️</div>
+              <div className="text-4xl mb-2 flex justify-center w-full"><FaMap /></div>
               <p className="text-gray-500 text-sm">SLAM Map placeholder</p>
               <p className="text-gray-400 text-xs mt-1">Real-time mapping visualization would appear here</p>
             </div>
