@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { FaCircle } from 'react-icons/fa';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -95,19 +96,19 @@ export default function About() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">The Problem We're Solving</h2>
             <ul className="space-y-3 text-gray-700 text-lg">
               <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">•</span>
+                <FaCircle className="text-blue-600 mt-2 text-xs" />
                 <span>Home automation remains fragmented across incompatible platforms</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">•</span>
+                <FaCircle className="text-blue-600 mt-2 text-xs" />
                 <span>Current smart home systems lack true autonomous decision-making</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">•</span>
+                <FaCircle className="text-blue-600 mt-2 text-xs" />
                 <span>Security vulnerabilities in IoT devices pose serious risks</span>
               </li>
               <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">•</span>
+                <FaCircle className="text-blue-600 mt-2 text-xs" />
                 <span>Limited human-robot interaction and learning capabilities</span>
               </li>
             </ul>
