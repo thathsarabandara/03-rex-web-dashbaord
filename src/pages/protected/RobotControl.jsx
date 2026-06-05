@@ -1,5 +1,27 @@
 import React, { useState } from 'react';
-import { FaArrowUp, FaArrowLeft, FaArrowRight, FaArrowDown, FaStop, FaExclamationTriangle, FaSync, FaArrowsAltV, FaSearch, FaCamera, FaStopCircle, FaVideo, FaMicrophone, FaCheck, FaTimes } from 'react-icons/fa';
+import { 
+  ArrowUp, 
+  ArrowLeft, 
+  ArrowRight, 
+  ArrowDown, 
+  Square, 
+  RefreshCw, 
+  MoveVertical, 
+  Search, 
+  Camera, 
+  StopCircle, 
+  Video, 
+  Mic, 
+  Check, 
+  X, 
+  Crosshair, 
+  Activity, 
+  Plus,
+  Clock,
+  Settings2,
+  Gamepad2,
+  AlertTriangle
+} from 'lucide-react';
 
 export default function RobotControl() {
   const [speed, setSpeed] = useState(50);
@@ -39,178 +61,224 @@ export default function RobotControl() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="font-sans animate-in fade-in duration-500 pb-10">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Robot Control Center</h1>
-        <p className="text-gray-600">Direct manual and autonomous control</p>
+        <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Teleoperation Interface</h1>
+        <p className="text-slate-500 font-medium text-sm">Direct manual and autonomous directive control</p>
       </div>
 
-      <div className="space-y-6">
-        {/* Manual Controls */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-900 mb-5">Manual Controls</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        {/* Left Column: Controls */}
+        <div className="lg:col-span-8 space-y-6">
           
-          <div className="flex flex-col items-center">
-            <div className="grid grid-cols-3 gap-2 w-32 mb-6">
-              <div></div>
-              <button 
-                className="p-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-xl font-bold transition"
-                onClick={() => handleManualControl('forward')}
-                title="Move Forward"
-              >
-                <FaArrowUp className="mx-auto" />
-              </button>
-              <div></div>
-              
-              <button 
-                className="p-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-xl font-bold transition"
-                onClick={() => handleManualControl('left')}
-                title="Turn Left"
-              >
-                <FaArrowLeft className="mx-auto" />
-              </button>
-              <button 
-                className="p-4 bg-red-500 hover:bg-red-600 text-white rounded text-xl font-bold transition"
-                onClick={() => handleManualControl('stop')}
-                title="Stop"
-              >
-                <FaStop className="mx-auto" />
-              </button>
-              <button 
-                className="p-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-xl font-bold transition"
-                onClick={() => handleManualControl('right')}
-                title="Turn Right"
-              >
-                <FaArrowRight className="mx-auto" />
-              </button>
-              
-              <div></div>
-              <button 
-                className="p-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-xl font-bold transition"
-                onClick={() => handleManualControl('backward')}
-                title="Move Backward"
-              >
-                <FaArrowDown className="mx-auto" />
-              </button>
-              <div></div>
+          {/* Kinematic Drive System */}
+          <div className="glass-card-vibrant p-8">
+            <div className="flex items-center gap-3 mb-6">
+               <div className="w-10 h-10 bg-brand-accent/10 rounded-[12px] flex items-center justify-center text-brand-accent">
+                  <Gamepad2 size={20} />
+               </div>
+               <div>
+                  <h3 className="text-lg font-black text-slate-900">Kinematic Drive System</h3>
+                  <p className="text-sm font-medium text-slate-500">Real-time low-latency motor control</p>
+               </div>
             </div>
-
-            <div className="w-full space-y-3">
-              <div>
-                <label htmlFor="speed" className="block text-sm font-medium text-gray-900 mb-2">Speed: {speed}%</label>
-                <input
-                  type="range"
-                  id="speed"
-                  min="0"
-                  max="100"
-                  value={speed}
-                  onChange={(e) => setSpeed(e.target.value)}
-                  className="w-full"
-                />
+            
+            <div className="flex flex-col md:flex-row gap-10 items-center justify-between mt-8">
+              {/* Directional Pad */}
+              <div className="relative w-48 h-48 flex-shrink-0">
+                <div className="absolute inset-0 bg-slate-50 rounded-full border-4 border-slate-100 shadow-inner flex items-center justify-center">
+                   <div className="w-20 h-20 bg-slate-200/50 rounded-full"></div>
+                </div>
+                
+                <button 
+                  className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-14 bg-white hover:bg-slate-100 text-slate-700 rounded-[12px] shadow-sm border border-slate-200 flex items-center justify-center transition-all active:scale-95 z-10"
+                  onClick={() => handleManualControl('forward')}
+                >
+                  <ArrowUp size={24} />
+                </button>
+                <button 
+                  className="absolute bottom-2 left-1/2 -translate-x-1/2 w-12 h-14 bg-white hover:bg-slate-100 text-slate-700 rounded-[12px] shadow-sm border border-slate-200 flex items-center justify-center transition-all active:scale-95 z-10"
+                  onClick={() => handleManualControl('backward')}
+                >
+                  <ArrowDown size={24} />
+                </button>
+                <button 
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-14 h-12 bg-white hover:bg-slate-100 text-slate-700 rounded-[12px] shadow-sm border border-slate-200 flex items-center justify-center transition-all active:scale-95 z-10"
+                  onClick={() => handleManualControl('left')}
+                >
+                  <ArrowLeft size={24} />
+                </button>
+                <button 
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-14 h-12 bg-white hover:bg-slate-100 text-slate-700 rounded-[12px] shadow-sm border border-slate-200 flex items-center justify-center transition-all active:scale-95 z-10"
+                  onClick={() => handleManualControl('right')}
+                >
+                  <ArrowRight size={24} />
+                </button>
+                <button 
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-full shadow-md border-2 border-rose-200 flex items-center justify-center transition-all active:scale-95 z-20"
+                  onClick={() => handleManualControl('stop')}
+                >
+                  <Square size={20} className="fill-current" />
+                </button>
               </div>
 
-              <div>
-                <label htmlFor="sensitivity" className="block text-sm font-medium text-gray-900 mb-2">Sensitivity: {sensitivity}%</label>
-                <input
-                  type="range"
-                  id="sensitivity"
-                  min="0"
-                  max="100"
-                  value={sensitivity}
-                  onChange={(e) => setSensitivity(e.target.value)}
-                  className="w-full"
-                />
-              </div>
-
-              <button 
-                className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded font-bold text-base transition mt-4"
-                onClick={handleEmergencyStop}
-              >
-                <span className="flex items-center justify-center gap-2"><FaExclamationTriangle /> EMERGENCY STOP</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Autonomous Modes */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-900 mb-4">Autonomous Modes</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {autonomousModes.map(mode => (
-              <button key={mode.id} className="p-4 border border-gray-300 hover:border-indigo-400 rounded text-left transition">
-                <h4 className="font-semibold text-gray-900 text-sm">{mode.name}</h4>
-                <p className="text-gray-600 text-xs mt-1">{mode.description}</p>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Scheduled Routines */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-900 mb-3">Scheduled Routines</h3>
-          <div className="space-y-2 mb-4">
-            {schedules.map(schedule => (
-              <div key={schedule.id} className="flex items-center justify-between p-3 border border-gray-200 rounded">
+              {/* Sliders & E-Stop */}
+              <div className="w-full space-y-6">
                 <div>
-                  <p className="text-sm font-medium text-gray-900">{schedule.name}</p>
-                  <p className="text-xs text-gray-500">{schedule.time}</p>
+                  <div className="flex justify-between items-center mb-2">
+                     <label htmlFor="speed" className="text-sm font-bold text-slate-700 flex items-center gap-2"><Settings2 size={16} /> Velocity Limit</label>
+                     <span className="text-xs font-black bg-slate-100 px-2 py-1 rounded-md text-slate-600">{speed}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    id="speed"
+                    min="0"
+                    max="100"
+                    value={speed}
+                    onChange={(e) => setSpeed(e.target.value)}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-accent"
+                  />
                 </div>
-                <input type="checkbox" checked={schedule.enabled} readOnly className="w-4 h-4" />
+
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                     <label htmlFor="sensitivity" className="text-sm font-bold text-slate-700 flex items-center gap-2"><Crosshair size={16} /> Gimbal Sensitivity</label>
+                     <span className="text-xs font-black bg-slate-100 px-2 py-1 rounded-md text-slate-600">{sensitivity}%</span>
+                  </div>
+                  <input
+                    type="range"
+                    id="sensitivity"
+                    min="0"
+                    max="100"
+                    value={sensitivity}
+                    onChange={(e) => setSensitivity(e.target.value)}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-accent"
+                  />
+                </div>
+
+                <button 
+                  className="w-full py-4 bg-rose-500 hover:bg-rose-600 text-white rounded-[16px] font-black text-sm transition-all shadow-[0_8px_30px_rgba(244,63,94,0.3)] hover:shadow-[0_8px_30px_rgba(244,63,94,0.5)] active:scale-95 mt-4 group"
+                  onClick={handleEmergencyStop}
+                >
+                  <span className="flex items-center justify-center gap-2 group-hover:scale-105 transition-transform"><AlertTriangle size={20} className="animate-pulse" /> EMERGENCY HALT</span>
+                </button>
               </div>
-            ))}
+            </div>
           </div>
-          <button className="px-3 py-2 border border-indigo-500 text-indigo-600 hover:bg-indigo-50 rounded text-sm font-medium transition">+ Add Schedule</button>
+
+          {/* Camera Controls */}
+          <div className="glass-card-vibrant p-8">
+            <h3 className="text-base font-black text-slate-900 mb-4 flex items-center gap-2"><Camera size={18} className="text-brand-accent" /> Optics & Sensors</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {[
+                { icon: RefreshCw, label: 'Pan Gimbal' },
+                { icon: MoveVertical, label: 'Tilt Gimbal' },
+                { icon: Search, label: 'Digital Zoom' },
+                { icon: Camera, label: 'Capture Frame' },
+              ].map((btn, i) => (
+                <button key={i} className="py-3 bg-white border border-slate-200 hover:border-brand-accent/30 hover:bg-brand-accent/5 text-slate-700 rounded-[16px] text-xs font-bold transition-all shadow-sm flex flex-col items-center justify-center gap-2 active:scale-95">
+                  <btn.icon size={18} className="text-slate-400" /> {btn.label}
+                </button>
+              ))}
+              <button 
+                className={`col-span-2 md:col-span-4 py-4 rounded-[16px] text-sm font-black transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 ${recordingActive ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-[0_8px_30px_rgba(244,63,94,0.3)]' : 'bg-slate-900 hover:bg-brand-accent text-white'}`}
+                onClick={() => setRecordingActive(!recordingActive)}
+              >
+                {recordingActive ? <><StopCircle size={18} className="animate-pulse" /> Stop Recording</> : <><Video size={18} /> Initiate Stream Recording</>}
+              </button>
+            </div>
+          </div>
+
+          {/* Voice Commands */}
+          <div className="glass-card-vibrant p-8">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-base font-black text-slate-900 flex items-center gap-2"><Mic size={18} className="text-indigo-500" /> NLP Directives</h3>
+                <p className="text-sm text-slate-500 font-medium">Issue vocal commands via edge LLM</p>
+              </div>
+              <button 
+                className="w-12 h-12 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center transition-all shadow-sm border border-indigo-200 active:scale-95 relative"
+                onClick={handleVoiceCommand}
+              >
+                 <Mic size={20} />
+                 <span className="absolute top-0 right-0 w-3 h-3 bg-indigo-500 border-2 border-white rounded-full animate-pulse"></span>
+              </button>
+            </div>
+            
+            <div className="p-4 bg-white rounded-[16px] border border-slate-100 shadow-sm mt-4">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Recognized Syntax:</p>
+              <div className="flex flex-wrap gap-2 text-xs font-bold text-slate-600">
+                <span className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-md">"Initiate patrol sequence"</span>
+                <span className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-md">"Halt all movement"</span>
+                <span className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-md">"Return to dock"</span>
+                <span className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-md">"Scan perimeter"</span>
+              </div>
+            </div>
+          </div> 
         </div>
 
-        {/* Camera Controls */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-900 mb-4">Camera Interaction</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaSync /> Pan</button>
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaArrowsAltV /> Tilt</button>
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaSearch /> Zoom</button>
-            <button className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded text-sm font-medium transition flex items-center justify-center gap-2"><FaCamera /> Snapshot</button>
-            <button 
-              className={`px-3 py-2 rounded text-sm font-medium transition col-span-2 md:col-span-1 ${recordingActive ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-green-500 hover:bg-green-600 text-white'}`}
-              onClick={() => setRecordingActive(!recordingActive)}
-            >
-              {recordingActive ? <span className="flex items-center justify-center gap-2"><FaStopCircle /> Stop</span> : <span className="flex items-center justify-center gap-2"><FaVideo /> Record</span>}
-            </button>
+        {/* Right Column: Autonomous & Logs */}
+        <div className="lg:col-span-4 space-y-6">
+          
+          {/* Autonomous Modes */}
+          <div className="glass-card-vibrant p-6">
+            <h3 className="text-sm font-black text-slate-900 mb-4 flex items-center gap-2"><Activity size={16} className="text-emerald-500" /> Autonomous Behaviors</h3>
+            <div className="space-y-3">
+              {autonomousModes.map(mode => (
+                <button key={mode.id} className="w-full p-4 bg-white border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 rounded-[16px] text-left transition-all shadow-sm group">
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-bold text-slate-900 text-sm group-hover:text-emerald-700">{mode.name}</h4>
+                    <ArrowRight size={14} className="text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <p className="text-slate-500 font-medium text-xs mt-1 group-hover:text-emerald-600/70">{mode.description}</p>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Voice Commands */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-900 mb-2">Voice Commands</h3>
-          <p className="text-sm text-gray-600 mb-4">Control robot using voice</p>
-          <button className="w-full px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded font-medium text-sm transition mb-4" onClick={handleVoiceCommand}>
-            <span className="flex items-center justify-center gap-2"><FaMicrophone /> Start Voice Command</span>
-          </button>
-          <div className="p-3 bg-gray-50 rounded border border-gray-200">
-            <p className="text-xs font-medium text-gray-900 mb-2">Common Commands:</p>
-            <ul className="text-gray-700 text-xs space-y-1">
-              <li>• "Move forward" • "Turn left"</li>
-              <li>• "Take a photo" • "Stop"</li>
-            </ul>
-          </div>
-        </div> 
-
-        {/* Command History */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h3 className="text-base font-semibold text-gray-900 mb-3">Command History</h3>
-          <div className="space-y-2">
-            {commandHistory.map(cmd => (
-              <div key={cmd.id} className={`p-3 rounded border-l-2 ${cmd.status === 'executed' ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-400'}`}>
-                <p className="text-sm font-medium text-gray-900">{cmd.cmd}</p>
-                <div className="flex justify-between mt-1">
-                  <p className="text-xs text-gray-500">{cmd.time}</p>
-                  <span className={`text-xs font-medium ${cmd.status === 'executed' ? 'text-green-700' : 'text-red-700'}`}>
-                    {cmd.status === 'executed' ? <FaCheck /> : <FaTimes />}
-                  </span>
+          {/* Scheduled Routines */}
+          <div className="glass-card-vibrant p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-sm font-black text-slate-900 flex items-center gap-2"><Clock size={16} className="text-amber-500" /> Cron Tasks</h3>
+              <button className="p-1.5 bg-amber-50 text-amber-600 rounded-md hover:bg-amber-100 transition-colors">
+                <Plus size={14} />
+              </button>
+            </div>
+            <div className="space-y-3">
+              {schedules.map(schedule => (
+                <div key={schedule.id} className="flex items-center justify-between p-3 bg-white border border-slate-100 rounded-[12px] shadow-sm">
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">{schedule.name}</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{schedule.time}</p>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked={schedule.enabled} readOnly className="sr-only peer" />
+                    <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-brand-accent"></div>
+                  </label>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
+          {/* Command History */}
+          <div className="glass-card-vibrant p-6 flex-1">
+            <h3 className="text-sm font-black text-slate-900 mb-4 flex items-center gap-2"><Activity size={16} className="text-brand-secondary" /> Execution Log</h3>
+            <div className="space-y-3">
+              {commandHistory.map(cmd => (
+                <div key={cmd.id} className="p-3 bg-white rounded-[12px] border border-slate-100 shadow-sm">
+                  <div className="flex justify-between items-start">
+                     <p className="text-sm font-bold text-slate-700">{cmd.cmd}</p>
+                     <span className={`text-xs ${cmd.status === 'executed' ? 'text-emerald-500' : 'text-rose-500'}`}>
+                        {cmd.status === 'executed' ? <Check size={14} /> : <X size={14} />}
+                     </span>
+                  </div>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1">{cmd.time}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
