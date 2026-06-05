@@ -1,256 +1,81 @@
-import React, { useEffect, useRef } from 'react';
-import { FaRocket, FaEye, FaHome, FaMobileAlt, FaPlay, FaCheck, FaGamepad, FaRobot, FaFilm, FaCamera, FaLaptopCode, FaCheckCircle, FaSave, FaBook, FaDocker } from 'react-icons/fa';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { Play } from 'lucide-react';
 
 export default function Gallery() {
-  const galleryRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    try {
-      if (galleryRef.current) {
-        const items = galleryRef.current.querySelectorAll('.gallery-item');
-        if (items.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const elements = entry.target.querySelectorAll('.gallery-item');
           gsap.fromTo(
-            items,
-            { opacity: 0, scale: 0.9 },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.5,
-              stagger: 0.1,
-              scrollTrigger: {
-                trigger: galleryRef.current,
-                start: 'top center',
-              },
-            }
+            elements,
+            { opacity: 0, scale: 0.95, y: 20 },
+            { opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }
           );
+          observer.unobserve(entry.target);
         }
-      }
-    } catch (error) {
-      console.warn('GSAP animation error:', error);
+      });
+    }, { threshold: 0.1 });
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
     }
 
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+    return () => observer.disconnect();
   }, []);
 
+  const items = [
+    { type: 'image', title: 'Sensor Array Assembly', span: 'col-span-1 md:col-span-2 row-span-2' },
+    { type: 'video', title: 'Kinematic Test 01', span: 'col-span-1 row-span-1' },
+    { type: 'image', title: 'Compute Node', span: 'col-span-1 row-span-1' },
+    { type: 'image', title: 'LIDAR Mapping', span: 'col-span-1 row-span-2' },
+    { type: 'image', title: 'Chassis View', span: 'col-span-1 md:col-span-2 row-span-1' },
+    { type: 'video', title: 'Object Detection', span: 'col-span-1 md:col-span-3 row-span-2' },
+  ];
+
   return (
-    <div className="w-full">
-      {/* Header */}
-      <section className="min-h-[40vh] bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl text-center">
-          <h1 className="text-5xl font-bold text-white mb-4">Gallery & Demonstrations</h1>
-          <p className="text-xl text-blue-100">See REX-47 in action</p>
-        </div>
+    <div className="pb-32 font-sans">
+      <section className="pt-20 pb-16 text-center px-6">
+        <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-slate-900 mb-6">
+          Visual <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-secondary">Archive</span>
+        </h1>
+        <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+          Explore the hardware prototypes, test runs, and system visualizations of the REX-47 project.
+        </p>
       </section>
 
-      {/* Gallery */}
-      <section ref={galleryRef} className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          {/* Video Section */}
-          <div className="mb-20">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Videos & Demos</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                {
-                  title: 'Autonomous Navigation',
-                  desc: 'Robot navigating through home obstacles',
-                  icon: <FaRocket />,
-                },
-                {
-                  title: 'Face Recognition',
-                  desc: 'Real-time face detection and recognition',
-                  icon: <FaEye />,
-                },
-                {
-                  title: 'Smart Home Control',
-                  desc: 'Automated home automation sequences',
-                  icon: <FaHome />,
-                },
-                {
-                  title: 'AR Dashboard',
-                  desc: 'Augmented reality interface demo',
-                  icon: <FaMobileAlt />,
-                },
-              ].map((video, idx) => (
-                <div
-                  key={idx}
-                  className="gallery-item group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition duration-300"
-                >
-                  <div className="aspect-video bg-gradient-to-br from-blue-300 to-indigo-500 flex items-center justify-center relative">
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <div className="text-6xl mb-4">{video.icon}</div>
-                      <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-40 text-white p-4">
-                        <h3 className="font-bold text-lg">{video.title}</h3>
-                        <p className="text-sm opacity-90">{video.desc}</p>
-                      </div>
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center group-hover:scale-110 transition duration-300">
-                      <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <FaPlay className="text-2xl text-blue-600 ml-1" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      <section ref={containerRef} className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[250px] gap-6">
+          {items.map((item, i) => (
+            <div 
+              key={i} 
+              className={`gallery-item ${item.span} glass-card-vibrant p-2 rounded-[32px] relative overflow-hidden group cursor-pointer`}
+            >
+              <div className="absolute inset-0 bg-slate-900/5 group-hover:bg-slate-900/0 transition-colors z-10 rounded-[30px]"></div>
+              
+              {/* Image/Video Placeholder */}
+              <div className="w-full h-full bg-slate-100 rounded-[24px] overflow-hidden relative">
+                 <div className="absolute inset-0 pattern-dots opacity-50"></div>
+                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent z-10"></div>
+                 
+                 {item.type === 'video' && (
+                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white z-20 border border-white/40 group-hover:scale-110 transition-transform">
+                     <Play size={24} className="ml-1" />
+                   </div>
+                 )}
 
-          {/* Screenshots Section */}
-          <div className="mb-20">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Dashboard Screenshots</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: 'Real-time Telemetry',
-                  features: [
-                    'Live sensor data',
-                    'Battery status',
-                    'Location tracking',
-                    'System diagnostics',
-                  ],
-                },
-                {
-                  title: 'Vision Feed',
-                  features: [
-                    'Live video stream',
-                    'Object detection',
-                    'Face recognition',
-                    'Motion tracking',
-                  ],
-                },
-                {
-                  title: 'Home Automation',
-                  features: [
-                    'Light controls',
-                    'Temperature control',
-                    'Door locks',
-                    'Alerts & notifications',
-                  ],
-                },
-              ].map((screenshot, idx) => (
-                <div
-                  key={idx}
-                  className="gallery-item bg-gradient-to-br from-blue-100 to-indigo-100 p-6 rounded-xl border-2 border-blue-300 shadow-md hover:shadow-lg transition duration-300"
-                >
-                  <div className="aspect-square bg-white rounded-lg mb-4 flex items-center justify-center text-5xl text-blue-600">
-                    <FaMobileAlt />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{screenshot.title}</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    {screenshot.features.map((feature, featureIdx) => (
-                      <li key={featureIdx} className="flex items-center gap-2">
-                        <FaCheck className="text-blue-600" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Simulator */}
-          <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Interactive Simulators</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {[
-                {
-                  title: 'Gazebo Simulation',
-                  desc: 'Full physics-based robot simulation environment for testing and development',
-                  icon: <FaGamepad />,
-                },
-                {
-                  title: 'Web-based Controller',
-                  desc: 'Browser-based robot control interface with real-time feedback',
-                  icon: <FaRobot />,
-                },
-              ].map((sim, idx) => (
-                <div
-                  key={idx}
-                  className="gallery-item bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-xl border-2 border-blue-300 text-center shadow-md hover:shadow-lg transition duration-300"
-                >
-                  <div className="text-6xl mb-4">{sim.icon}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{sim.title}</h3>
-                  <p className="text-gray-700 mb-6">{sim.desc}</p>
-                  <button className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-                    Launch Simulator
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Media Stats */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Project Assets</h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { label: 'Demo Videos', value: '12+', icon: <FaFilm /> },
-              { label: 'Screenshots', value: '48+', icon: <FaCamera /> },
-              { label: 'Code Samples', value: '200+', icon: <FaLaptopCode /> },
-              { label: 'Test Cases', value: '500+', icon: <FaCheckCircle /> },
-            ].map((stat, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-6 rounded-xl border-2 border-blue-300 text-center shadow-md hover:shadow-lg transition duration-300"
-              >
-                <div className="text-4xl mb-3">{stat.icon}</div>
-                <p className="text-3xl font-bold text-blue-600 mb-2">{stat.value}</p>
-                <p className="text-gray-600 font-semibold">{stat.label}</p>
+                 <div className="absolute bottom-6 left-6 right-6 z-20 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-1">
+                      {item.type === 'video' ? 'Video Record' : 'Hardware Shot'}
+                    </p>
+                    <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Download Resources */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Downloadable Resources</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Firmware',
-                desc: 'Latest ESP32 firmware builds',
-                icon: <FaSave />,
-                size: '2.5 MB',
-              },
-              {
-                title: 'Documentation',
-                desc: 'Complete setup and API docs',
-                icon: <FaBook />,
-                size: '5 MB',
-              },
-              {
-                title: 'Docker Compose',
-                desc: 'Ready-to-deploy stack',
-                icon: <FaDocker />,
-                size: '1.2 MB',
-              },
-            ].map((resource, idx) => (
-              <div
-                key={idx}
-                className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-300 shadow-md hover:shadow-lg transition duration-300"
-              >
-                <div className="text-4xl mb-3">{resource.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{resource.title}</h3>
-                <p className="text-gray-600 mb-4">{resource.desc}</p>
-                <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-                  Download ({resource.size})
-                </button>
-              </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
     </div>
