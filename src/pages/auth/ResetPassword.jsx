@@ -106,48 +106,55 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-purple-200 p-5">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-10">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create New Password</h1>
-          <p className="text-gray-600 text-sm">Enter a new password for your account</p>
+    <div className="flex items-center justify-center min-h-[calc(100vh-7rem)] relative overflow-hidden font-sans bg-slate-50 selection:bg-brand-accent/30 p-5">
+      {/* Background Gradients */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-secondary/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
+      <div className="absolute inset-0 pattern-dots opacity-30 -z-20"></div>
+
+      <div className="glass-card-vibrant w-full max-w-md p-10 sm:p-12 relative shadow-2xl z-10">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Initialize Clearance</h1>
+          <p className="text-slate-500 font-medium text-sm">Enter a new security key for your operator account</p>
         </div>
 
         {/* Token Validation Loading State */}
         {isValidatingToken && (
           <div className="flex flex-col items-center justify-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mb-4"></div>
-            <p className="text-gray-600 text-sm">Verifying reset link...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-accent mb-4"></div>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Verifying Authorization Link...</p>
           </div>
         )}
 
         {/* Token Invalid Error State */}
         {!isValidatingToken && !isTokenValid && (
           <div className="text-center">
-            <div className="mb-4">
-              <div className="inline-block p-3 bg-red-100 rounded-full">
-                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <div className="mb-6">
+              <div className="inline-flex p-4 bg-red-50 border border-red-100 rounded-[24px]">
+                <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
             </div>
-            <h2 className="text-xl font-bold text-red-600 mb-3">Invalid Reset Link</h2>
-            <p className="text-gray-700 mb-2">{tokenError}</p>
-            <p className="text-gray-600 mb-6">Please request a new password reset.</p>
+            <h2 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">Invalid Link</h2>
+            <p className="text-slate-500 font-medium mb-6">{tokenError}</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 border-t border-slate-100/50 pt-6">
+              Please request a new clearance reset.
+            </p>
             <button 
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold text-sm transition"
+              className="w-full py-5 bg-slate-900 text-white font-bold rounded-[20px] hover:bg-brand-accent hover:-translate-y-1 transition-all duration-300 shadow-xl"
               onClick={() => navigate('/forgot-password')}
             >
-              Request New Reset Link
+              Request New Link
             </button>
           </div>
         )}
 
         {/* Password Reset Form - Only show if token is valid */}
         {!isValidatingToken && isTokenValid && !resetSuccess && (
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="password" className="block font-semibold text-gray-900 text-sm">New Password</label>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">New Security Clearance</label>
               <input
                 type="password"
                 id="password"
@@ -157,34 +164,34 @@ export default function ResetPassword() {
                 placeholder="Create a new password"
                 required
                 disabled={loading}
-                className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               />
-              <div className="flex flex-col gap-2 mt-2">
-                <div className="h-1.5 bg-gray-300 rounded-full overflow-hidden">
+              <div className="flex flex-col gap-2 mt-3 px-2">
+                <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
                   <div 
-                    className={`h-full transition-all ${
+                    className={`h-full transition-all duration-500 ${
                       passwordStrength === 0 ? 'w-1/5 bg-red-500' :
                       passwordStrength === 1 ? 'w-2/5 bg-orange-500' :
                       passwordStrength === 2 ? 'w-3/5 bg-yellow-500' :
-                      passwordStrength === 3 ? 'w-4/5 bg-lime-500' :
-                      'w-full bg-green-500'
+                      passwordStrength === 3 ? 'w-4/5 bg-brand-secondary' :
+                      'w-full bg-brand-accent'
                     }`}
                   ></div>
                 </div>
-                <p className={`text-xs font-semibold ${
+                <p className={`text-[10px] font-bold uppercase tracking-widest ${
                   passwordStrength === 0 ? 'text-red-500' :
                   passwordStrength === 1 ? 'text-orange-500' :
                   passwordStrength === 2 ? 'text-yellow-600' :
-                  passwordStrength === 3 ? 'text-lime-600' :
-                  'text-green-500'
+                  passwordStrength === 3 ? 'text-brand-secondary' :
+                  'text-brand-accent'
                 }`}>
                   Strength: {getPasswordStrengthLabel()}
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="confirmPassword" className="block font-semibold text-gray-900 text-sm">Confirm Password</label>
+            <div className="space-y-2">
+              <label htmlFor="confirmPassword" className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Confirm Clearance</label>
               <input
                 type="password"
                 id="confirmPassword"
@@ -194,29 +201,29 @@ export default function ResetPassword() {
                 placeholder="Re-enter your new password"
                 required
                 disabled={loading}
-                className="w-full px-3 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
             {error && (
-              <div className="px-3 py-2 bg-red-100 text-red-700 border border-red-300 rounded-lg text-sm">
-                {error}
+              <div className="p-4 bg-red-50 border border-red-100 rounded-[20px]">
+                <p className="text-red-600 text-sm font-bold">{error}</p>
               </div>
             )}
 
-            <ul className="list-none p-0 m-0 mt-2 text-xs text-gray-600 space-y-1">
-              <li className={passwordStrength >= 1 ? 'text-green-600 line-through' : ''}>○ At least 8 characters</li>
-              <li className={passwordStrength >= 2 ? 'text-green-600 line-through' : ''}>○ Mix of uppercase and lowercase</li>
-              <li className={passwordStrength >= 3 ? 'text-green-600 line-through' : ''}>○ At least one number</li>
-              <li className={passwordStrength >= 4 ? 'text-green-600 line-through' : ''}>○ At least one special character</li>
+            <ul className="list-none p-0 mx-2 mt-4 text-[10px] font-bold uppercase tracking-wider text-slate-400 space-y-2">
+              <li className={passwordStrength >= 1 ? 'text-brand-secondary' : ''}>○ At least 8 characters</li>
+              <li className={passwordStrength >= 2 ? 'text-brand-secondary' : ''}>○ Mix of uppercase and lowercase</li>
+              <li className={passwordStrength >= 3 ? 'text-brand-secondary' : ''}>○ At least one number</li>
+              <li className={passwordStrength >= 4 ? 'text-brand-accent' : ''}>○ At least one special character</li>
             </ul>
 
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-3 rounded-lg font-semibold text-sm transition mt-4"
+              className="w-full py-5 bg-slate-900 text-white font-bold rounded-[20px] hover:bg-brand-accent hover:-translate-y-1 transition-all duration-300 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:bg-slate-900 mt-8"
             >
-              {loading ? 'Resetting Password...' : 'Reset Password'}
+              {loading ? 'Initializing...' : 'Initialize Clearance'}
             </button>
           </form>
         )}
@@ -224,21 +231,23 @@ export default function ResetPassword() {
         {/* Password Reset Success State */}
         {!isValidatingToken && isTokenValid && resetSuccess && (
           <div className="text-center">
-            <div className="mb-4">
-              <div className="inline-block p-3 bg-green-100 rounded-full">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <div className="mb-6">
+              <div className="inline-flex p-4 bg-emerald-50 border border-emerald-100 rounded-[24px]">
+                <svg className="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-green-600 mb-4">Password Reset Successful</h2>
-            <p className="text-gray-700 mb-2">Your password has been changed successfully.</p>
-            <p className="text-gray-600 mb-6">You can now sign in with your new password.</p>
+            <h2 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Clearance Updated</h2>
+            <p className="text-slate-500 font-medium mb-6">Your security key has been successfully changed.</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 border-t border-slate-100/50 pt-6">
+              You may now authenticate with your new clearance.
+            </p>
             <button 
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold text-sm transition"
+              className="w-full py-5 bg-slate-900 text-white font-bold rounded-[20px] hover:bg-brand-accent hover:-translate-y-1 transition-all duration-300 shadow-xl"
               onClick={() => window.location.href = '/login'}
             >
-              Go to Login
+              Proceed to Login
             </button>
           </div>
         )}
