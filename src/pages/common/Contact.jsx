@@ -1,287 +1,136 @@
-import React, { useEffect, useRef } from 'react';
-import { FaEnvelope, FaBriefcase, FaGithub, FaLink, FaArrowRight, FaRocket, FaGraduationCap, FaQuestionCircle } from 'react-icons/fa';
+import { useRef, useEffect } from 'react';
+import { Mail, MapPin, Phone, Send, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 
 export default function Contact() {
-  const formRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    try {
-      if (formRef.current) {
-        const elements = formRef.current.querySelectorAll('input, textarea, button');
-        if (elements.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const elements = entry.target.querySelectorAll('[data-animate]');
           gsap.fromTo(
             elements,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              stagger: 0.1,
-            }
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' }
           );
+          observer.unobserve(entry.target);
         }
-      }
-    } catch (error) {
-      console.warn('GSAP animation error:', error);
-    }
+      });
+    }, { threshold: 0.1 });
 
-    return () => {
-      // Cleanup
-    };
+    if (containerRef.current) observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="w-full">
-      {/* Header */}
-      <section className="min-h-[40vh] bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl text-center">
-          <h1 className="text-5xl font-bold text-white mb-4">Get in Touch</h1>
-          <p className="text-xl text-blue-100">Interested in collaboration or want to learn more? Let's connect!</p>
-        </div>
+    <div className="pb-32 font-sans selection:bg-brand-accent/30" ref={containerRef}>
+      <section className="pt-20 pb-16 text-center px-6 relative">
+         <div className="absolute top-0 right-1/2 translate-x-1/2 w-[600px] h-[300px] bg-brand-accent/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
+        <h1 data-animate className="text-5xl sm:text-7xl font-black tracking-tight text-slate-900 mb-6">
+          Establish <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-secondary">Connection</span>
+        </h1>
+        <p data-animate className="text-xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+          Interested in the REX-47 platform? Reach out to our engineering team for deployments, partnerships, or technical inquiries.
+        </p>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Let's Connect</h2>
-
-            {[
-              {
-                icon: <FaEnvelope />,
-                title: 'Email',
-                value: 'thathsara@example.com',
-                desc: 'Fastest way to reach out for collaboration',
-                link: 'mailto:thathsara@example.com',
-              },
-              {
-                icon: <FaBriefcase />,
-                title: 'LinkedIn',
-                value: 'Thathsara Bandara',
-                desc: 'Connect with me on LinkedIn',
-                link: 'https://linkedin.com/in/thathsara-bandara',
-              },
-              {
-                icon: <FaGithub />,
-                title: 'GitHub',
-                value: '@thathsara-bandara',
-                desc: 'View all my projects and contributions',
-                link: 'https://github.com/thathsara-bandara',
-              },
-              {
-                icon: <FaLink />,
-                title: 'Portfolio',
-                value: 'thathsara.dev',
-                desc: 'Check out my complete portfolio',
-                link: 'https://thathsara.dev',
-              },
-            ].map((contact, idx) => (
-              <a
-                key={idx}
-                href={contact.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-300 shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
-              >
-                <div className="flex gap-4">
-                  <span className="text-4xl">{contact.icon}</span>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition duration-300">
-                      {contact.title}
-                    </h3>
-                    <p className="text-blue-600 font-semibold">{contact.value}</p>
-                    <p className="text-gray-600 text-sm">{contact.desc}</p>
+      <section className="max-w-6xl mx-auto px-6 grid lg:grid-cols-5 gap-12 lg:gap-24 items-start">
+        
+        {/* Contact Information */}
+        <div data-animate className="lg:col-span-2 space-y-12 lg:pt-10">
+          <div>
+            <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tight">Direct Channels</h3>
+            <div className="space-y-6">
+               <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 bg-white border border-slate-100 shadow-sm rounded-[16px] flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-all">
+                     <Mail size={20} />
                   </div>
-                </div>
-              </a>
-            ))}
-
-            {/* Quick Links */}
-            <div className="bg-blue-50 border-2 border-blue-300 p-6 rounded-xl">
-              <h3 className="font-bold text-gray-900 mb-4">Quick Links</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {['GitHub Profile', 'LinkedIn', 'My Blog', 'Resume'].map((link, idx) => (
-                  <a
-                    key={idx}
-                    href="#"
-                    className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-semibold transition duration-300"
-                  >
-                    <FaArrowRight className="text-sm" /> {link}
-                  </a>
-                ))}
-              </div>
+                  <div>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Email</p>
+                     <p className="font-bold text-slate-800">hello@rexsystems.io</p>
+                     <p className="font-bold text-slate-800">support@rexsystems.io</p>
+                  </div>
+               </div>
+               <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 bg-white border border-slate-100 shadow-sm rounded-[16px] flex items-center justify-center text-brand-secondary group-hover:bg-brand-secondary group-hover:text-white transition-all">
+                     <Phone size={20} />
+                  </div>
+                  <div>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Encrypted Line</p>
+                     <p className="font-bold text-slate-800">+1 (555) 019-2834</p>
+                  </div>
+               </div>
+               <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 bg-white border border-slate-100 shadow-sm rounded-[16px] flex items-center justify-center text-emerald-500 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                     <MapPin size={20} />
+                  </div>
+                  <div>
+                     <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">HQ Command</p>
+                     <p className="font-bold text-slate-800 max-w-[200px]">1010 Binary Way, Silicon Valley, CA 94025</p>
+                  </div>
+               </div>
             </div>
           </div>
-
-          {/* Contact Form */}
-          <div ref={formRef}>
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-xl border-2 border-blue-300 shadow-md">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send a Message</h3>
-
-              <form className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your full name"
-                    className="w-full px-4 py-3 bg-white border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-600 transition duration-300"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    className="w-full px-4 py-3 bg-white border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-600 transition duration-300"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                  <input
-                    type="text"
-                    placeholder="What's this about?"
-                    className="w-full px-4 py-3 bg-white border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-600 transition duration-300"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                  <textarea
-                    placeholder="Tell me more about your inquiry..."
-                    rows="5"
-                    className="w-full px-4 py-3 bg-white border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-600 transition duration-300"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full flex justify-center items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg hover:from-blue-700 hover:to-indigo-700 transition duration-300 shadow-lg"
-                >
-                  Send Message <FaArrowRight />
-                </button>
-
-                <p className="text-xs text-gray-600 text-center">
-                  I'll get back to you within 24 hours. Thanks for reaching out!
-                </p>
-              </form>
-            </div>
+          
+          <div className="p-8 bg-slate-900 rounded-[32px] relative overflow-hidden text-center sm:text-left">
+             <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/20 blur-[30px] rounded-full pointer-events-none"></div>
+             <Sparkles size={24} className="text-brand-accent mb-4 mx-auto sm:mx-0" />
+             <h4 className="text-white font-bold mb-2">Enterprise Deployment?</h4>
+             <p className="text-sm text-slate-400 font-medium">We offer custom integration and on-premise deployments for industrial partners.</p>
           </div>
         </div>
-      </section>
 
-      {/* Collaboration CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Interested in Collaboration?</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: <FaRocket />,
-                title: 'Research Partners',
-                desc: 'Collaborate on advancing robotics, AI, and IoT technologies',
-              },
-              {
-                icon: <FaBriefcase />,
-                title: 'Business Opportunities',
-                desc: 'Discuss commercial applications and product development',
-              },
-              {
-                icon: <FaGraduationCap />,
-                title: 'Educational',
-                desc: 'Workshops, mentoring, and knowledge sharing opportunities',
-              },
-            ].map((collab, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-8 rounded-xl border-2 border-blue-300 text-center shadow-md hover:shadow-lg transition duration-300"
+        {/* Contact Form */}
+        <div data-animate className="lg:col-span-3 glass-card-vibrant p-8 sm:p-12 shadow-2xl">
+           <form className="space-y-6">
+              <div className="grid sm:grid-cols-2 gap-6">
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Commander Name</label>
+                    <input 
+                      type="text" 
+                      className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all"
+                      placeholder="John Doe"
+                    />
+                 </div>
+                 <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Secure Email</label>
+                    <input 
+                      type="email" 
+                      className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all"
+                      placeholder="john@example.com"
+                    />
+                 </div>
+              </div>
+              <div className="space-y-2">
+                 <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Subject Classification</label>
+                 <select className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all appearance-none cursor-pointer">
+                    <option>General Inquiry</option>
+                    <option>Technical Support</option>
+                    <option>Enterprise Deployment</option>
+                    <option>Security Report</option>
+                 </select>
+              </div>
+              <div className="space-y-2">
+                 <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Message Payload</label>
+                 <textarea 
+                   rows={5}
+                   className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all resize-none"
+                   placeholder="Enter your message here..."
+                 ></textarea>
+              </div>
+              
+              <button 
+                type="button" 
+                className="w-full py-5 bg-slate-900 text-white font-bold rounded-[20px] hover:bg-brand-accent hover:-translate-y-1 transition-all duration-300 shadow-xl flex items-center justify-center gap-2 group"
               >
-                <div className="text-5xl mb-4">{collab.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{collab.title}</h3>
-                <p className="text-gray-600">{collab.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-xl text-gray-700 mb-6">
-              Whether you're interested in discussing the project, potential collaboration, or just want to chat about
-              robotics and AI, I'd love to hear from you!
-            </p>
-            <button className="px-8 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg">
-              Schedule a Meeting
-            </button>
-          </div>
+                Transmit Message <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </button>
+           </form>
         </div>
-      </section>
 
-      {/* FAQ */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Frequently Asked Questions</h2>
-
-          <div className="space-y-6">
-            {[
-              {
-                q: 'What is REX-47?',
-                a: 'REX-47 is an ambitious autonomous smart home robot project combining robotics, AI, computer vision, and IoT. It represents several years of development through 50 sprints.',
-              },
-              {
-                q: 'Is the code open source?',
-                a: 'Yes! All repositories are available on GitHub with MIT License. You can use, modify, and contribute to the project.',
-              },
-              {
-                q: 'Can I use this for commercial purposes?',
-                a: 'Yes, under the MIT License. Please check the LICENSE file in each repository for specific terms.',
-              },
-              {
-                q: 'How can I contribute?',
-                a: 'You can submit PRs, report issues, or contribute improvements to any repository. See CONTRIBUTING.md for guidelines.',
-              },
-              {
-                q: 'Are there tutorials available?',
-                a: 'Yes! Check the Blog section for detailed tutorials and implementation guides on various components.',
-              },
-              {
-                q: 'How do I deploy the system?',
-                a: 'Comprehensive deployment instructions are available in the documentation. Docker Compose and Kubernetes configs included.',
-              },
-            ].map((faq, idx) => (
-              <div key={idx} className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-l-4 border-blue-600">
-                <h3 className="flex items-center gap-2 text-lg font-bold text-gray-900 mb-2"><FaQuestionCircle className="text-blue-600" /> {faq.q}</h3>
-                <p className="text-gray-700">{faq.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Ready to Connect?</h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Get in touch and let's explore what we can build together.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="mailto:thathsara@example.com"
-              className="px-8 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition duration-300"
-            >
-              Send Email
-            </a>
-            <a
-              href="https://linkedin.com"
-              className="px-8 py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-blue-600 transition duration-300"
-            >
-              Connect on LinkedIn
-            </a>
-          </div>
-        </div>
       </section>
     </div>
   );
