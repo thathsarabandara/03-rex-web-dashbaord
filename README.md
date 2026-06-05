@@ -1,291 +1,135 @@
-# 🤖 REX-47 Web Dashboard
+# 🖥️ REX-47 Web Dashboard
 
-A modern, responsive web dashboard for controlling and monitoring the REX-47 Smart Home Assistant Robot. Built with React, Redux, and Tailwind CSS.
+> **Repository `03`** · React + Vite primary control interface for the REX-47 robot — real-time control, telemetry, AI visualization, and task scheduling.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Node Version](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg)
+![Platform](https://img.shields.io/badge/Platform-Web-blue)
+![Language](https://img.shields.io/badge/Language-JavaScript-F7DF1E?logo=javascript)
+![Framework](https://img.shields.io/badge/Framework-React%20%2B%20Vite-61DAFB?logo=react)
+![Styling](https://img.shields.io/badge/Styling-Tailwind%20CSS-06B6D4?logo=tailwindcss)
+![State](https://img.shields.io/badge/State%20Management-Redux-764ABC?logo=redux)
+
+---
 
 ## 📋 Table of Contents
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [Available Scripts](#available-scripts)
-- [Deployment](#deployment)
-- [Environment Variables](#environment-variables)
-- [Contributing](#contributing)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
+- [Overview](#-what-is-this-repository)
+- [Architecture](#-architecture)
+- [Features](#-features)
+- [Getting Started](#-getting-started)
+- [Project Structure](#-project-structure)
+- [Deployment](#-deployment)
+- [Related Repositories](#-related-repositories)
 
-## ✨ Features
+---
 
-### Core Features
-- **🎮 Robot Control** - Manual and autonomous robot control with real-time feedback
-- **📊 Dashboard** - Comprehensive monitoring of robot status, battery, connectivity, and sensors
-- **🏠 Smart Home Integration** - Control IoT devices, automation rules, scenes, and scheduling
-- **📈 Telemetry Monitoring** - Real-time sensor data visualization and analytics
-- **🤖 AI Perception** - AI-powered vision, decision history, and path planning visualization
-- **👤 User Authentication** - Secure login, registration, password reset, and profile management
-- **⚙️ Settings** - Comprehensive system configuration and user management
-- **📱 Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
+## 🧭 What Is This Repository?
 
-### Advanced Features
-- **Real-time Updates** - Live sensor data and robot status
-- **Voice Commands** - Control robot using natural language
-- **Automated Routines** - Schedule and automate robot tasks
-- **Security** - JWT authentication, secure API calls
-- **Analytics** - User activity tracking and audit logs
-- **Accessibility** - WCAG compliant interface
+This repository contains the **REX-47 Web Dashboard** for the REX-47 platform. React + Vite primary control interface for the REX-47 robot — real-time control, telemetry, AI visualization, and task scheduling.
 
-## 🛠️ Tech Stack
+**Key Highlights:**
+- ✅ Standardized integration with the broader REX-47 ecosystem
+- ✅ Modular, scalable architecture
+- ✅ Comprehensive environment configuration
+- ✅ Dockerized for reliable deployment
 
-### Frontend
-- **React 18** - UI library with hooks
-- **React Router v6** - Client-side routing with nested routes
-- **Redux Toolkit** - State management
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vite** - Fast build tool and development server
-- **Axios** - HTTP client with interceptors
-- **React Icons** - Icon library
+---
 
-### Development Tools
-- **ESLint** - Code quality and linting
-- **npm** - Package manager
-- **Vercel** - Deployment platform
+## 🏗️ Architecture
+
+### Directory Structure
+
+```
+03-rex-web-dashbaord/
+├── eslint.config.js
+├── vite.config.js
+├── README.md
+├── index.html
+├── package-lock.json
+├── vercel.json
+├── LICENSE
+├── package.json
+├── public/
+│   ├── landing.png
+│   ├── banner.png
+│   ├── logo.png
+├── src/
+│   ├── index.css
+│   ├── main.jsx
+│   ├── App.css
+│   ├── App.jsx
+```
+
+---
+
+## 🎨 Features
+
+| Feature | Description |
+|---------|-------------|
+| **Core Functionality** | Specific implementation of the service domain. |
+| **Integration** | Seamless connectivity with other REX-47 modules. |
+| **Configuration** | Environment-variable driven settings. |
+| **Containerization** | Production-ready Docker configuration. |
+
+---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Node.js** (v16.0.0 or higher)
-- **npm** (v7.0.0 or higher)
-- **Git**
+- Modern runtime environment appropriate for this service (Node.js, Python, Flutter, etc.)
+- Docker and Docker Compose (recommended for running the full stack)
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/thathsara-bandara/rex-47-web-dashboard.git
-   cd rex-47-web-dashboard
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Update `.env.local` with your configuration:
-   ```env
-   VITE_API_BASE_URL=http://localhost:5000/api
-   VITE_APP_NAME=REX-47 Dashboard
-   VITE_ENABLE_ANALYTICS=false
-   ```
-
-4. **Start development server**
-   ```bash
-   npm run dev
-   ```
-   
-   Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-All configuration is managed through environment variables. See [.env.example](.env.example) for available options.
-
-```env
-# API Configuration
-VITE_API_BASE_URL=http://localhost:5000/api
-
-# App Configuration
-VITE_APP_NAME=REX-47 Dashboard
-
-# Feature Flags
-VITE_ENABLE_ANALYTICS=false
-```
-
-### Configuration File
-
-The centralized configuration can be found in `src/config/index.js`. This file imports environment variables and exports them for use throughout the application.
-
-```javascript
-import { config } from './config';
-
-const apiUrl = config.apiBaseUrl;  // Access API URL
-const appName = config.appName;    // Access app name
-```
-
-## 📁 Project Structure
-
-```
-rex-47-web-dashboard/
-├── public/                    # Static files
-├── src/
-│   ├── api/                  # API configuration and instances
-│   │   └── axiosInstance.js  # Axios interceptor setup
-│   ├── assets/               # Images, fonts, etc.
-│   ├── components/           # Reusable React components
-│   │   ├── Header.jsx        # Navigation header
-│   │   ├── Sidebar.jsx       # Navigation sidebar
-│   │   └── Footer.jsx        # Footer component
-│   ├── config/               # Configuration management
-│   │   └── index.js          # Environment and config variables
-│   ├── hooks/                # Custom React hooks
-│   ├── pages/                # Page components
-│   │   ├── auth/             # Authentication pages
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   ├── ForgotPassword.jsx
-│   │   │   └── ResetPassword.jsx
-│   │   ├── common/           # Public pages
-│   │   │   ├── Home.jsx
-│   │   │   ├── About.jsx
-│   │   │   ├── Features.jsx
-│   │   │   ├── Gallery.jsx
-│   │   │   └── ...
-│   │   └── protected/        # Protected/authenticated pages
-│   │       ├── Dashboard.jsx
-│   │       ├── RobotControl.jsx
-│   │       ├── RobotMonitoring.jsx
-│   │       ├── SmartHome.jsx
-│   │       ├── AIPerception.jsx
-│   │       ├── Profile.jsx
-│   │       ├── Settings.jsx
-│   │       └── Help.jsx
-│   ├── store/                # Redux store setup
-│   │   ├── store.js          # Store configuration
-│   │   └── authSlice.js      # Auth state management
-│   ├── styles/               # Global styles
-│   ├── App.jsx               # Root component
-│   ├── App.css               # App styles
-│   ├── main.jsx              # Entry point
-│   └── index.css             # Global CSS
-├── .env.example              # Environment variables template
-├── .gitignore                # Git ignore rules
-├── vercel.json               # Vercel configuration
-├── vite.config.js            # Vite configuration
-├── package.json              # Dependencies and scripts
-├── DEPLOYMENT.md             # Deployment guide
-└── README.md                 # This file
-```
-
-## 📜 Available Scripts
-
-### Development
 ```bash
-# Start development server with hot reload
-npm run dev
+# Clone the repository
+git clone https://github.com/thathsarabandara/03-rex-web-dashbaord.git
+cd 03-rex-web-dashbaord
 
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
+# Install dependencies (if applicable)
+# npm install | pip install -r requirements.txt | flutter pub get
 ```
 
-### Code Quality
+### Configuration
+
+Create a `.env` file based on the provided `.env.example`:
+
 ```bash
-# Run ESLint
-npm run lint
-
-# Fix ESLint issues
-npm run lint:fix
+cp .env.example .env
 ```
 
-### Deployment
-```bash
-# Deploy to Vercel using CLI
-vercel
-
-# Deploy to production
-vercel --prod
-```
-
-## 🌐 Deployment
-
-### Use below url for live version of the site
- ```bash
- https://rex.vercel.app
- ```
-
-## 🔐 Authentication Flow
-
-1. **Registration** - User creates account at `/register`
-2. **Login** - User authenticates at `/login`
-3. **JWT Token** - Stored in localStorage and sent with API requests
-4. **Protected Routes** - Require authentication via Redux state
-5. **Token Refresh** - Handled by axios interceptors
-6. **Logout** - Clears token and redirects to login
-
-## 🛣️ Routing Structure
-
-### Public Routes
-- `/` - Home
-- `/login` - User login
-- `/register` - User registration
-- `/forgot-password` - Password recovery
-- `/reset-password?token=...` - Password reset with token validation
-- `/about` - About page
-- `/features` - Features showcase
-- `/gallery` - Gallery
-- `/contact` - Contact page
-
-### Protected Routes (Requires Authentication)
-- `/dashboard` - Main dashboard
-- `/robot-control` - Manual robot control
-- `/monitoring` - Sensor monitoring
-- `/smart-home` - IoT device management
-- `/ai-perception` - AI insights
-- `/profile` - User profile
-- `/settings` - System settings
-- `/help` - Help center
-
-
-## 📚 Resources
-
-- [React Documentation](https://react.dev)
-- [Vite Documentation](https://vitejs.dev)
-- [React Router Documentation](https://reactrouter.com)
-- [Redux Toolkit Documentation](https://redux-toolkit.js.org)
-- [Tailwind CSS Documentation](https://tailwindcss.com)
-- [Vercel Documentation](https://vercel.com/docs)
-
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👨‍💻 Author
-
-**Thathsara Bandara**
-- GitHub: [@thathsarabandara](https://github.com/thathsara-bandara)
-- Portfolio: [Thathsara Bandara](https://thathsarabandara.vercel.app)
-
-## 🙏 Acknowledgments
-
-- React community for excellent documentation
-- Tailwind CSS for utility-first styling
-- Vercel for seamless deployment
-- All contributors and testers
-
-## 📞 Support
-
-For support, email thathsaraarumapperuma@gmail.com or open an issue on GitHub.
+Ensure all secret keys and port configurations are set correctly.
 
 ---
 
-<div align="center">
-  Made with ❤️ by Thathsara Bandara
-  
-  ⭐ If you find this project helpful, please consider giving it a star!
-</div>
+## 📦 Deployment
+
+### Using Docker Compose
+
+This service is integrated into the REX-47 multi-container architecture. To run this service using Docker:
+
+```bash
+docker compose up --build
+```
+
+---
+
+## 🔗 Related Repositories
+
+- [01-rex-architecture](../01-rex-architecture) — REX-47 System Architecture
+- [02-rex-firmware](../02-rex-firmware) — REX-47 Firmware
+- [03-rex-web-dashbaord](../03-rex-web-dashbaord) — REX-47 Web Dashboard
+- [04-rex-mobile-app](../04-rex-mobile-app) — REX-47 Mobile App
+- [05-rex-api-gateway](../05-rex-api-gateway) — REX-47 API Gateway
+- [06-rex-auth-service](../06-rex-auth-service) — REX-47 Auth Service
+- [07-rex-robot-service](../07-rex-robot-service) — REX-47 Robot Service
+- [08-rex-telemetry-service](../08-rex-telemetry-service) — REX-47 Telemetry Service
+- [09-rex-sensor-fusion](../09-rex-sensor-fusion) — REX-47 Sensor Fusion
+- [10-rex-navigation-engine](../10-rex-navigation-engine) — REX-47 Navigation Engine
+- [11-rex-vision-ai](../11-rex-vision-ai) — REX-47 Vision AI
+- [12-rex-event-engine](../12-rex-event-engine) — REX-47 Event Engine
+- [13-rex-notification-engine](../13-rex-notification-engine) — REX-47 Notification Engine
+- [14-rex-voice-assistant](../14-rex-voice-assistant) — REX-47 Voice Assistant
+- [15-rex-agent-runtime](../15-rex-agent-runtime) — REX-47 Agent Runtime
+- [16-rex-memory-engine](../16-rex-memory-engine) — REX-47 Memory Engine
+- [17-rex-devops-infras](../17-rex-devops-infras) — REX-47 DevOps & Infrastructure
