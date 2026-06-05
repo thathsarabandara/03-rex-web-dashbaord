@@ -82,100 +82,169 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-purple-200 p-5">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-10">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">REX-47 Dashboard</h1>
-          <p className="text-gray-600 text-sm">Smart Home Robot Control System</p>
-        </div>
+    <div className="flex items-center justify-center min-h-[calc(100vh-7rem)] relative font-sans bg-slate-50 selection:bg-brand-accent/30 p-4 sm:p-8">
+      {/* Background Gradients */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-accent/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-secondary/10 blur-[100px] rounded-full -z-10 pointer-events-none" />
+      <div className="absolute inset-0 pattern-dots opacity-30 -z-20"></div>
 
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-700 text-sm font-medium">{error}</p>
-            {attemptsRemaining > 0 && attemptsRemaining <= 2 && (
-              <p className="text-red-600 text-xs mt-2">
-                {attemptsRemaining} attempt(s) remaining before account lock
-              </p>
-            )}
-          </div>
-        )}
-
-        {attemptsRemaining <= 0 && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-700 text-sm font-medium">
-              Too many login attempts. Please try again later or reset your password.
-            </p>
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="email" className="block font-semibold text-gray-900 text-sm mb-2">Email or Username</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-              disabled={loading || attemptsRemaining <= 0}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
-            />
-          </div>
-
-          <div>
-            <div className="flex justify-between items-center mb-2">
-              <label htmlFor="password" className="block font-semibold text-gray-900 text-sm">Password</label>
-              <a href="/forgot-password" className="text-indigo-600 hover:text-indigo-700 text-xs font-medium">
-                Forgot Password?
-              </a>
+      <div className="w-full max-w-6xl glass-card-vibrant rounded-[40px] flex flex-col lg:flex-row overflow-hidden shadow-2xl relative z-10 min-h-[700px]">
+        
+        {/* Left Side: Form */}
+        <div className="w-full lg:w-1/2 p-10 sm:p-16 flex flex-col justify-center">
+          <div className="w-full max-w-md mx-auto">
+            <div className="mb-10">
+              <div className="w-12 h-12 bg-white border border-slate-100 shadow-sm rounded-[16px] flex items-center justify-center mb-6">
+                <div className="w-6 h-6 bg-slate-900 rounded-[8px] flex items-center justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping"></span>
+                </div>
+              </div>
+              <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Command Access</h1>
+              <p className="text-slate-500 font-medium text-sm">Authenticate to the REX-47 operator dashboard</p>
             </div>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              required
-              disabled={loading || attemptsRemaining <= 0}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-sm font-sans focus:outline-none focus:border-indigo-500 focus:ring-3 focus:ring-indigo-100 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
-            />
+
+            {error && (
+              <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-[20px]">
+                <p className="text-red-600 text-sm font-bold">{error}</p>
+                {attemptsRemaining > 0 && attemptsRemaining <= 2 && (
+                  <p className="text-red-500/80 text-xs mt-2 font-medium">
+                    {attemptsRemaining} attempt(s) remaining before system lockout.
+                  </p>
+                )}
+              </div>
+            )}
+
+            {attemptsRemaining <= 0 && (
+              <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-[20px]">
+                <p className="text-red-600 text-sm font-bold">
+                  Maximum failed attempts reached. Terminal access locked.
+                </p>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-2">Operator Identity</label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="operator@rex.sys"
+                  required
+                  disabled={loading || attemptsRemaining <= 0}
+                  className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex justify-between items-center px-2">
+                  <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Security Clearance</label>
+                  <a href="/forgot-password" className="text-[10px] font-bold text-brand-accent hover:text-brand-secondary transition-colors uppercase tracking-widest">
+                    Reset Clearance?
+                  </a>
+                </div>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="••••••••••••"
+                  required
+                  disabled={loading || attemptsRemaining <= 0}
+                  className="w-full px-5 py-4 bg-white/80 border border-slate-200 rounded-[20px] font-medium text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-accent/10 focus:border-brand-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+              </div>
+
+              <div className="flex items-center pl-2">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={formData.rememberMe}
+                  onChange={handleChange}
+                  disabled={loading}
+                  className="w-4 h-4 text-brand-accent bg-white border-slate-300 rounded cursor-pointer focus:ring-brand-accent focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                />
+                <label htmlFor="rememberMe" className="ml-3 text-sm font-bold text-slate-600 cursor-pointer">
+                  Preserve Session
+                </label>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading || attemptsRemaining <= 0}
+                className="w-full py-5 bg-slate-900 text-white font-bold rounded-[20px] hover:bg-brand-accent hover:-translate-y-1 transition-all duration-300 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:bg-slate-900 mt-4"
+              >
+                {loading ? 'Authenticating...' : 'Establish Connection'}
+              </button>
+            </form>
+
+            <div className="mt-8 pt-8">
+              <p className="text-slate-500 text-sm font-medium">
+                New operator?{' '}
+                <a href="/register" className="text-brand-accent hover:text-brand-secondary font-bold transition-colors">
+                  Request Access
+                </a>
+              </p>
+            </div>
           </div>
-
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="rememberMe"
-              name="rememberMe"
-              checked={formData.rememberMe}
-              onChange={handleChange}
-              disabled={loading}
-              className="w-4 h-4 text-indigo-600 border-gray-300 rounded cursor-pointer disabled:cursor-not-allowed"
-            />
-            <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-700 cursor-pointer">
-              Remember me
-            </label>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading || attemptsRemaining <= 0}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition duration-200"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 text-sm">
-            Don't have an account?{' '}
-            <a href="/register" className="text-indigo-600 hover:text-indigo-700 font-semibold">
-              Create one
-            </a>
-          </p>
         </div>
+
+        {/* Right Side: Visual Graphic */}
+        <div className="hidden lg:flex w-1/2 bg-slate-900 relative items-center justify-center p-12 overflow-hidden">
+          <div className="absolute inset-0 pattern-grid opacity-20"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-secondary/20 blur-[120px] rounded-full pointer-events-none"></div>
+          
+          {/* Mock Dashboard Area Visual */}
+          <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-[32px] p-6 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700">
+             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                <div className="flex items-center gap-3">
+                   <div className="w-8 h-8 bg-brand-accent/20 rounded-[10px] flex items-center justify-center text-brand-accent">
+                      <span className="w-3 h-3 border-2 border-brand-accent rounded-full"></span>
+                   </div>
+                   <div>
+                      <h3 className="font-bold text-white text-sm">System Telemetry</h3>
+                      <p className="text-[8px] uppercase font-bold text-slate-400 tracking-widest">Secure Channel</p>
+                   </div>
+                </div>
+                <div className="flex gap-1.5">
+                   <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
+                   <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
+                   <span className="w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse"></span>
+                </div>
+             </div>
+             
+             <div className="space-y-4">
+                <div className="h-16 bg-white/5 rounded-[16px] border border-white/10 flex items-center px-4 gap-4">
+                   <div className="w-10 h-10 bg-brand-secondary/20 rounded-full flex items-center justify-center text-brand-secondary text-xs font-bold">1</div>
+                   <div>
+                      <div className="h-2 w-32 bg-white/20 rounded-full mb-2"></div>
+                      <div className="h-2 w-16 bg-white/10 rounded-full"></div>
+                   </div>
+                </div>
+                <div className="h-16 bg-white/5 rounded-[16px] border border-white/10 flex items-center px-4 gap-4">
+                   <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 text-xs font-bold">2</div>
+                   <div>
+                      <div className="h-2 w-24 bg-white/20 rounded-full mb-2"></div>
+                      <div className="h-2 w-20 bg-white/10 rounded-full"></div>
+                   </div>
+                </div>
+             </div>
+
+             {/* Overlapping small card */}
+             <div className="absolute -bottom-10 -right-10 w-48 bg-white/90 backdrop-blur-md rounded-[24px] p-4 shadow-2xl border border-white">
+                <div className="flex items-center gap-2 mb-2">
+                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                   <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Connection</span>
+                </div>
+                <p className="text-sm font-black text-slate-900">Encrypted (TLS 1.3)</p>
+             </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
