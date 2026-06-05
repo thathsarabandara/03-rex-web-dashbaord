@@ -1,59 +1,68 @@
-import { FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import { GiTBrick } from 'react-icons/gi';
-import { useSelector } from 'react-redux';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa6';
+import { ChevronRight, Cpu } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CgWebsite } from 'react-icons/cg';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
-
-  const quicklinks = [
-    { name: 'Home', url: '/' },
-    { name: 'Features', url: '/features' },
-    { name: 'Architecture', url: '/architecture' },
-    { name: 'Contact', url: '/contact' },
-  ];
-
-  const resources = [
-    { name: 'Documentation', url: '/documentation' },
-    { name: 'Blog', url: '/blog' },
-    { name: 'GitHub', url: 'https://github.com/thathsarabandara' },
-    { name: 'API Docs', url: '/api-docs' },
-  ];
-
-  const socialLinks = [
-    { icon: <FaGithub />, label: 'GitHub', url: 'https://github.com/thathsarabandara' },
-    { icon: <FaLinkedin />, label: 'LinkedIn', url: 'https://www.linkedin.com/in/thathsara-bandara-b403582a7' },
-    { icon: <FaTwitter />, label: 'Twitter', url: 'https://x.com/Thathsara2002' },
-    { icon: <FaEnvelope />, label: 'Email', url: 'mailto:thathsaraarumapperuma.com' },
-  ];
 
   return (
-    isAuthenticated ? (
-      <footer className="bg-white-900 text-black py-4 px-6 flex justify-between items-center text-sm">
-        <p>&copy; {currentYear} REX-47 Project. All rights reserved.</p>
-        <p className="mt-2 text-black">Logged in as: {user?.name} ({user?.email})</p>
-      </footer>
-    ) : (
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            {/* About */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">REX-47</h3>
-            <p className="text-gray-400 text-sm">
-              AI-powered autonomous smart home robot combining computer vision, IoT, and advanced robotics.
+    <footer className="bg-slate-50/50 border-t border-slate-100 transition-all duration-500 pt-24 pb-12 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 pattern-dots opacity-[0.1] pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
+          {/* About */}
+          <div className="space-y-8">
+            <Link to="/" className="flex items-center gap-4 group">
+              <div className="w-12 h-12 bg-slate-900 text-white rounded-xl flex items-center justify-center shadow-xl shadow-slate-900/20 group-hover:rotate-6 group-hover:bg-brand-accent transition-all duration-500">
+                <Cpu size={26} />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-black text-2xl tracking-tighter leading-none text-slate-900">REX-47</span>
+                <span className="text-[9px] font-black text-brand-accent tracking-[0.3em] uppercase">Command Center</span>
+              </div>
+            </Link>
+            <p className="text-slate-500 text-sm font-medium leading-relaxed max-w-xs">
+              The definitive ecosystem for robotic operations. Engineered for reliability, performance, and precision at scale.
             </p>
+            <div className="flex gap-3">
+              {[
+                { icon: FaGithub, href: '#', label: 'GitHub' },
+                { icon: CgWebsite, href: '#', label: 'Portfolio' },
+                { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
+                { icon: FaEnvelope, href: '#', label: 'Email' }
+              ].map((social) => (
+                <a 
+                  key={social.label}
+                  href={social.href}
+                  className="w-10 h-10 flex items-center justify-center bg-white border border-slate-200 text-slate-400 hover:text-white hover:bg-brand-accent hover:border-brand-accent rounded-xl transition-all duration-300 shadow-sm"
+                  aria-label={social.label}
+                >
+                  <social.icon size={18} />
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Core Modules */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              {quicklinks.map((link, idx) => (
-                <li key={idx}>
-                  <a href={link.url} className="text-gray-400 hover:text-white transition duration-300">
-                    {link.name}
-                  </a>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 mb-10 flex items-center gap-3">
+               <div className="w-6 h-[1px] bg-brand-accent"></div>
+               Platform
+            </h4>
+            <ul className="space-y-5">
+              {[
+                { label: 'Home', href: '/' },
+                { label: 'Features', href: '/features' },
+                { label: 'Gallery', href: '/gallery' }
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link to={link.href} className="text-sm font-black text-slate-500 hover:text-brand-accent flex items-center gap-3 group transition-all">
+                    <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-brand-accent group-hover:scale-125 transition-all"></div>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -61,56 +70,69 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Resources</h3>
-            <ul className="space-y-2 text-sm">
-              {resources.map((link, idx) => (
-                <li key={idx}>
-                  <a href={link.url} className="text-gray-400 hover:text-white transition duration-300">
-                    {link.name}
-                  </a>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 mb-10 flex items-center gap-3">
+               <div className="w-6 h-[1px] bg-brand-secondary"></div>
+               Resources
+            </h4>
+            <ul className="space-y-5">
+              {[
+                { label: 'Blog', href: '/blog' },
+                { label: 'Repositories', href: '/repositories' },
+                { label: 'Contact', href: '/contact' }
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link to={link.href} className="text-sm font-black text-slate-500 hover:text-brand-secondary flex items-center gap-3 group transition-all">
+                    <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-brand-secondary group-hover:scale-125 transition-all"></div>
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Social */}
-          <div>
-            <h3 className="text-lg font-bold mb-4">Connect</h3>
-            <div className="flex gap-4">
-              {socialLinks.map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.url}
-                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center text-lg hover:bg-blue-600 transition duration-300"
-                  title={social.label}
-                >
-                  {social.icon}
-                </a>
-              ))}
+          {/* Newsletter / CTA */}
+          <div className="space-y-8">
+            <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 mb-10 flex items-center gap-3">
+               <div className="w-6 h-[1px] bg-emerald-500"></div>
+               System Status
+            </h4>
+            <div className="p-8 bg-white/60 backdrop-blur-sm rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 space-y-6 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-emerald-500/5 -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+              <div className="flex items-center justify-between relative z-10">
+                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Main Core</span>
+                <span className="flex items-center gap-2 text-[9px] font-black uppercase tracking-widest text-emerald-600">
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
+                  Operational
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 font-medium leading-relaxed relative z-10">
+                Subscribe to receive critical security updates and firmware patch notes.
+              </p>
+              <div className="relative z-10">
+                <input 
+                  type="email" 
+                  placeholder="operator@email.io" 
+                  className="w-full pl-5 pr-14 py-4 bg-white border border-slate-100 rounded-2xl text-[11px] font-black uppercase tracking-widest outline-none focus:ring-4 focus:ring-brand-accent/5 focus:border-brand-accent transition-all"
+                />
+                <button className="absolute right-2.5 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-900 text-white rounded-xl flex items-center justify-center hover:bg-brand-accent transition-all shadow-lg">
+                  <ChevronRight size={18} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-gray-700 my-8"></div>
-
-        {/* Bottom */}
-        <div className="flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400">
-          <p>&copy; {currentYear} REX-47 Project. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 sm:mt-0">
-            <a href="#" className="hover:text-white transition duration-300">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-white transition duration-300">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-white transition duration-300">
-              License (MIT)
-            </a>
+        {/* Bottom Bar */}
+        <div className="pt-12 border-t border-slate-200/50 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400">
+            &copy; {currentYear} REX-47 SYSTEMS.
+          </p>
+          <div className="flex gap-10">
+            <a href="#" className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-brand-accent transition-colors">Privacy Protocol</a>
+            <a href="#" className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-brand-accent transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>
     </footer>
-    )
   );
 }
