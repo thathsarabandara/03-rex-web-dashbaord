@@ -16,8 +16,8 @@ export default function Footer() {
           {/* About */}
           <div className="space-y-8">
             <Link to="/" className="flex items-center gap-4 group">
-              <div className="w-12 h-12 bg-slate-900 text-white rounded-xl flex items-center justify-center shadow-xl shadow-slate-900/20 group-hover:rotate-6 group-hover:bg-brand-accent transition-all duration-500">
-                <Cpu size={26} />
+              <div className="w-12 h-12 text-white flex items-center justify-center  shadow-slate-900/20 group-hover:rotate-6 transition-all duration-500 overflow-hidden">
+                <img src="/icon/logo.png" alt="REX-47 Logo" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col">
                 <span className="font-black text-2xl tracking-tighter leading-none text-slate-900">REX-47</span>

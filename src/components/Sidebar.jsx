@@ -51,16 +51,16 @@ export default function Sidebar() {
       <div className={`p-6 flex items-center ${sidebarOpen ? 'justify-between' : 'justify-center flex-col gap-4'} border-b border-slate-100/50`}>
         {sidebarOpen ? (
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-slate-900 text-white rounded-[12px] flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-              <Cpu size={22} className="text-white group-hover:text-brand-accent transition-colors" />
+            <div className="w-10 h-10 bg-transparent text-white rounded-[12px] flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 overflow-hidden">
+              <img src="/icon/logo.png" alt="REX-47 Logo" className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col">
               <span className="font-black text-xl tracking-tighter leading-none text-slate-900">REX-47</span>
             </div>
           </Link>
         ) : (
-          <Link to="/" className="w-10 h-10 bg-slate-900 text-white rounded-[12px] flex items-center justify-center shadow-lg hover:scale-110 hover:rotate-6 transition-all duration-500">
-            <Cpu size={22} className="text-brand-accent" />
+          <Link to="/" className="w-10 h-10 bg-transparent text-white rounded-[12px] flex items-center justify-center shadow-lg hover:scale-110 hover:rotate-6 transition-all duration-500 overflow-hidden">
+            <img src="/icon/logo.png" alt="REX-47 Logo" className="w-full h-full object-cover" />
           </Link>
         )}
         

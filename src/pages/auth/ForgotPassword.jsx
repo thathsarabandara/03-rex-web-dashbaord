@@ -42,6 +42,9 @@ export default function ForgotPassword() {
 
       <div className="glass-card-vibrant w-full max-w-md p-10 sm:p-12 relative shadow-2xl z-10">
         <div className="text-center mb-10">
+          <div className="w-12 h-12 bg-transparent border border-slate-100 shadow-sm rounded-[16px] flex items-center justify-center mx-auto mb-6 overflow-hidden">
+            <img src="/icon/logo.png" alt="REX-47 Logo" className="w-full h-full object-cover" />
+          </div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Reset Clearance</h1>
           <p className="text-slate-500 font-medium text-sm">Enter your operator identity to receive a reset link</p>
         </div>

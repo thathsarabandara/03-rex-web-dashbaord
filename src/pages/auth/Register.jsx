@@ -257,6 +257,9 @@ export default function Register() {
         <div className="w-full lg:w-1/2 p-10 sm:p-16 flex flex-col justify-center">
           <div className="w-full max-w-md mx-auto">
             <div className="mb-10">
+              <div className="w-12 h-12 bg-transparent border border-slate-100 shadow-sm rounded-[16px] flex items-center justify-center mb-6 overflow-hidden">
+                <img src="/icon/logo.png" alt="REX-47 Logo" className="w-full h-full object-cover" />
+              </div>
               <h1 className="text-4xl font-black text-slate-900 tracking-tight mb-2">Request Access</h1>
               <p className="text-slate-500 font-medium text-sm">Register for REX-47 operator clearance</p>
             </div>
