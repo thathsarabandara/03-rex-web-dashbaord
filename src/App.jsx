@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { validateToken } from './store/authSlice';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/common/Home';
 import Features from './pages/common/Features';
 import Gallery from './pages/common/Gallery';
@@ -31,6 +32,8 @@ function ProtectedRoute({ children, isAuthenticated }) {
 
 // Dashboard Layout with Sidebar
 function DashboardLayout({ children }) {
+  const mainRef = useRef(null);
+
   return (
     <div className="flex min-h-screen bg-slate-50 relative z-0 overflow-hidden font-sans selection:bg-brand-accent/30">
       {/* Background Gradients */}
@@ -43,12 +46,13 @@ function DashboardLayout({ children }) {
       </div>
       
       <div className="flex flex-col flex-1 transition-all duration-300 h-screen overflow-hidden relative z-10">
-        <main className="flex-1 overflow-y-auto p-6 sm:p-10 scroll-smooth">
+        <main ref={mainRef} className="flex-1 overflow-y-auto p-6 sm:p-10 scroll-smooth">
           <div className="max-w-7xl mx-auto h-full">
             {children}
           </div>
         </main>
       </div>
+      <ScrollToTop scrollContainerRef={mainRef} />
     </div>
   );
 }
@@ -64,6 +68,7 @@ function PublicLayout({ children }) {
       <footer className="bg-white border-t border-gray-200 relative z-10">
         <Footer />
       </footer>
+      <ScrollToTop />
     </div>
   );
 }

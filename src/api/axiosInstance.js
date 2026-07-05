@@ -4,7 +4,7 @@ import { config } from '../config';
 
 const axiosInstance = axios.create({
   baseURL: config.apiBaseUrl,
-  timeout: 10000,
+  timeout: 45000,
   withCredentials: true, // Enable sending cookies with requests
   headers: {
     'Content-Type': 'application/json',
