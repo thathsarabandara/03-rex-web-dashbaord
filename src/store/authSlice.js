@@ -8,17 +8,15 @@ export const loginUser = createAsyncThunk(
     try {
       const response = await authAPI.login(email, password);
 
-      const { access_token, tenant_id, expires_in } = response.data;
+      const { access_token, expires_in } = response.data;
       
       // Store token in Redux and localStorage
       if (access_token) {
         localStorage.setItem('authToken', access_token);
-        localStorage.setItem('tenantId', tenant_id);
       }
 
       return {
         token: access_token,
-        tenantId: tenant_id,
         expiresIn: expires_in,
         user: { email }
       };
@@ -51,16 +49,14 @@ export const registerVerify = createAsyncThunk(
     try {
       const response = await authAPI.registerVerify(email, otp, tempToken);
 
-      const { access_token, tenant_id, expires_in } = response.data;
+      const { access_token, expires_in } = response.data;
       
       if (access_token) {
         localStorage.setItem('authToken', access_token);
-        localStorage.setItem('tenantId', tenant_id);
       }
 
       return {
         token: access_token,
-        tenantId: tenant_id,
         expiresIn: expires_in,
         user: { email }
       };
@@ -149,7 +145,6 @@ export const validateToken = createAsyncThunk(
       return response.data;
     } catch (error) {
       localStorage.removeItem('authToken');
-      localStorage.removeItem('tenantId');
       return rejectWithValue('Token validation failed');
     }
   }
@@ -158,7 +153,6 @@ export const validateToken = createAsyncThunk(
 const initialState = {
   user: null,
   token: localStorage.getItem('authToken') || null,
-  tenantId: localStorage.getItem('tenantId') || null,
   isAuthenticated: !!localStorage.getItem('authToken'),
   loading: false,
   error: null,
@@ -179,7 +173,6 @@ const authSlice = createSlice({
       state.tempToken = null;
       state.registrationEmail = null;
       localStorage.removeItem('authToken');
-      localStorage.removeItem('tenantId');
     },
     clearError: (state) => {
       state.error = null;
@@ -196,7 +189,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = true;
         state.token = action.payload.token;
-        state.tenantId = action.payload.tenantId;
         state.user = action.payload.user;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -230,7 +222,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.isAuthenticated = true;
         state.token = action.payload.token;
-        state.tenantId = action.payload.tenantId;
         state.user = action.payload.user;
         state.tempToken = null;
         state.registrationEmail = null;
@@ -309,7 +300,6 @@ const authSlice = createSlice({
         state.token = null;
         state.user = null;
         localStorage.removeItem('authToken');
-        localStorage.removeItem('tenantId');
       });
 
     // Validate Token
