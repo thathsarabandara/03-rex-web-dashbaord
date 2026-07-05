@@ -192,53 +192,30 @@ export default function Login() {
         </div>
 
         {/* Right Side: Visual Graphic */}
-        <div className="hidden lg:flex w-1/2 bg-slate-900 relative items-center justify-center p-12 overflow-hidden">
-          <div className="absolute inset-0 pattern-grid opacity-20"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-secondary/20 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="hidden lg:flex w-1/2 bg-slate-900 relative items-center justify-center p-6 overflow-hidden">
+          <div className="absolute inset-0 pattern-grid opacity-20 z-0"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-secondary/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
           
-          {/* Mock Dashboard Area Visual */}
-          <div className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 rounded-[32px] p-6 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-700">
-             <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
-                <div className="flex items-center gap-3">
-                   <div className="w-8 h-8 bg-brand-accent/20 rounded-[10px] flex items-center justify-center text-brand-accent">
-                      <span className="w-3 h-3 border-2 border-brand-accent rounded-full"></span>
-                   </div>
-                   <div>
-                      <h3 className="font-bold text-white text-sm">System Telemetry</h3>
-                      <p className="text-[8px] uppercase font-bold text-slate-400 tracking-widest">Secure Channel</p>
-                   </div>
-                </div>
-                <div className="flex gap-1.5">
-                   <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
-                   <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
-                   <span className="w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse"></span>
-                </div>
-             </div>
+          <div className="relative w-full h-full z-10 rounded-[32px] overflow-hidden shadow-2xl border border-white/10 group">
+             {/* Image with overlay */}
+             <img src="/icon/login.png" alt="REX-47 Login" className="w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-105" />
+             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90 mix-blend-multiply pointer-events-none"></div>
              
-             <div className="space-y-4">
-                <div className="h-16 bg-white/5 rounded-[16px] border border-white/10 flex items-center px-4 gap-4">
-                   <div className="w-10 h-10 bg-brand-secondary/20 rounded-full flex items-center justify-center text-brand-secondary text-xs font-bold">1</div>
+             {/* Text Content */}
+             <div className="absolute bottom-10 left-10 right-10 z-20">
+                <div className="flex items-center gap-3 mb-4">
+                   <div className="w-10 h-10 bg-brand-accent/20 rounded-[12px] flex items-center justify-center backdrop-blur-md border border-brand-accent/30">
+                      <span className="w-3 h-3 border-2 border-brand-accent rounded-full animate-ping"></span>
+                   </div>
                    <div>
-                      <div className="h-2 w-32 bg-white/20 rounded-full mb-2"></div>
-                      <div className="h-2 w-16 bg-white/10 rounded-full"></div>
+                      <h3 className="font-bold text-white text-lg drop-shadow-md">Secure Terminal</h3>
+                      <p className="text-[10px] uppercase font-bold text-brand-accent tracking-widest drop-shadow-md">Encrypted Channel</p>
                    </div>
                 </div>
-                <div className="h-16 bg-white/5 rounded-[16px] border border-white/10 flex items-center px-4 gap-4">
-                   <div className="w-10 h-10 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 text-xs font-bold">2</div>
-                   <div>
-                      <div className="h-2 w-24 bg-white/20 rounded-full mb-2"></div>
-                      <div className="h-2 w-20 bg-white/10 rounded-full"></div>
-                   </div>
-                </div>
-             </div>
-
-             {/* Overlapping small card */}
-             <div className="absolute -bottom-10 -right-10 w-48 bg-white/90 backdrop-blur-md rounded-[24px] p-4 shadow-2xl border border-white">
-                <div className="flex items-center gap-2 mb-2">
-                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                   <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Connection</span>
-                </div>
-                <p className="text-sm font-black text-slate-900">Encrypted (TLS 1.3)</p>
+                <h2 className="text-3xl font-black text-white mb-3 drop-shadow-lg leading-tight">Welcome to the<br/>REX-47 Ecosystem</h2>
+                <p className="text-slate-300 text-sm font-medium drop-shadow-md max-w-sm">
+                   Establish connection to monitor telemetry, control subsystems, and access the neural architecture.
+                </p>
              </div>
           </div>
         </div>

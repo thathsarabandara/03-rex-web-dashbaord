@@ -20,6 +20,7 @@ export default function Register() {
   const [passwordStrength, setPasswordStrength] = useState(0);
   const [otpCode, setOtpCode] = useState('');
   const [resendCooldown, setResendCooldown] = useState(0);
+  const [formError, setFormError] = useState('');
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -59,6 +60,9 @@ export default function Register() {
     }
     
     setFormData(newFormData);
+    if (formError) {
+      setFormError('');
+    }
     if (error) {
       dispatch(clearError());
     }
@@ -74,16 +78,21 @@ export default function Register() {
 
     // Validation
     if (formData.password !== formData.confirmPassword) {
+      setFormError('Passwords do not match');
       return;
     }
 
     if (passwordStrength < 2) {
+      setFormError('Password is too weak. Please use a stronger password.');
       return;
     }
 
     if (!formData.agreeToTerms) {
+      setFormError('You must agree to the Terms of Service to continue.');
       return;
     }
+
+    setFormError('');
 
     try {
       // Initiate registration
@@ -158,9 +167,9 @@ export default function Register() {
                 <p className="text-slate-500 font-medium text-sm">Enter the 6-digit code sent to {registrationEmail}</p>
               </div>
 
-              {error && (
+              {(error || formError) && (
                 <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-[20px]">
-                  <p className="text-red-600 text-sm font-bold">{error}</p>
+                  <p className="text-red-600 text-sm font-bold">{error || formError}</p>
                 </div>
               )}
 
@@ -212,29 +221,32 @@ export default function Register() {
           </div>
 
           {/* Right Side: Visual Graphic */}
-          <div className="hidden lg:flex w-1/2 bg-slate-900 relative items-center justify-center p-12 overflow-hidden">
-            <div className="absolute inset-0 pattern-grid opacity-20"></div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-accent/20 blur-[120px] rounded-full pointer-events-none"></div>
+          <div className="hidden lg:flex w-1/2 bg-slate-900 relative items-center justify-center p-6 overflow-hidden">
+            <div className="absolute inset-0 pattern-grid opacity-20 z-0"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-accent/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
             
-            {/* Shield/Security Mockup */}
-            <div className="relative z-10 w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-8 shadow-2xl flex flex-col items-center justify-center text-center transform hover:scale-105 transition-transform duration-700">
-               <div className="w-24 h-24 bg-brand-accent/20 rounded-full flex items-center justify-center mb-6 border border-brand-accent/30 relative">
-                  <div className="absolute inset-0 border-2 border-brand-accent rounded-full animate-ping opacity-20"></div>
-                  <svg className="w-10 h-10 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-               </div>
-               <h3 className="text-xl font-bold text-white mb-2">Secure Communication</h3>
-               <p className="text-slate-400 text-sm">All authorization requests are end-to-end encrypted and transmitted via secure protocols.</p>
+            <div className="relative w-full h-full z-10 rounded-[32px] overflow-hidden shadow-2xl border border-white/10 group">
+               {/* Image with overlay */}
+               <img src="/banner.png" alt="REX-47 Registration" className="w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-105" />
+               <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90 mix-blend-multiply pointer-events-none"></div>
                
-               <div className="mt-8 w-full bg-white/10 rounded-[16px] p-4 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                     <div className="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+               {/* Text Content */}
+               <div className="absolute bottom-10 left-10 right-10 z-20">
+                  <div className="flex items-center gap-4 mb-6 border-b border-white/10 pb-6">
+                     <div className="w-12 h-12 bg-gradient-to-br from-brand-secondary to-brand-accent rounded-[16px] flex items-center justify-center shadow-lg backdrop-blur-md border border-white/20">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
                      </div>
-                     <span className="text-sm font-bold text-white">Identity Verification</span>
+                     <div>
+                        <h3 className="text-xl font-bold text-white tracking-tight drop-shadow-md">Identity Verification</h3>
+                        <p className="text-xs font-bold uppercase tracking-widest text-brand-secondary drop-shadow-md">Active Process</p>
+                     </div>
                   </div>
-                  <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">Active</span>
+                  
+                  <p className="text-slate-300 text-sm font-medium drop-shadow-md max-w-sm mb-6">
+                     Establishing an encrypted connection to securely verify your identity credentials against the core architecture.
+                  </p>
                </div>
             </div>
           </div>
@@ -264,9 +276,9 @@ export default function Register() {
               <p className="text-slate-500 font-medium text-sm">Register for REX-47 operator clearance</p>
             </div>
 
-            {error && (
+            {(error || formError) && (
               <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-[20px]">
-                <p className="text-red-600 text-sm font-bold">{error}</p>
+                <p className="text-red-600 text-sm font-bold">{error || formError}</p>
               </div>
             )}
 
@@ -403,38 +415,32 @@ export default function Register() {
         </div>
 
         {/* Right Side: Visual Graphic */}
-        <div className="hidden lg:flex w-1/2 bg-slate-900 relative items-center justify-center p-12 overflow-hidden">
-          <div className="absolute inset-0 pattern-grid opacity-20"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-secondary/20 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="hidden lg:flex w-1/2 bg-slate-900 relative items-center justify-center p-6 overflow-hidden">
+          <div className="absolute inset-0 pattern-grid opacity-20 z-0"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-secondary/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
           
-          {/* Platform Capabilities Mockup */}
-          <div className="relative z-10 w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-8 shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-700">
-             <div className="flex items-center gap-4 mb-8 border-b border-white/10 pb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-brand-secondary to-brand-accent rounded-[16px] flex items-center justify-center shadow-lg">
-                   <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                   </svg>
-                </div>
-                <div>
-                   <h3 className="text-xl font-bold text-white tracking-tight">REX-47 Platform</h3>
-                   <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Agentic Architecture</p>
-                </div>
-             </div>
+          <div className="relative flex items-center w-full h-full z-10 rounded-[32px] overflow-hidden shadow-2xl border border-white/10 group">
+             {/* Image with overlay */}
+             <img src="/icon/login.png" alt="REX-47 Register" className="w-full h-full object-contain p-8 transition-transform duration-700 group-hover:scale-105" />
+             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90 mix-blend-multiply pointer-events-none"></div>
              
-             <div className="space-y-4">
-                {[
-                  { name: 'Core Processing', status: 'Online', color: 'emerald' },
-                  { name: 'Neural Networks', status: 'Active', color: 'brand-accent' },
-                  { name: 'Motor Controllers', status: 'Synced', color: 'brand-secondary' }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white/5 rounded-[16px] border border-white/10 p-4 flex items-center justify-between">
-                     <span className="text-sm font-bold text-white">{item.name}</span>
-                     <div className="flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full bg-${item.color === 'emerald' ? 'emerald-500' : item.color}`} />
-                        <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400">{item.status}</span>
-                     </div>
-                  </div>
-                ))}
+             {/* Text Content */}
+             <div className="absolute bottom-10 left-10 right-10 z-20">
+                <div className="flex items-center gap-4 mb-6 border-b border-white/10 pb-6">
+                   <div className="w-12 h-12 bg-gradient-to-br from-brand-secondary to-brand-accent rounded-[16px] flex items-center justify-center shadow-lg backdrop-blur-md border border-white/20">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                   </div>
+                   <div>
+                      <h3 className="text-xl font-bold text-white tracking-tight drop-shadow-md">Join the Architecture</h3>
+                      <p className="text-xs font-bold uppercase tracking-widest text-brand-secondary drop-shadow-md">Clearance Request</p>
+                   </div>
+                </div>
+                
+                <p className="text-slate-300 text-sm font-medium drop-shadow-md max-w-sm mb-6">
+                   Gain authorized access to the REX-47 agentic framework and unlock full control over integrated robotic subsystems.
+                </p>
              </div>
           </div>
         </div>
