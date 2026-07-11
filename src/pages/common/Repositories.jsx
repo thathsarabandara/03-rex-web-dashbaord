@@ -94,9 +94,14 @@ export default function Repositories() {
                                  MOD_{repo.num}
                                </span>
                             </div>
-                            <a href="#" className="text-slate-400 hover:text-brand-accent transition-colors">
-                               <BsGithub size={20} />
-                            </a>
+                             <a
+                               href={`https://github.com/thathsarabandara/${repo.num === '03' ? '03-rex-web-dashbaord' : `${repo.num}-${repo.name}`}`}
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               className="text-slate-400 hover:text-brand-accent transition-colors"
+                             >
+                                <BsGithub size={20} />
+                             </a>
                          </div>
 
                          <h3 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-brand-accent transition-colors mb-3">
